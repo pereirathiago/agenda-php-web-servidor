@@ -122,10 +122,9 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## Autores
 
-- **Giovanne Ribeiro Mika** - *Desenvolvimento Backend* - [GitHub](https://github.com/usuario1)
-- **Thiago Pereira** - *Desenvolvimento Frontend* - [GitHub](https://github.com/usuario2)
+- **Giovanne Ribeiro Mika** - *Desenvolvimento Backend* - [GitHub](https://github.com/GiovanneMika)
+- **Thiago Pereira** - *Desenvolvimento Frontend* - [GitHub](https://github.com/pereirathiago)
 - **Matheus Andreiczuk** - *Gerência de Projeto* - [GitHub](https://github.com/usuario3)
-- **Nome do Integrante 4** - *Testes e Qualidade* - [GitHub](https://github.com/usuario4)
 
 ---
 
