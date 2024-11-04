@@ -16,7 +16,7 @@
           <?php
           //tem que adicionar dinamicamente os locais dentro dos options
           ?>
-            <option>Tem que ter o cadastrar local</option>
+          <option>Tem que ter o cadastrar local</option>
         </select>
       </div>
       <div>
@@ -25,36 +25,70 @@
       </div>
       <div>
         <label for="convidados" class="block text-gray-700 font-semibold">Convidados</label>
-        <select class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option>Sem convidados</option>
+        <div class="flex">
+          <select name="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option>Sem convidados</option>
+            <?php
+            $arrayUsuarios = [
+              "givas" => ["nome" => "Giovanne", "dataNascimento" => "05/11/2005", "genero" => "Masculino", "fotoPerfil" => "https://pt.wikipedia.org/wiki/Lenin", "email" => "mika.2023@alunos.utfpr.edu.br", "senha" => "senha123"],
+              "thiago" => ["nome" => "Giovanne", "dataNascimento" => "05/11/2005", "genero" => "Masculino", "fotoPerfil" => "https://pt.wikipedia.org/wiki/Lenin", "email" => "mika.2023@alunos.utfpr.edu.br", "senha" => "senha123"],
+              "matheus" => ["nome" => "Giovanne", "dataNascimento" => "05/11/2005", "genero" => "Masculino", "fotoPerfil" => "https://pt.wikipedia.org/wiki/Lenin", "email" => "mika.2023@alunos.utfpr.edu.br", "senha" => "senha123"],
+              "danilo" => ["nome" => "Giovanne", "dataNascimento" => "05/11/2005", "genero" => "Masculino", "fotoPerfil" => "https://pt.wikipedia.org/wiki/Lenin", "email" => "mika.2023@alunos.utfpr.edu.br", "senha" => "senha123"],
+            ];
+
+            preencherOptions($arrayUsuarios);
+            $arrayConvidados = [];
+            ?>
+          </select>
+          <input type="button" value="+" name="novoConvidado" onclick="adicionarConvidado()" class="p-4 fs-20 text-xl py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
+          <div id="resultado"></div>
+          
+          <!-- <script>
+            function adicionarConvidado() {
+              const select = document.getElementById('usuarioConvidado');
+              const nomeConvidado = select.options[select.selectedIndex].value;
+              const nomeConvidad2o = select.options[select.selectedIndex].value;
+
+              const xhr = new XMLHttpRequest();
+              xhr.open("POST", "cadastrar.view.php", true);
+              xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+              xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                  document.getElementById('resultado').innerHTML = xhr.responseText;
+                }
+              };
+              xhr.send("usuarioConvidado=" + encodeURIComponent(nomeConvidado));
+            }
+          </script> -->
+
           <?php
-          $arrayUsuarios = [
-            "givas" => ["nome" => "Giovanne", "dataNascimento"=> "05/11/2005","genero"=> "Masculino","fotoPerfil"=> "https://pt.wikipedia.org/wiki/Lenin", "email"=>"mika.2023@alunos.utfpr.edu.br", "senha"=>"senha123"],
-            "thiago" => ["nome" => "Giovanne", "dataNascimento"=> "05/11/2005","genero"=> "Masculino","fotoPerfil"=> "https://pt.wikipedia.org/wiki/Lenin", "email"=>"mika.2023@alunos.utfpr.edu.br", "senha"=>"senha123"],
-            "matheus" => ["nome" => "Giovanne", "dataNascimento"=> "05/11/2005","genero"=> "Masculino","fotoPerfil"=> "https://pt.wikipedia.org/wiki/Lenin", "email"=>"mika.2023@alunos.utfpr.edu.br", "senha"=>"senha123"],
-            "danilo" => ["nome" => "Giovanne", "dataNascimento"=> "05/11/2005","genero"=> "Masculino","fotoPerfil"=> "https://pt.wikipedia.org/wiki/Lenin", "email"=>"mika.2023@alunos.utfpr.edu.br", "senha"=>"senha123"],
-          ];
-          preencherOptions($arrayUsuarios)
+          if (isset($_POST['novoConvidado'])) {
+
+            $novoConvidado = $_POST['usuarioConvidado'];
+
+            adicionarConvidado($novoConvidado, $arrayConvidados);
+            print_r($arrayConvidados);
+          }
           ?>
-        </select>
-        <button>Novo convidado</button>
+        </div>
       </div>
       <div>
-        <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Cadastrar</button>
+        <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Cadastrar compromisso</button>
       </div>
     </form>
-    <a href="/login" class="block text-center text-blue-500 hover:underline mt-4">Já tenho uma conta</a>
   </div>
 </div>
-  <?php
-  function preencherOptions($arrayUsuarios){
-    foreach($arrayUsuarios as $key => $value){
-      echo "<option>$key</option>";
+<?php
+function preencherOptions($arrayUsuarios)
+{
+  foreach ($arrayUsuarios as $key => $value) {
+    echo "<option>$key</option>";
   }
 }
-function adicionarConvidado($usuarioConvidado, $arrayConvidados){
+function adicionarConvidado($usuarioConvidado, $arrayConvidados)
+{
   $arrayConvidados[] = $usuarioConvidado;
   return $arrayConvidados;
 }
 
-  ?>
+?>
