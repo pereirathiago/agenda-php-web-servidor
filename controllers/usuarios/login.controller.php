@@ -1,5 +1,5 @@
 <?php
-require("views.php");
+require __DIR__ . '../../../views.php';
 $action = $_GET['action'] ?? 'index';
 require_once __DIR__ . '/../../models/usuarios/login.model.php';
 
@@ -25,8 +25,10 @@ function autenticarUsuario() {
         $_SESSION['usuario'] = $usuario;
         $_SESSION['nome'] = $usuarioLogando;
         header('Location: /views/agenda/agenda.view.php');
+        exit();
     } else {
-        echo 'deu ruim';
+        header('Location: /usuarios/login');
+        exit();
     }
  }
 
@@ -39,6 +41,6 @@ function autenticarUsuario() {
  function logout() {
     session_start();
     session_destroy();
-    header('Location: /index.php');
-     exit();
+    header('Location: /usuarios/login');
+    exit();
  }

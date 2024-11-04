@@ -1,7 +1,5 @@
 <?php
 function autenticar($usuario, $senha) {
-    echo 'chegou no model';
-    // é temporario esse usuarios.php
     $usuarios = include('usuarios.php');
 
     foreach ($usuarios as $u) {
