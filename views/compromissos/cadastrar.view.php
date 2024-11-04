@@ -54,5 +54,7 @@
 }
 function adicionarConvidado($usuarioConvidado, $arrayConvidados){
   $arrayConvidados[] = $usuarioConvidado;
+  return $arrayConvidados;
 }
+
   ?>
