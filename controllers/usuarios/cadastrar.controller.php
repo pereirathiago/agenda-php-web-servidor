@@ -3,6 +3,10 @@
 require('models/usuarios.model.php');
 
 if ($acao == 'cadastrar') {
+  cadastrarUsuario();
+}
+
+function cadastrarUsuario() {
   $nomeCompleto = $_POST['nomeCompleto'] ?? '';
   $dataNascimento = $_POST['dataNascimento'] ?? '';
   $genero = $_POST['genero'] ?? '';
