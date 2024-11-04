@@ -11,6 +11,11 @@
         <div>
         <button type="submit" name="submit" placeholder="Digite a sua senha" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Entrar</button>
         </div>
+        <div>
+            <p class="block text-center mt-5 text-gray-700 font-semibold">Não tem uma conta?</p>
+        <?php //pode ser que esse href seja só /cadastrar  ?>
+        <a href="/usuarios/cadastrar" class="block text-center text-blue-500 hover:underline font-semibold">Cadastrar</a>
+        </div>
     </form>
     </div>
     </div>
