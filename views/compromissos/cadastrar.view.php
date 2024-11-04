@@ -26,10 +26,16 @@
       <div>
         <label for="convidados" class="block text-gray-700 font-semibold">Convidados</label>
         <select class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option>Sem convidados</option>
           <?php
-          echo ""
+          $arrayUsuarios = [
+            "givas" => ["nome" => "Giovanne", "dataNascimento"=> "05/11/2005","genero"=> "Masculino","fotoPerfil"=> "https://pt.wikipedia.org/wiki/Lenin", "email"=>"mika.2023@alunos.utfpr.edu.br", "senha"=>"senha123"],
+            "thiago" => ["nome" => "Giovanne", "dataNascimento"=> "05/11/2005","genero"=> "Masculino","fotoPerfil"=> "https://pt.wikipedia.org/wiki/Lenin", "email"=>"mika.2023@alunos.utfpr.edu.br", "senha"=>"senha123"],
+            "matheus" => ["nome" => "Giovanne", "dataNascimento"=> "05/11/2005","genero"=> "Masculino","fotoPerfil"=> "https://pt.wikipedia.org/wiki/Lenin", "email"=>"mika.2023@alunos.utfpr.edu.br", "senha"=>"senha123"],
+            "danilo" => ["nome" => "Giovanne", "dataNascimento"=> "05/11/2005","genero"=> "Masculino","fotoPerfil"=> "https://pt.wikipedia.org/wiki/Lenin", "email"=>"mika.2023@alunos.utfpr.edu.br", "senha"=>"senha123"],
+          ];
+          preencherOptions($arrayUsuarios)
           ?>
-            <option>Tem que ter o cadastrar usuarios</option>
         </select>
         <button>Novo convidado</button>
       </div>
@@ -40,3 +46,13 @@
     <a href="/login" class="block text-center text-blue-500 hover:underline mt-4">Já tenho uma conta</a>
   </div>
 </div>
+  <?php
+  function preencherOptions($arrayUsuarios){
+    foreach($arrayUsuarios as $key => $value){
+      echo "<option>$key</option>";
+  }
+}
+function adicionarConvidado($usuarioConvidado, $arrayConvidados){
+  $arrayConvidados[] = $usuarioConvidado;
+}
+  ?>
