@@ -26,7 +26,7 @@
       <div>
         <label for="convidados" class="block text-gray-700 font-semibold">Convidados</label>
         <div class="flex">
-          <select name="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select name="usuarioConvidado" id="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option>Sem convidados</option>
             <?php
             echo "entrou no codigo pra preencher o select";
@@ -51,19 +51,20 @@
               var nomeConvidado = select.options[select.selectedIndex].text;
 
               const xhr = new XMLHttpRequest();
-              xhr.open("POST", "cadastrar.view.php", true);
+              xhr.open("POST", "/compromissos/cadastrar", true);
               xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
               xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                   document.getElementById('resultado').innerHTML = xhr.responseText;
                 }
               };
-              xhr.send("usuarioConvidado=" + encodeURIComponent(nomeConvidado));
+          //aqui cria um novo ngc    xhr.send("usuarioConvidado=" + encodeURIComponent(nomeConvidado) + "&novoConvidado=1");
             }
           </script>
 
           <?php
           if (isset($_POST['novoConvidado'])) {
+            echo "entrou no if";
 
             $novoConvidado = $_POST['usuarioConvidado'];
 
