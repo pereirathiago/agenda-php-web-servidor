@@ -42,37 +42,21 @@
             ?>
           </select>
           <input type="button" value="+" name="novoConvidado" onclick="adicionarConvidado()" class="p-4 fs-20 text-xl py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
-          <div id="resultado"></div>
-
+          <input type="hidden" name="convidados">
+          
           <script>
             function adicionarConvidado() {
-              console.log("Entrou na função de adicionar")
               var select = document.getElementById('usuarioConvidado');
               var nomeConvidado = select.options[select.selectedIndex].text;
-
-              const xhr = new XMLHttpRequest();
-              xhr.open("POST", "/compromissos/cadastrar", true);
-              xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-              xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                  document.getElementById('resultado').innerHTML = xhr.responseText;
-                }
-              };
-          //aqui cria um novo ngc    xhr.send("usuarioConvidado=" + encodeURIComponent(nomeConvidado) + "&novoConvidado=1");
+              var divResultado = document.getElementById('resultado');
+              var inputHidden = document.getElementsByName('convidados');
+              
+              divResultado.innerHTML += `<li>${nomeConvidado}</li>`;
+              inputHidden[0].value += nomeConvidado + ',';
             }
           </script>
-
-          <?php
-          if (isset($_POST['novoConvidado'])) {
-            echo "entrou no if";
-
-            $novoConvidado = $_POST['usuarioConvidado'];
-
-            adicionarConvidado($novoConvidado, $arrayConvidados);
-            print_r($arrayConvidados);
-          }
-          ?>
         </div>
+        <ul id="resultado"></ul>
       </div>
       <div>
         <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Cadastrar compromisso</button>
