@@ -29,6 +29,7 @@
           <select name="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option>Sem convidados</option>
             <?php
+            echo "entrou no codigo pra preencher o select";
             $arrayUsuarios = [
               "givas" => ["nome" => "Giovanne", "dataNascimento" => "05/11/2005", "genero" => "Masculino", "fotoPerfil" => "https://pt.wikipedia.org/wiki/Lenin", "email" => "mika.2023@alunos.utfpr.edu.br", "senha" => "senha123"],
               "thiago" => ["nome" => "Giovanne", "dataNascimento" => "05/11/2005", "genero" => "Masculino", "fotoPerfil" => "https://pt.wikipedia.org/wiki/Lenin", "email" => "mika.2023@alunos.utfpr.edu.br", "senha" => "senha123"],
@@ -42,12 +43,12 @@
           </select>
           <input type="button" value="+" name="novoConvidado" onclick="adicionarConvidado()" class="p-4 fs-20 text-xl py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
           <div id="resultado"></div>
-          
-          <!-- <script>
+
+          <script>
             function adicionarConvidado() {
-              const select = document.getElementById('usuarioConvidado');
-              const nomeConvidado = select.options[select.selectedIndex].value;
-              const nomeConvidad2o = select.options[select.selectedIndex].value;
+              console.log("Entrou na função de adicionar")
+              var select = document.getElementById('usuarioConvidado');
+              var nomeConvidado = select.options[select.selectedIndex].text;
 
               const xhr = new XMLHttpRequest();
               xhr.open("POST", "cadastrar.view.php", true);
@@ -59,7 +60,7 @@
               };
               xhr.send("usuarioConvidado=" + encodeURIComponent(nomeConvidado));
             }
-          </script> -->
+          </script>
 
           <?php
           if (isset($_POST['novoConvidado'])) {
