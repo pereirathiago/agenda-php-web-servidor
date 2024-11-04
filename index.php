@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agenda</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 h-screen">
-  <?php require('controllers/cadastro-usuario.controller.php'); ?>
-</body>
-</html>
+<?php
+  $rota = explode('/', substr($_SERVER['REQUEST_URI'], 1));
+  $recurso = empty($rota[0]) ? 'agenda' : $rota[0];
+  $controlador = "controllers/$recurso.controller.php";
+  $acao = empty($rota[1]) ? "listar" : $rota[1];
+
+  if (file_exists("controllers/${recurso}/${acao}.controller.php")) {
+      require("controllers/${recurso}/${acao}.controller.php");
+  } else {
+      require("controllers/404.controller.php");
+  }
