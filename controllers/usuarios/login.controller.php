@@ -1,4 +1,5 @@
 <?php
+require("views.php");
 $action = $_GET['action'] ?? 'index';
 require_once __DIR__ . '/../../models/usuarios/login.model.php';
 
