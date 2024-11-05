@@ -1,48 +1,35 @@
 <?php
-// require __DIR__ . '../../../views.php';
-require ("views.php");
-$action = $_GET['action'] ?? 'index';
-require_once __DIR__ . '/../../models/usuarios/login.model.php';
 
+require('models/usuarios.model.php');
 
-function exibirLogin() {
-    include __DIR__ . '/../../views/usuarios/login.view.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
+  autenticarUsuario();
 }
 
-if(isset($_POST['submit'])){
-    autenticarUsuario();      
- }
+function autenticarUsuario()
+{
+  global $erro, $erroMsg;
+  $erroMsg = '';
+  session_start();
 
-function autenticarUsuario() {
-    session_start();
+  $usuario = $_POST['usuario'] ?? '';
+  $senha = $_POST['senha'] ?? '';
+  if (empty(trim($usuario)) || empty(trim($senha))) {
+    $erroMsg = 'Preencha todos os campos';
+    $erro = true;
+    return;
+  }
 
+  $usuarioLogando = autenticar($usuario, $senha);
 
+  if (!$usuarioLogando['sucesso']) {
+    $erro = true;
+    $erroMsg = $usuarioLogando['erroMsg'];
+    return;
+  }
 
-    $usuario = $_POST['usuario'] ?? '';
-    $senha = $_POST['senha'] ?? '';
-   $usuarioLogando = autenticar($usuario, $senha);
+  $_SESSION['usuarioLogado'] = $usuarioLogando['usuario'];
+  header('Location: /agenda/listar');
+}
 
-    if ($usuarioLogando) {
-        $_SESSION['usuario'] = $usuario;
-        $_SESSION['nome'] = $usuarioLogando;
-        // arrumar 
-        header('Location: /controllers/agenda/listar.controller.php');
-        exit();
-    } else {
-        header('Location: /usuarios/login');
-        exit();
-    }
- }
-
-
-
- if(isset($_POST['logoff'])){
-    logout();      
- }
-
- function logout() {
-    session_start();
-    session_destroy();
-    header('Location: /usuarios/login');
-    exit();
- }
+require("views.php");

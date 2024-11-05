@@ -1,15 +1,25 @@
-<script src="https://cdn.tailwindcss.com"></script>
+<?php
+session_start();
+
+if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
+  header('Location: /usuarios/login');
+}
+
+$usuarioLogado = $_SESSION['usuarioLogado'];
+?>
+
+<?php include('layout/header-nav.php'); ?>
+
 <div class="bg-gray-100 p-6 min-h-screen flex items-start justify-center pt-12">
     <div class="max-w-4xl w-full bg-white shadow-md rounded-lg p-6">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-semibold text-gray-800">Agenda de Compromissos</h2>
-            <?php // arrumar o href conforme estrutura futura?>
             <a href="/compromissos/cadastrar" class="bg-blue-700 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow">
                 Cadastrar Compromisso
             </a>
         </div>
         
-        <p class="text-gray-600 mb-4">Bem-vindo, <?php echo $_SESSION['usuario']; ?>!</p>
+        <p class="text-gray-600 mb-4">Bem-vindo, <?php echo $_SESSION['usuarioLogado']['nomeCompleto']; ?>!</p>
 
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-200 rounded-lg">
@@ -42,10 +52,9 @@
             </table>
         </div>
 
-        <?php // arrumar o href conforme estrutura futura?>
-        <form action="" method="post" class="mt-6">
+        <form action="/usuarios/logout" method="post" class="mt-6">
             <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow">
-                Logoff
+                Sair
             </button>
         </form>
     </div>
