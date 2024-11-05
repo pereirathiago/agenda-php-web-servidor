@@ -15,7 +15,6 @@
         }
     </style>
 </head>
-<body>
     <h2>Agenda de Compromissos</h2>
     <p>Bem-vindo, <?php echo $_SESSION['usuario']; ?>!</p>
     
@@ -25,27 +24,30 @@
                 <th>Nome do Compromisso</th>
                 <th>Data</th>
                 <th>Local</th>
+                <th>Descrição</th> 
+                <th>Convidados</th> 
             </tr>
         </thead>
         <tbody>
             <?php if (!empty($compromissos)) : ?>
                 <?php foreach ($compromissos as $compromisso): ?>
                     <tr>
-                        <td><?php echo $compromisso['nome']; ?></td>
-                        <td><?php echo $compromisso['data']; ?></td>
+                        <td><?php echo $compromisso['nomeCompromisso']; ?></td>
+                        <td><?php echo $compromisso['dataCompromisso']; ?></td>
                         <td><?php echo $compromisso['local']; ?></td>
+                        <td><?php echo $compromisso['descricaoCompromisso']; ?></td>
+                        <td><?php echo $compromisso['convidados']; ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td colspan="3">Nenhum compromisso encontrado.</td>
+                    <td colspan="4">Nenhum compromisso encontrado.</td>
                 </tr>
             <?php endif; ?>
         </tbody>
     </table>
 
-    <?php // arrumar esse logoff ?>
+    <?php // só arrumar esse logoff papo de 10s ?>
     <form action="" method="post" style="margin-top: 20px;">
         <button type="submit">Logoff</button>
     </form>
-</body>
