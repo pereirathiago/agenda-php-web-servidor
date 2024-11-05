@@ -2,9 +2,10 @@
 require('models/usuarios.model.php');
 
 function salvarCompromisso($dados) {
-  session_start();
-  // foreach ()
+  if (!isset($_SESSION)) {
+    session_start();
+  }
 
-  $_SESSION['usuario']['compromisso'][] = $dados;
+  editarUsuario($dados['nomeUsuario'], $dados);
 }
 

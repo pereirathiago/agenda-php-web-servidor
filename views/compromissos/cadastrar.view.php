@@ -24,7 +24,6 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
         <div class="flex">
           <select name="locais" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <?php
-            require('models/local.model.php');
             $arrayLocais = buscarLocais();
             preencherOptionsLocais($arrayLocais);
             ?>
@@ -42,10 +41,8 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
           <select name="usuarioConvidado" id="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option>Sem convidados</option>
             <?php
-             require('models/usuarios.model.php');
-            $arrayUsuarios = buscarUsuarios();
-
-            preencherOptions($arrayUsuarios);
+              $arrayUsuarios = buscarUsuarios();
+              preencherOptions($arrayUsuarios);
             ?>
           </select>
           <input type="button" value="+" name="novoConvidado" onclick="adicionarConvidado()" class="p-4 fs-20 text-xl py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
@@ -62,7 +59,8 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
                 inputHidden[0].value += nomeConvidado + ',';
               }
             }
-            function redirecionarCadastroLocal(){
+
+            function redirecionarCadastroLocal() {
               location.replace("/local/cadastrar");
             }
           </script>
@@ -80,12 +78,12 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
 <?php
 function preencherOptions($arrayUsuarios)
 {
-//   session_start();
-//   $usuarioLogado = $_SESSION['usuarioLogado'];
-//   $username = $usuarioLogado['nomeCompleto'];
-//   $array = array_filter($arrayUsuarios, function($item) use ($username) {
-//     return $item !== $username;
-// });
+  //   session_start();
+  //   $usuarioLogado = $_SESSION['usuarioLogado'];
+  //   $username = $usuarioLogado['nomeCompleto'];
+  //   $array = array_filter($arrayUsuarios, function($item) use ($username) {
+  //     return $item !== $username;
+  // });
   foreach ($arrayUsuarios as $u) {
     $nomeCompleto = $u['nomeCompleto'];
     echo "<option>$nomeCompleto</option>";
