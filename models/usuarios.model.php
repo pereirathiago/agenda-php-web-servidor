@@ -1,20 +1,24 @@
-
+<?php
 function autenticar($usuario, $senha)
 {
-  $usuarios = include('usuarios/usuarios.php');
+  $usuarios = buscarUsuarios();
+
+  if(empty($usuarios)) return ['sucesso' => false, 'erroMsg' => 'Usuário não cadastrado'];
 
   foreach ($usuarios as $u) {
-    if ($u['usuario'] === $usuario && $u['senha'] === $senha) {
-      return $u['nome'];
+    if ($u['nomeUsuario'] === $usuario) {
+      if($u['senha'] === $senha)
+        return ['sucesso' => true, 'usuario' => $u];
+      return ['sucesso' => false, 'erroMsg' => 'Usuário e/ou senha incorretas'];
     }
   }
-  return false;
+  return ['sucesso' => false, 'erroMsg' => 'Usuário e/ou senha incorretas'];
 }
 
 function logout()
 {
   session_start();
-  session_destroy();
+  unset($_SESSION["usuarioLogado"]);
   header('Location: /usuarios/login');
   exit();
 }
@@ -27,4 +31,35 @@ function salvarUsuario($dados) {
   }
 
   $_SESSION['usuarios'][] = $dados;
+}
+
+function buscarUsuarios() {
+  $usuarios = $_SESSION['usuarios'] ?? '';
+  return $usuarios;
+}
+
+function buscarUsuarioByNomeUsuario($nomeUsuario) {
+  if (!isset($_SESSION)) {
+    session_start();
+  }
+  $usuarios = $_SESSION['usuarios'] ??'';
+  foreach ($usuarios as $u) {
+    if ($u['nomeUsuario'] === $nomeUsuario) {
+      return $u;
+    }
+  }
+  return null;
+}
+
+function buscarUsuarioByEmail($email) {
+  if (!isset($_SESSION)) {
+    session_start();
+  }
+  $usuarios = $_SESSION['usuarios'] ??'';
+  foreach ($usuarios as $u) {
+    if ($u['email'] === $email) {
+      return $u;
+    }
+  }
+  return null;
 }

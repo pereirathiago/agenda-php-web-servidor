@@ -2,11 +2,15 @@
 
 require('models/usuarios.model.php');
 
-if ($acao == 'cadastrar') {
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
   cadastrarUsuario();
 }
 
-function cadastrarUsuario() {
+function cadastrarUsuario()
+{
+  global $erro, $erroMsg;
+  $erroMsg = '';
+
   $nomeCompleto = $_POST['nomeCompleto'] ?? '';
   $dataNascimento = $_POST['dataNascimento'] ?? '';
   $genero = $_POST['genero'] ?? '';
@@ -16,14 +20,27 @@ function cadastrarUsuario() {
   $senha = $_POST['senha'] ?? '';
   $confirmarSenha = $_POST['confirmarSenha'] ?? '';
 
-
-  if (empty($nomeCompleto) || empty($dataNascimento) || empty($genero) || empty($fotoPerfil) || empty($nomeUsuario) || empty($email) || empty($senha) || empty($confirmarSenha)) {
-    $erro = 'Todos os campos são obrigatórios!';
+  if (empty(trim($nomeCompleto)) || empty(trim($dataNascimento)) || empty(trim($genero)) || empty(trim($fotoPerfil)) || empty(trim($nomeUsuario)) || empty(trim($email)) || empty(trim($senha)) || empty(trim($confirmarSenha))) {
+    $erro = true;
+    $erroMsg = 'Todos os campos são obrigatórios!';
     return;
   }
 
   if ($senha != $confirmarSenha) {
-    $erro = 'As senhas não conferem!';
+    $erro = true;
+    $erroMsg = 'As senhas não conferem!';
+    return;
+  }
+
+  if(buscarUsuarioByNomeUsuario($nomeUsuario)) {
+    $erro = true;
+    $erroMsg = 'Nome de usuário já cadastrado';
+    return;
+  }
+
+  if(buscarUsuarioByEmail($email)) {
+    $erro = true;
+    $erroMsg = 'Email já cadastrado';
     return;
   }
 
@@ -34,11 +51,12 @@ function cadastrarUsuario() {
     'fotoPerfil' => $fotoPerfil,
     'nomeUsuario' => $nomeUsuario,
     'email' => $email,
-    'senha' => $senha
+    'senha' => $senha,
+    'compromissos' => []
   ];
 
   salvarUsuario($dados);
-  header('Location: usuarios/login');
+  header('Location: /usuarios/login');
 }
 
 require("views.php");
