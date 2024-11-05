@@ -16,7 +16,7 @@ function autenticar($usuario, $senha)
 function logout()
 {
   session_start();
-  session_destroy();
+  unset($_SESSION["usuarioLogado"]);
   header('Location: /usuarios/login');
   exit();
 }
