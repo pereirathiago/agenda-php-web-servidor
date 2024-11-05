@@ -37,3 +37,29 @@ function buscarUsuarios() {
   $usuarios = $_SESSION['usuarios'] ?? '';
   return $usuarios;
 }
+
+function buscarUsuarioByNomeUsuario($nomeUsuario) {
+  if (!isset($_SESSION)) {
+    session_start();
+  }
+  $usuarios = $_SESSION['usuarios'] ??'';
+  foreach ($usuarios as $u) {
+    if ($u['nomeUsuario'] === $nomeUsuario) {
+      return $u;
+    }
+  }
+  return null;
+}
+
+function buscarUsuarioByEmail($email) {
+  if (!isset($_SESSION)) {
+    session_start();
+  }
+  $usuarios = $_SESSION['usuarios'] ??'';
+  foreach ($usuarios as $u) {
+    if ($u['email'] === $email) {
+      return $u;
+    }
+  }
+  return null;
+}
