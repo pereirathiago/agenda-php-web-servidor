@@ -1,7 +1,14 @@
+<?php
+if (isset($_SESSION['usuarioLogado']) && $_SESSION['usuarioLogado'] == true) {
+  header('Location: /agenda');
+  exit();
+}
+?>
+
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full">
     <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Cadastro de Usuário</h1>
-    <form action="/cadastro-usuario/gravar" method="post" class="space-y-4">
+    <form action="/usuarios/cadastrar" method="post" class="space-y-4">
       <div>
         <label for="nome-completo" class="block text-gray-700 font-semibold">Nome Completo:</label>
         <input required type="text" name="nomeCompleto" placeholder="Digite seu nome completo" id="nome-completo" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -11,6 +18,7 @@
         <input required type="date" name="dataNascimento" id="data-nascimento" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
       </div>
       <div class="flex items-center space-x-4">
+        <label for="genero" class="block text-gray-700 font-semibold">Genero:</label>
         <input required type="radio" name="genero" id="masculino" class="focus:ring-blue-500">
         <label for="masculino" class="text-gray-700">Masculino</label>
         <input required type="radio" name="genero" id="feminino" class="focus:ring-blue-500">
