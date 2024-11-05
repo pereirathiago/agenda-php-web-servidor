@@ -34,6 +34,9 @@ function salvarUsuario($dados) {
 }
 
 function buscarUsuarios() {
+  if (!isset($_SESSION)) {
+    session_start();
+  }
   $usuarios = $_SESSION['usuarios'] ?? '';
   return $usuarios;
 }

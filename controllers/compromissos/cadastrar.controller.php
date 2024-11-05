@@ -7,13 +7,14 @@ if ($acao == 'cadastrar') {
 
 function cadastrarCompromisso()
 {
+  session_start();
   $nomeCompromisso = $_POST['nomeCompromisso'] ?? '';
   $dataCompromisso = $_POST['dataCompromisso'] ?? '';
   $local = $_POST['locais'] ?? '';
   $descricaoCompromisso = $_POST['descricaoCompromisso'] ?? '';
 
   $convidados = $_POST['convidados1'] ?? '';
- // $usuarioLogado = $_SESSION['usuarioLogado']; talvez seja isso aqui pra puxar o usuario logado
+  $usuarioLogado = $_SESSION['usuarioLogado']; //talvez seja isso aqui pra puxar o usuario logado
 
   // $nomeCompleto = $_SESSION['usuarioLogado']['nomeCompleto'];
   // $dataNascimento = $_SESSION['usuarioLogado']['dataNascimento'];
@@ -45,6 +46,7 @@ function cadastrarCompromisso()
   ];
   $usuarioLogado['compromisso'][] = $dados;
   print_r($usuarioLogado);
+
 
 
   // salvarUsuario($dados);

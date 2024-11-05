@@ -1,12 +1,10 @@
 <?php
+require('models/usuarios.model.php');
 
 function salvarCompromisso($dados) {
   session_start();
+  // foreach ()
 
-  if (!isset($_SESSION['usuarios'])) {
-      $_SESSION['usuarios'] = [];
-  }
-
-  $_SESSION['usuarios'][] = $dados;
+  $_SESSION['usuario']['compromisso'][] = $dados;
 }
 

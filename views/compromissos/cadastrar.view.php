@@ -12,15 +12,19 @@
       </div>
       <div>
         <label for="local" class="block text-gray-700 font-semibold">Local do Compromisso</label>
-        <select name="locais" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <?php
+        <div class="flex">
+          <select name="locais" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <?php
             $arrayLocais = [
-              "Rua Agostinho Rodrigues Filho, 188 - Vila Clementino", "R. Professor Carrel, 666", "R. Agostinho Rodrigues Filho, 188 - Vila Clementino"
+              "Rua Agostinho Rodrigues Filho, 188 - Vila Clementino",
+              "R. Professor Carrel, 666",
+              "R. Agostinho Rodrigues Filho, 188 - Vila Clementino"
             ];
             preencherOptionsLocais($arrayLocais);
-            
-          ?>
-        </select>
+            ?>
+          </select>
+          <input type="button" value="Novo Local" name="cadastrarLocal" onclick="redirecionarCadastroLocal()" class="p-4 fs-20 text-xl py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
+        </div>
       </div>
       <div>
         <label for="descricao-compromisso" class="block text-gray-700 font-semibold">Descrição do Compromisso:</label>
@@ -29,17 +33,21 @@
       <div>
         <label for="convidados" class="block text-gray-700 font-semibold">Convidados</label>
         <div class="flex">
+        <?php
+            // echo "boa tarde";
+
+            //  require('models/usuarios.model.php');
+            //  print_r(buscarUsuarios());
+            //  $arrayUsuarios = buscarUsuarios();
+            //  print_r($arrayUsuarios);
+
+            // preencherOptions($arrayUsuarios);
+            ?>
           <select name="usuarioConvidado" id="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option>Sem convidados</option>
             <?php
-            echo "entrou no codigo pra preencher o select";
-          //  print_r(buscarUsuarios());
-            $arrayUsuarios = [
-              "givas" => ["nome" => "Giovanne", "dataNascimento" => "05/11/2005", "genero" => "Masculino", "fotoPerfil" => "https://pt.wikipedia.org/wiki/Lenin", "email" => "mika.2023@alunos.utfpr.edu.br", "senha" => "senha123"],
-              "thiago" => ["nome" => "Giovanne", "dataNascimento" => "05/11/2005", "genero" => "Masculino", "fotoPerfil" => "https://pt.wikipedia.org/wiki/Lenin", "email" => "mika.2023@alunos.utfpr.edu.br", "senha" => "senha123"],
-              "matheus" => ["nome" => "Giovanne", "dataNascimento" => "05/11/2005", "genero" => "Masculino", "fotoPerfil" => "https://pt.wikipedia.org/wiki/Lenin", "email" => "mika.2023@alunos.utfpr.edu.br", "senha" => "senha123"],
-              "danilo" => ["nome" => "Giovanne", "dataNascimento" => "05/11/2005", "genero" => "Masculino", "fotoPerfil" => "https://pt.wikipedia.org/wiki/Lenin", "email" => "mika.2023@alunos.utfpr.edu.br", "senha" => "senha123"],
-            ];
+             require('models/usuarios.model.php');
+            $arrayUsuarios = buscarUsuarios();
 
             preencherOptions($arrayUsuarios);
             ?>
@@ -58,6 +66,9 @@
                 inputHidden[0].value += nomeConvidado + ',';
               }
             }
+            function redirecionarCadastroLocal(){
+              location.replace("/agenda");
+            }
           </script>
 
 
@@ -73,13 +84,16 @@
 <?php
 function preencherOptions($arrayUsuarios)
 {
-  foreach ($arrayUsuarios as $key => $value) {
-    echo "<option>$key</option>";
+  print_r($arrayUsuarios);
+  echo "boa tarde";
+  foreach ($arrayUsuarios as $u) {
+    $nomeCompleto = $;
+    echo "<option>${$u['nomeCompleto']}</option>";
   }
 }
 function preencherOptionsLocais($arrayLocais)
 {
-  $contador=1;
+  $contador = 1;
   foreach ($arrayLocais as $valor) {
     echo "<option>$valor</option>";
     $contador++;
