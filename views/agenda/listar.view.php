@@ -1,8 +1,10 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
-  header('Location: /usuarios/login');
+    header('Location: /usuarios/login');
 }
 
 $usuarioLogado = $_SESSION['usuarioLogado'];
@@ -18,7 +20,7 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                 Cadastrar Compromisso
             </a>
         </div>
-        
+
         <p class="text-gray-600 mb-4">Bem-vindo, <?php echo $_SESSION['usuarioLogado']['nomeCompleto']; ?>!</p>
 
         <div class="overflow-x-auto">

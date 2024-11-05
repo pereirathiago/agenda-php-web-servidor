@@ -2,6 +2,6 @@
 
 require('models/agenda.model.php');
 
-$compromissos = obterCompromissosDoUsuario($usuarioLogado);
+$compromissos = obterCompromissosDoUsuario();
 
 require ("views.php");
