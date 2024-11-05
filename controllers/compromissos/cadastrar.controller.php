@@ -30,11 +30,11 @@ function cadastrarCompromisso()
     return;
   }
 
-  if (!strtotime($dataCompromisso) < strtotime(date('Y-m-d'))) {
-    $erro = true;
-    $erroMsg = 'A data do compromisso deve ser uma data válida e não pode estar no passado.';
-    return;
-}
+  // if (strtotime($dataCompromisso) > strtotime(date('Y-m-d H:i'))) {
+  //   $erro = true;
+  //   $erroMsg = 'A data do compromisso não pode estar no passado.';
+  //   return;
+  // }
 
   $dados = [
     'nomeCompromisso' => $nomeCompromisso,
@@ -44,7 +44,7 @@ function cadastrarCompromisso()
     'convidados' => $arrayConvidados,
   ];
 
-  
+
   $usuarioLogado['compromisso'][] = $dados;
 
   salvarCompromisso($usuarioLogado);
