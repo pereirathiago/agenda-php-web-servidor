@@ -34,7 +34,7 @@ function cadastrarLocais()
   ];
 
   salvarLocal($dados);
-  header('Location: /compromissos/cadastrar');
+  header('Location: /local');
 }
 
 require("views.php");
