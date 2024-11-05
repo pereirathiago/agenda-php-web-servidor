@@ -13,6 +13,7 @@ function cadastrarCompromisso()
   $descricaoCompromisso = $_POST['descricaoCompromisso'] ?? '';
 
   $convidados = $_POST['convidados1'] ?? '';
+ // $usuarioLogado = $_SESSION['usuarioLogado']; talvez seja isso aqui pra puxar o usuario logado
 
   // $nomeCompleto = $_SESSION['usuarioLogado']['nomeCompleto'];
   // $dataNascimento = $_SESSION['usuarioLogado']['dataNascimento'];
