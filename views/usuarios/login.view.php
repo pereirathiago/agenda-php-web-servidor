@@ -9,7 +9,7 @@
         <input type="password" id="senha" name="senha" placeholder="Digite a sua senha" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         <br><br>
         <div>
-        <button type="submit" name="submit" placeholder="Digite a sua senha" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Entrar</button>
+        <button type="submit" name="submit" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Entrar</button>
         </div>
         <div>
             <p class="block text-center mt-5 text-gray-700 font-semibold">Não tem uma conta?</p>
