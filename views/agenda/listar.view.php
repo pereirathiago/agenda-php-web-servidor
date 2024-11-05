@@ -15,7 +15,7 @@ if (!isset($_SESSION['usuario'])) {
 <body>
     <h2>Agenda</h2>
     <p>Bem-vindo, <?php echo $_SESSION['nome']; ?>!</p>
-    <form action="/controllers/usuarios/login.controller.php?action=logout" method="post">
+    <form action="/usuarios/logout" method="post">
         <button type="submit" name="logoff">Logoff</button>
     </form>
 </body>
