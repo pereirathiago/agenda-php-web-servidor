@@ -12,6 +12,7 @@ function autenticarUsuario()
   $senha = $_POST['senha'] ?? '';
   if (empty($usuario) || empty($senha)) {
     $erro = 'Todos os campos são obrigatórios!';
+    
     return;
   }
 

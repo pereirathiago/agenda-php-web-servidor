@@ -29,7 +29,6 @@ function salvarUsuario($dados) {
   }
 
   $_SESSION['usuarios'][] = $dados;
-  exit();
 }
 
 function buscarUsuarios() {

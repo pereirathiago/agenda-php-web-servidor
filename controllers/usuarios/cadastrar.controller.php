@@ -2,11 +2,10 @@
 
 require('models/usuarios.model.php');
 
-if ($acao == 'cadastrar') {
-  cadastrarUsuario();
-}
+cadastrarUsuario();
 
-function cadastrarUsuario() {
+function cadastrarUsuario()
+{
   $nomeCompleto = $_POST['nomeCompleto'] ?? '';
   $dataNascimento = $_POST['dataNascimento'] ?? '';
   $genero = $_POST['genero'] ?? '';
@@ -15,7 +14,6 @@ function cadastrarUsuario() {
   $email = $_POST['email'] ?? '';
   $senha = $_POST['senha'] ?? '';
   $confirmarSenha = $_POST['confirmarSenha'] ?? '';
-
 
   if (empty($nomeCompleto) || empty($dataNascimento) || empty($genero) || empty($fotoPerfil) || empty($nomeUsuario) || empty($email) || empty($senha) || empty($confirmarSenha)) {
     $erro = 'Todos os campos são obrigatórios!';
@@ -35,7 +33,7 @@ function cadastrarUsuario() {
     'nomeUsuario' => $nomeUsuario,
     'email' => $email,
     'senha' => $senha,
-    'compromissos' => [],
+    'compromissos' => []
   ];
 
   salvarUsuario($dados);
