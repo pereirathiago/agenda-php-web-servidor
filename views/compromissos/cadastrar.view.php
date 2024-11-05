@@ -33,16 +33,6 @@
       <div>
         <label for="convidados" class="block text-gray-700 font-semibold">Convidados</label>
         <div class="flex">
-        <?php
-            // echo "boa tarde";
-
-            //  require('models/usuarios.model.php');
-            //  print_r(buscarUsuarios());
-            //  $arrayUsuarios = buscarUsuarios();
-            //  print_r($arrayUsuarios);
-
-            // preencherOptions($arrayUsuarios);
-            ?>
           <select name="usuarioConvidado" id="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option>Sem convidados</option>
             <?php
@@ -84,11 +74,9 @@
 <?php
 function preencherOptions($arrayUsuarios)
 {
-  print_r($arrayUsuarios);
-  echo "boa tarde";
   foreach ($arrayUsuarios as $u) {
-    $nomeCompleto = $;
-    echo "<option>${$u['nomeCompleto']}</option>";
+    $nomeCompleto = $u['nomeCompleto'];
+    echo "<option>$nomeCompleto</option>";
   }
 }
 function preencherOptionsLocais($arrayLocais)
