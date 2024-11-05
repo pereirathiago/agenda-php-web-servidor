@@ -40,8 +40,11 @@ function cadastrarCompromisso()
     'convidados' => $arrayConvidados,
   ];
   $usuarioLogado['compromisso'][] = $dados;
-  print_r($usuarioLogado);
 
+  require('models/usuarios.model.php');
+  editarUsuario(  $usuarioLogado['nomeUsuario'], $usuarioLogado);
+
+  print_r($_SESSION['usuarioLogado']);
 
 
   // salvarUsuario($dados);

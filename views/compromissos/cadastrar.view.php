@@ -6,6 +6,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
   header('Location: /usuarios/login');
 }
 ?>
+<?php include('layout/header-nav.php'); ?>
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full">
     <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Cadastro de Compromisso</h1>
