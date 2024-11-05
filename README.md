@@ -8,8 +8,8 @@ Este é um projeto desenvolvido em PHP que tem como objetivo gerenciar os compro
 ## Atividades da Equipe
 
 - **Giovanne Ribeiro Mika**: Implementou a lógica de backend, tela e preenchimento dinâmico do formulário de compromissos. Validação de permissões.
-- **Thiago Pereira**: Trabalhou no cadastro, edição, login e logout de usuários. Roteamento dinâmico das páginas, incluindo página de erro. Validação de dados no cadastro e permissões.
-- **Matheus Andreiczuk**: Trabalhou no login e logout de usuários. Implementou a lógica de backend e tela no cadastro de locais. Validação de permissões.
+- **Thiago Pereira**: Trabalhou no cadastro, edição, login e logout de usuários. Roteamento dinâmico das páginas, incluindo página de erro. Validação de dados no cadastro e permissões, mensagens de erro.
+- **Matheus Andreiczuk**: Trabalhou no login e logout de usuários. Implementou a lógica de backend e tela no cadastro de locais. Listagem de compromissos Validação de permissões.
 
 ---
 
@@ -30,18 +30,14 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
     ```
 
 3. Inicie o servidor:
-    - Usar o servidor embutido do PHP:
+    - Configure um Virtual Host chamado `agenda.test`, referenciando o diretório do projeto.
+    - Ou utilize o servidor embutido do PHP:
 
         ```bash
         php -S localhost:8080
         ```
 
-    - Configurar um Virtual Host no Apache.
-
-    - Colocar o projeto no diretório `htdocs` do XAMPP para execução via Apache.
-
-
-4. Acesse o projeto em `http://localhost:porta`. (varia de acordo com o método escolhido para iniciar o servidor)
+4. Acesse o projeto em `agenda.test`. (varia de acordo com o método escolhido para iniciar o servidor)
 
 ---
 
@@ -53,6 +49,7 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
 - Função para excluir e editar compromissos
 - Persistir dados nos cadastros na ocorrência de possíveis erros
 - Adicionar calendário dinâmico (em lugar da tabela agenda)
+- Refatoração do arquivo `controllers>usuarios>cadastrar.controller.php` para retirada de código duplicado.
 
 ---
 

@@ -30,11 +30,29 @@ function cadastrarUsuario()
     return;
   }
 
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $erro = true;
+    $erroMsg = 'Email inválido!';
+    return;
+  }
+
+  if (!preg_match('/^[a-zA-Z0-9]{2,}$/', $nomeUsuario)) {
+    $erro = true;
+    $erroMsg = 'Nome de usuário pode conter apenas letras, números.';
+    return;
+  }
+
   if ($senha != $confirmarSenha) {
     $erro = true;
     $erroMsg = 'As senhas não conferem!';
     return;
   }
+
+  if (strtotime($dataNascimento) > strtotime(date('Y-m-d'))) {
+    $erro = true;
+    $erroMsg = 'A data de nascimento não pode ser no futuro.';
+    return;
+}
 
   if (buscarUsuarioByNomeUsuario($nomeUsuario)) {
     $erro = true;
@@ -113,6 +131,6 @@ function editarUsuarioData()
   header('Location: /perfil');
 }
 
-if ( $acao2 != 'editar') {
+if ($acao2 != 'editar') {
   require("views.php");
 }
