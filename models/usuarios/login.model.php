@@ -4,7 +4,7 @@ function autenticar($usuario, $senha) {
 
     foreach ($usuarios as $u) {
         if ($u['usuario'] === $usuario && $u['senha'] === $senha) {
-            return $u['nome']; 
+            return $u['nome'];
         }
     }
     return false; 

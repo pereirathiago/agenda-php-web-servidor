@@ -26,7 +26,7 @@ function autenticarUsuario() {
         $_SESSION['usuario'] = $usuario;
         $_SESSION['nome'] = $usuarioLogando;
         // arrumar 
-        header('Location: /views/agenda/agenda.view.php');
+        header('Location: /views/agenda/listar.view.php');
         exit();
     } else {
         header('Location: /usuarios/login');
