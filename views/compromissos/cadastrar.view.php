@@ -84,11 +84,9 @@
 <?php
 function preencherOptions($arrayUsuarios)
 {
-  print_r($arrayUsuarios);
-  echo "boa tarde";
   foreach ($arrayUsuarios as $u) {
-    $nomeCompleto = $;
-    echo "<option>${$u['nomeCompleto']}</option>";
+    $nomeCompleto = $u['nomeCompleto'];
+    echo "<option>$nomeCompleto</option>";
   }
 }
 function preencherOptionsLocais($arrayLocais)
