@@ -9,10 +9,8 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
 
 ?>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Agenda</title>
-</head>
+<?php include('layout/header-nav.php'); ?>
+
 <h2>Agenda</h2>
 <p>Bem-vindo, <?php echo $usuarioLogado['nomeCompleto'] ?>!</p>
 <form action="/usuarios/logout" method="post">

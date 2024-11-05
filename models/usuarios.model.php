@@ -33,6 +33,24 @@ function salvarUsuario($dados) {
   $_SESSION['usuarios'][] = $dados;
 }
 
+function editarUsuario($nomeUsuario, $dados) {
+  if (!isset($_SESSION)) {
+    session_start();
+  }
+  
+  $usuarios = $_SESSION['usuarios'];
+  foreach ($usuarios as &$usuario) {
+    if ($usuario['nomeUsuario'] === $nomeUsuario) {
+      $usuario = array_merge($usuario, $dados);
+      $_SESSION['usuarios'] = $usuarios;
+      $_SESSION['usuarioLogado'] = $usuario;
+      return ['sucesso' => true, 'usuario' => $usuario];
+    }
+  }
+  
+  return ['sucesso' => false, 'erroMsg' => 'Usuário não encontrado.'];
+}
+
 function buscarUsuarios() {
   $usuarios = $_SESSION['usuarios'] ?? '';
   return $usuarios;
