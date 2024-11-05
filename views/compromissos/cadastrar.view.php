@@ -74,6 +74,12 @@
 <?php
 function preencherOptions($arrayUsuarios)
 {
+//   session_start();
+//   $usuarioLogado = $_SESSION['usuarioLogado'];
+//   $username = $usuarioLogado['nomeCompleto'];
+//   $array = array_filter($arrayUsuarios, function($item) use ($username) {
+//     return $item !== $username;
+// });
   foreach ($arrayUsuarios as $u) {
     $nomeCompleto = $u['nomeCompleto'];
     echo "<option>$nomeCompleto</option>";
