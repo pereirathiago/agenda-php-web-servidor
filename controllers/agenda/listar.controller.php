@@ -1,4 +1,2 @@
 <?php
-
-
-require("views.php");
+  require("views.php");
