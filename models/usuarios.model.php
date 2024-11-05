@@ -1,14 +1,16 @@
-
+<?php
 function autenticar($usuario, $senha)
 {
-  $usuarios = include('usuarios/usuarios.php');
+  $usuarios = buscarUsuarios();
+
+  if(empty($usuarios)) return;
 
   foreach ($usuarios as $u) {
-    if ($u['usuario'] === $usuario && $u['senha'] === $senha) {
-      return $u['nome'];
+    if ($u['nomeUsuario'] === $usuario && $u['senha'] === $senha) {
+      return $u;
     }
   }
-  return false;
+  return;
 }
 
 function logout()
@@ -27,4 +29,9 @@ function salvarUsuario($dados) {
   }
 
   $_SESSION['usuarios'][] = $dados;
+}
+
+function buscarUsuarios() {
+  $usuarios = $_SESSION['usuarios'] ?? '';
+  return $usuarios;
 }

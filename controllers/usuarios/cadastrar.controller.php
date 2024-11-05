@@ -34,11 +34,12 @@ function cadastrarUsuario() {
     'fotoPerfil' => $fotoPerfil,
     'nomeUsuario' => $nomeUsuario,
     'email' => $email,
-    'senha' => $senha
+    'senha' => $senha,
+    'compromissos' => [],
   ];
 
   salvarUsuario($dados);
-  header('Location: usuarios/login');
+  header('Location: /usuarios/login');
 }
 
 require("views.php");

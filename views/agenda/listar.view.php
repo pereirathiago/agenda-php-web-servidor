@@ -1,23 +1,20 @@
-
 <?php
 session_start();
 
-if (!isset($_SESSION['usuario'])) {
-    header('Location: /index.php');
-    exit();
+if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
+    header('Location: /usuarios/login');
 }
+
+$usuarioLogado = $_SESSION['usuarioLogado'];
+
 ?>
 
-<html>
 <head>
     <meta charset="UTF-8">
     <title>Agenda</title>
 </head>
-<body>
-    <h2>Agenda</h2>
-    <p>Bem-vindo, <?php echo $_SESSION['nome']; ?>!</p>
-    <form action="/usuarios/logout" method="post">
-        <button type="submit" name="logoff">Logoff</button>
-    </form>
-</body>
-</html>
+<h2>Agenda</h2>
+<p>Bem-vindo, <?php echo $usuarioLogado['nomeCompleto'] ?>!</p>
+<form action="/usuarios/logout" method="post">
+    <button type="submit" name="logout">Sair</button>
+</form>

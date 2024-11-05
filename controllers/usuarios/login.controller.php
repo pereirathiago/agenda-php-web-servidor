@@ -2,12 +2,7 @@
 
 require('models/usuarios.model.php');
 
-if($acao == 'login') {
-  autenticarUsuario();
-}
-if($acao == 'logout') {
-  logout();
-}
+autenticarUsuario();
 
 function autenticarUsuario()
 {
@@ -15,15 +10,15 @@ function autenticarUsuario()
 
   $usuario = $_POST['usuario'] ?? '';
   $senha = $_POST['senha'] ?? '';
-  $usuarioLogando = autenticar($usuario, $senha);
   if (empty($usuario) || empty($senha)) {
     $erro = 'Todos os campos são obrigatórios!';
     return;
   }
 
+  $usuarioLogando = autenticar($usuario, $senha);
+
   if ($usuarioLogando) {
-    $_SESSION['usuario'] = $usuario;
-    $_SESSION['nome'] = $usuarioLogando;
+    $_SESSION['usuarioLogado'] = $usuarioLogando;
     header('Location: /agenda/listar');
   } else {
     header('Location: /usuarios/login');

@@ -1,3 +1,10 @@
+<?php
+if (isset($_SESSION['usuarioLogado']) && $_SESSION['usuarioLogado'] == true) {
+  header('Location: /agenda');
+  exit();
+}
+?>
+
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full">
     <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Login</h1>
