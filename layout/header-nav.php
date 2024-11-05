@@ -5,7 +5,7 @@
     <nav class="space-x-6 hidden md:flex">
       <a href="/" class="text-white hover:text-blue-600 transition">Agenda</a>
       <a href="/convites" class="text-white hover:text-blue-600 transition">Convites</a>
-      <a href="/locais" class="text-white hover:text-blue-600 transition">Locais</a>
+      <a href="/local" class="text-white hover:text-blue-600 transition">Locais</a>
     </nav>
 
     <a href="/perfil" class="flex items-center space-x-4">
