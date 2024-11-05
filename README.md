@@ -1,30 +1,15 @@
 # agenda-php-web-servidor
 Projeto desenvolvido para a disciplina de Web Servidor do curso de analise e desenvolvimento de sistemas na UTFPR
 
-![Licença](https://img.shields.io/badge/license-MIT-blue.svg) 
-![Versão](https://img.shields.io/badge/version-1.0.0-green.svg)
-
 ## Descrição do Projeto
 
-Este é um projeto desenvolvido em PHP que tem como objetivo gerenciar os compromissos pessoais em agendas. Neste projeto, nossa equipe trabalhou com o desenvolvimento de um sistema que permite cadastrar usuarios, criar agendas, adicionar, editar e compartilhar compromissos, e permitir visualizar essas informações. 
-
-### Particularidades
-
-- 
----
-
-## Integrantes da Equipe
-
-1. **Giovanne Ribeiro Mika** - Desenvolvedor FullStack
-2. **Thiago Pereira** - Desenvolvedor FullStack
-3. **Matheus Andreiczuk** - Desenvolvedor FullStack
----
+Este é um projeto desenvolvido em PHP que tem como objetivo gerenciar os compromissos pessoais em agendas. Neste projeto, nossa equipe trabalhou com o desenvolvimento de um sistema que permite cadastrar usuarios, criar agendas e locais para os compromissos, adicionar, editar e compartilhar compromissos, e permitir visualizar essas informações. 
 
 ## Atividades da Equipe
 
-- **Giovanne Ribeiro Mika**: Implementou a lógica de backend, criou a estrutura de banco de dados, e desenvolveu as APIs REST para comunicação entre o backend e o frontend.
-- **Thiago Pereira**: Trabalhou no frontend, desenvolveu a interface gráfica e fez a integração com o backend.
-- **Matheus Andreiczuk**: Coordenou o projeto, definiu os cronogramas, e garantiu a comunicação entre os membros da equipe.
+- **Giovanne Ribeiro Mika**: Implementou a lógica de backend, tela e preenchimento dinâmico do formulário de compromissos. Validação de permissões.
+- **Thiago Pereira**: Trabalhou no cadastro, edição, login e logout de usuários. Roteamento dinâmico das páginas, incluindo página de erro. Validação de dados no cadastro e permissões.
+- **Matheus Andreiczuk**: Trabalhou no login e logout de usuários. Implementou a lógica de backend e tela no cadastro de locais. Validação de permissões.
 
 ---
 
@@ -35,82 +20,63 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
 1. Clone o repositório:
 
     ```bash
-    git clone https://github.com/usuario/nome-do-projeto.git
+    git clone https://github.com/pereirathiago/agenda-php-web-servidor.git
     ```
 
 2. Entre no diretório do projeto:
 
     ```bash
-    cd nome-do-projeto
+    cd caminho/agenda-php-web-servidor
     ```
 
-3. Instale as dependências com o Composer:
+3. Inicie o servidor:
+    - Usar o servidor embutido do PHP:
 
-    ```bash
-    composer install
-    ```
+        ```bash
+        php -S localhost:8080
+        ```
 
-4. Configure o arquivo `.env` com as informações do banco de dados e outras variáveis de ambiente.
+    - Configurar um Virtual Host no Apache.
 
-5. Rode as migrações do banco de dados:
+    - Colocar o projeto no diretório `htdocs` do XAMPP para execução via Apache.
 
-    ```bash
-    php artisan migrate
-    ```
 
-6. Inicie o servidor:
-
-    ```bash
-    php artisan serve
-    ```
-
-7. Acesse o projeto em `http://localhost:8000`.
-
----
-
-## Bugs Conhecidos
-
-- Bug na funcionalidade de login, onde usuários não autenticados podem acessar algumas rotas restritas.
-- Em alguns casos, a API de integração com [nome da API externa] retorna erro intermitente.
-- O sistema apresenta um tempo de resposta mais alto do que o desejado ao processar dados com mais de 1.000 registros.
+4. Acesse o projeto em `http://localhost:porta`. (varia de acordo com o método escolhido para iniciar o servidor)
 
 ---
 
 ## Funcionalidades Faltantes
 
-- Integração com API de pagamento para funcionalidades futuras.
-- Sistema de notificações para avisar os usuários sobre atualizações.
-- Função de pesquisa avançada nos dados de usuário.
+- Sistema de notificações para lembretes de compromissos.
+- Funcionalidade de enviar e aceitar convites
+- Função para excluir e editar locais
+- Função para excluir e editar compromissos
+- Persistir dados nos cadastros na ocorrência de possíveis erros
+- Adicionar calendário dinâmico (em lugar da tabela agenda)
+
+---
+
+## Bugs Conhecidos
+
+- Sistema de cadastro de usuário não armazena seu gênero
 
 ---
 
 ## Funcionalidades do Projeto
 
 - Cadastro de usuários com autenticação (registro, login, logout)
-- CRUD completo para gerenciamento de dados
-- Dashboard administrativo com estatísticas em tempo real
-- API REST para integração com outras plataformas
+- CRUD para gerenciamento de usuarios e compromissos
 - Sistema de permissões para controle de acesso
+- Mecanismo inicial de sistema de convites
+- Cadastro de locais fixos para compromissos
 
 ---
 
 ## Tecnologias Utilizadas
 
 - **PHP** - Linguagem principal
-- **Laravel** - Framework utilizado para estruturar o projeto
-- **MySQL** - Banco de dados utilizado
 - **HTML/CSS/JavaScript** - Para o desenvolvimento do frontend
-- **Composer** - Gerenciador de dependências PHP
-
----
-
-## Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/NovaFeature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona NovaFeature'`)
-4. Push para a branch (`git push origin feature/NovaFeature`)
-5. Abra um Pull Request
+- **Tailwind** - Framework para CSS
 
 ---
 
@@ -122,9 +88,9 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## Autores
 
-- **Giovanne Ribeiro Mika** - *Desenvolvimento Backend* - [GitHub](https://github.com/GiovanneMika)
-- **Thiago Pereira** - *Desenvolvimento Frontend* - [GitHub](https://github.com/pereirathiago)
-- **Matheus Andreiczuk** - *Gerência de Projeto* - [GitHub](https://github.com/usuario3)
+- **Giovanne Ribeiro Mika** - [GitHub](https://github.com/GiovanneMika)
+- **Thiago Pereira** - [GitHub](https://github.com/pereirathiago)
+- **Matheus Andreiczuk** - [GitHub](https://github.com/MatheusAndreiczuk)
 
 ---
 

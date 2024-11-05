@@ -24,11 +24,11 @@ if (isset($_SESSION['usuarioLogado']) && $_SESSION['usuarioLogado'] == true) {
         <input required type="text" name="nomeCompleto" placeholder="Digite seu nome completo" id="nome-completo" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
       </div>
       <div>
-        <label for="data-nascimento" class="block text-gray-700 font-semibold">Data Nascimento:</label>
+        <label for="data-nascimento" class="block text-gray-700 font-semibold">Data de Nascimento:</label>
         <input required type="date" name="dataNascimento" id="data-nascimento" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
       </div>
       <div class="flex items-center space-x-4">
-        <label for="genero" class="block text-gray-700 font-semibold">Genero:</label>
+        <label for="genero" class="block text-gray-700 font-semibold">Gênero:</label>
         <input required type="radio" name="genero" id="masculino" class="focus:ring-blue-500">
         <label for="masculino" class="text-gray-700">Masculino</label>
         <input required type="radio" name="genero" id="feminino" class="focus:ring-blue-500">
@@ -37,7 +37,7 @@ if (isset($_SESSION['usuarioLogado']) && $_SESSION['usuarioLogado'] == true) {
         <label for="outro" class="text-gray-700">Outro</label>
       </div>
       <div>
-        <label for="foto-perfil" class="block text-gray-700 font-semibold">Foto de perfil: <small class="text-gray-400">(link começando com "https://")</small></label>
+        <label for="foto-perfil" class="block text-gray-700 font-semibold">Foto de perfil: <small class="text-gray-400">(Link começando com "https://")</small></label>
         <input required type="url" name="fotoPerfil" placeholder="https://" id="foto-perfil" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
       </div>
       <div>
