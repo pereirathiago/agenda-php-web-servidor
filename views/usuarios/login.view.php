@@ -1,8 +1,7 @@
 <?php
-if(!isset($_SESSION)) 
-{ 
-    session_start(); 
-} 
+if (!isset($_SESSION)) {
+  session_start();
+}
 if (isset($_SESSION['usuarioLogado']) && $_SESSION['usuarioLogado'] == true) {
   header('Location: /agenda');
   exit();
@@ -13,9 +12,16 @@ if (isset($_SESSION['usuarioLogado']) && $_SESSION['usuarioLogado'] == true) {
   <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full">
     <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Login</h1>
     <form action="/usuarios/login" method="post">
+      <?php if (isset($erro) && $erro) : ?>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Ops!</strong>
+          <span class="block sm:inline"><?= $erroMsg ?></span>
+        </div>
+        <br>
+      <?php endif; ?>
       <label for="usuario" class="block text-gray-700 font-semibold">Usuário:</label>
       <input type="text" id="usuario" name="usuario" placeholder="Digite o seu nome de usuario" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-      <br>
+      <br><br>
       <label for="senha" class="block text-gray-700 font-semibold">Senha:</label>
       <input type="password" id="senha" name="senha" placeholder="Digite a sua senha" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
       <br><br>

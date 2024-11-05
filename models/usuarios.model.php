@@ -3,14 +3,16 @@ function autenticar($usuario, $senha)
 {
   $usuarios = buscarUsuarios();
 
-  if(empty($usuarios)) return;
+  if(empty($usuarios)) return ['sucesso' => false, 'erroMsg' => 'Usuário não cadastrado'];
 
   foreach ($usuarios as $u) {
-    if ($u['nomeUsuario'] === $usuario && $u['senha'] === $senha) {
-      return $u;
+    if ($u['nomeUsuario'] === $usuario) {
+      if($u['senha'] === $senha)
+        return ['sucesso' => true, 'usuario' => $u];
+      return ['sucesso' => false, 'erroMsg' => 'Usuário e/ou senha incorretas'];
     }
   }
-  return;
+  return ['sucesso' => false, 'erroMsg' => 'Usuário e/ou senha incorretas'];
 }
 
 function logout()
