@@ -23,11 +23,8 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
         <div class="flex">
           <select name="locais" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <?php
-            $arrayLocais = [
-              "Rua Agostinho Rodrigues Filho, 188 - Vila Clementino",
-              "R. Professor Carrel, 666",
-              "R. Agostinho Rodrigues Filho, 188 - Vila Clementino"
-            ];
+            require('models/local.model.php');
+            $arrayLocais = buscarLocais();
             preencherOptionsLocais($arrayLocais);
             ?>
           </select>
@@ -65,7 +62,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
               }
             }
             function redirecionarCadastroLocal(){
-              location.replace("/agenda");
+              location.replace("/local/cadastrar");
             }
           </script>
 
@@ -95,10 +92,10 @@ function preencherOptions($arrayUsuarios)
 }
 function preencherOptionsLocais($arrayLocais)
 {
-  $contador = 1;
-  foreach ($arrayLocais as $valor) {
-    echo "<option>$valor</option>";
-    $contador++;
+  foreach ($arrayLocais as $l) {
+    $endereco = $l['endereco'];
+    $numero = $l['numero'];
+    echo "<option>$endereco, $numero</option>";
   }
 }
 function adicionarConvidado($usuariosConvidados)
