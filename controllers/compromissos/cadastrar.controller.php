@@ -17,15 +17,11 @@ echo $descricaoCompromisso;
 
 
 
-if (empty($nomeCompleto) || empty($dataNascimento) || empty($genero) || empty($fotoPerfil) || empty($nomeUsuario) || empty($email) || empty($senha) || empty($confirmarSenha)) {
+if (empty($nomeCompromisso) || empty($dataCompromisso) || empty($local) || empty($descricaoCompromisso)) {
   $erro = 'Todos os campos são obrigatórios!';
   return;
 }
 
-// if ($senha != $confirmarSenha) {
-//   $erro = 'As senhas não conferem!';
-//   return;
-// }
 
 $dados = [
   'nomeCompleto' => $nomeCompleto,
