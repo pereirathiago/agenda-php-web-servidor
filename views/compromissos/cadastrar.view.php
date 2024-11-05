@@ -1,3 +1,11 @@
+<?php
+if (!isset($_SESSION)) {
+  session_start();
+}
+if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
+  header('Location: /usuarios/login');
+}
+?>
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full">
     <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Cadastro de Compromisso</h1>
