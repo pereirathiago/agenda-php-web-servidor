@@ -9,7 +9,7 @@ Este é um projeto desenvolvido em PHP que tem como objetivo gerenciar os compro
 
 - **Giovanne Ribeiro Mika**: Implementou a lógica de backend, tela e preenchimento dinâmico do formulário de compromissos. Validação de permissões.
 - **Thiago Pereira**: Trabalhou no cadastro, edição, login e logout de usuários. Roteamento dinâmico das páginas, incluindo página de erro. Validação de dados no cadastro e permissões, mensagens de erro.
-- **Matheus Andreiczuk**: Trabalhou no login e logout de usuários. Implementou a lógica de backend e tela no cadastro de locais. Listagem de compromissos Validação de permissões.
+- **Matheus Andreiczuk**: Trabalhou no login e logout de usuários. Implementou a lógica de backend e tela no cadastro de locais. Listagem de compromissos e validação de permissões.
 
 ---
 

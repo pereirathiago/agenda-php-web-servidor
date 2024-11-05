@@ -9,6 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 function cadastrarCompromisso()
 {
+  global $erro, $erroMsg;
+  $erroMsg = '';
+
   session_start();
   $nomeCompromisso = $_POST['nomeCompromisso'] ?? '';
   $dataCompromisso = $_POST['dataCompromisso'] ?? '';
@@ -21,10 +24,17 @@ function cadastrarCompromisso()
   $arrayConvidados = explode(',', rtrim($convidados, ','));
   $arrayConvidados = array_unique($arrayConvidados);
 
-  if (empty($nomeCompromisso) || empty($dataCompromisso) || empty($local) || empty($descricaoCompromisso)) {
-    $erro = 'Todos os campos são obrigatórios!';
+  if (empty(trim($nomeCompromisso)) || empty(trim($dataCompromisso)) || empty(trim($local)) || empty(trim($descricaoCompromisso))) {
+    $erro = true;
+    $erroMsg = 'Todos os campos são obrigatórios!';
     return;
   }
+
+  if (!strtotime($dataCompromisso) < strtotime(date('Y-m-d'))) {
+    $erro = true;
+    $erroMsg = 'A data do compromisso deve ser uma data válida e não pode estar no passado.';
+    return;
+}
 
   $dados = [
     'nomeCompromisso' => $nomeCompromisso,

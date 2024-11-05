@@ -24,6 +24,12 @@ function cadastrarLocais()
     return;
   }
 
+  if (!preg_match('/^[0-9]{8}$/', $cep)) {
+    $erro = true;
+    $erroMsg = 'O CEP deve apenas 8 dígitos.';
+    return;
+}
+
   $dados = [
     'cep' => $cep,
     'endereco' => $endereco,

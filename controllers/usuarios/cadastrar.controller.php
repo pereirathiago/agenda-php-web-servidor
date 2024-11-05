@@ -52,7 +52,7 @@ function cadastrarUsuario()
     $erro = true;
     $erroMsg = 'A data de nascimento não pode ser no futuro.';
     return;
-}
+  }
 
   if (buscarUsuarioByNomeUsuario($nomeUsuario)) {
     $erro = true;
@@ -107,6 +107,24 @@ function editarUsuarioData()
   if ($email != $_SESSION['usuarioLogado']['email'] && buscarUsuarioByEmail($email)) {
     $erro = true;
     $erroMsg = 'Email já cadastrado';
+    return;
+  }
+
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $erro = true;
+    $erroMsg = 'Email inválido!';
+    return;
+  }
+
+  if ($senha != $confirmarSenha) {
+    $erro = true;
+    $erroMsg = 'As senhas não conferem!';
+    return;
+  }
+
+  if (strtotime($dataNascimento) > strtotime(date('Y-m-d'))) {
+    $erro = true;
+    $erroMsg = 'A data de nascimento não pode ser no futuro.';
     return;
   }
 

@@ -20,6 +20,13 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
       </div>
     </div>
     <form action="/usuarios/cadastrar/editar" method="post" class="space-y-4" id="perfil-form">
+      <?php if (isset($erro) && $erro) : ?>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Ops!</strong>
+          <span class="block sm:inline"><?= $erroMsg ?></span>
+        </div>
+        <br>
+      <?php endif; ?>
       <div class="mb-4">
         <label for="nome-completo" class="block text-gray-700 font-semibold">Nome Completo:</label>
         <input required type="text" name="nomeCompleto" placeholder="Digite seu nome completo" id="nome-completo" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" value="<?= $_SESSION['usuarioLogado']['nomeCompleto'] ?>" disabled>
@@ -67,8 +74,8 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
         <input required type="password" name="confirmarSenha" placeholder="Confirme a sua senha" id="confirmar-senha" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
       </div>
 
-      <div class="flex justify-center"> 
-        <input type="button" onclick="tornarEditavel()"  id="btn-editar" class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition duration-200" value="Editar">
+      <div class="flex justify-center">
+        <input type="button" onclick="tornarEditavel()" id="btn-editar" class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition duration-200" value="Editar">
         <button type="submit" id="salvar-button" class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition duration-200 hidden">Salvar</button>
       </div>
     </form>
@@ -84,7 +91,7 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
     const nomeUsuario = document.getElementById('nome-usuario');
 
     inputs.forEach(input => {
-      input.disabled = !input.disabled; 
+      input.disabled = !input.disabled;
     });
 
     nomeUsuario.disabled = true;
