@@ -10,7 +10,6 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
 
 $usuarioLogado = $_SESSION['usuarioLogado'];
 ?>
-<script src="https://cdn.tailwindcss.com"></script>
 <?php include('layout/header-nav.php'); ?>
 
 <div class="bg-gray-100 p-6 min-h-screen flex items-start justify-center pt-12">
