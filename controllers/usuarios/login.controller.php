@@ -2,27 +2,34 @@
 
 require('models/usuarios.model.php');
 
-autenticarUsuario();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
+  autenticarUsuario();
+}
 
 function autenticarUsuario()
 {
+  global $erro, $erroMsg;
+  $erroMsg = '';
   session_start();
 
   $usuario = $_POST['usuario'] ?? '';
   $senha = $_POST['senha'] ?? '';
-  if (empty($usuario) || empty($senha)) {
-    $erro = 'Todos os campos são obrigatórios!';
+  if (empty(trim($usuario)) || empty(trim($senha))) {
+    $erroMsg = 'Preencha todos os campos';
+    $erro = true;
     return;
   }
 
   $usuarioLogando = autenticar($usuario, $senha);
 
-  if ($usuarioLogando) {
-    $_SESSION['usuarioLogado'] = $usuarioLogando;
-    header('Location: /agenda/listar');
-  } else {
-    header('Location: /usuarios/login');
+  if (!$usuarioLogando['sucesso']) {
+    $erro = true;
+    $erroMsg = $usuarioLogando['erroMsg'];
+    return;
   }
+
+  $_SESSION['usuarioLogado'] = $usuarioLogando['usuario'];
+  header('Location: /agenda/listar');
 }
 
 require("views.php");

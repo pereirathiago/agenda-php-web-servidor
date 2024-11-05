@@ -1,4 +1,7 @@
 <?php
+if (!isset($_SESSION)) {
+  session_start();
+}
 if (isset($_SESSION['usuarioLogado']) && $_SESSION['usuarioLogado'] == true) {
   header('Location: /agenda');
   exit();
@@ -9,6 +12,13 @@ if (isset($_SESSION['usuarioLogado']) && $_SESSION['usuarioLogado'] == true) {
   <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full">
     <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Cadastro de Usuário</h1>
     <form action="/usuarios/cadastrar" method="post" class="space-y-4">
+      <?php if (isset($erro) && $erro) : ?>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Ops!</strong>
+          <span class="block sm:inline"><?= $erroMsg ?></span>
+        </div>
+        <br>
+      <?php endif; ?>
       <div>
         <label for="nome-completo" class="block text-gray-700 font-semibold">Nome Completo:</label>
         <input required type="text" name="nomeCompleto" placeholder="Digite seu nome completo" id="nome-completo" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
