@@ -101,30 +101,35 @@ function editarUsuarioData()
   if (empty(trim($nomeCompleto)) || empty(trim($dataNascimento)) || empty(trim($genero)) || empty(trim($fotoPerfil)) || empty(trim($nomeUsuario)) || empty(trim($email)) || empty(trim($senha)) || empty(trim($confirmarSenha))) {
     $erro = true;
     $erroMsg = 'Todos os campos são obrigatórios!';
+    header('Location: /perfil');
     return;
   }
 
   if ($email != $_SESSION['usuarioLogado']['email'] && buscarUsuarioByEmail($email)) {
     $erro = true;
     $erroMsg = 'Email já cadastrado';
+    header('Location: /perfil');
     return;
   }
 
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $erro = true;
     $erroMsg = 'Email inválido!';
+    header('Location: /perfil');
     return;
   }
 
   if ($senha != $confirmarSenha) {
     $erro = true;
     $erroMsg = 'As senhas não conferem!';
+    header('Location: /perfil');
     return;
   }
 
   if (strtotime($dataNascimento) > strtotime(date('Y-m-d'))) {
     $erro = true;
     $erroMsg = 'A data de nascimento não pode ser no futuro.';
+    header('Location: /perfil');
     return;
   }
 
@@ -143,6 +148,7 @@ function editarUsuarioData()
   if (!$resultado['sucesso']) {
     $erro = true;
     $erroMsg = $resultado['erroMsg'];
+    header('Location: /perfil');
     return;
   }
 

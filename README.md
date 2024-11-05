@@ -56,6 +56,7 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
 ## Bugs Conhecidos
 
 - Sistema de cadastro de usuário não armazena seu gênero
+- Mensagens de erro não mostra na página de perfil (devido a forma que foi implementada a atualização, será mudado no futuro) 
 
 ---
 
