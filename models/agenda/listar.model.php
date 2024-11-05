@@ -1,5 +1,5 @@
 <?php
-function obterCompromissosDoUsuario($usuario) {
+function obterCompromissosDoUsuario($usuarioLogado) {
     $compromissosPorUsuario = [
         'givas' => [
             ["nome" => "Reunião com o cliente", "data" => "2024-11-10", "local" => "Escritório Central"],
@@ -11,6 +11,6 @@ function obterCompromissosDoUsuario($usuario) {
         ]
     ];
 
-    return $compromissosPorUsuario[$usuario];
+    return $compromissosPorUsuario[$usuarioLogado];
 }
 

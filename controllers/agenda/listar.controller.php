@@ -10,8 +10,8 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-$usuario = $_SESSION['usuario'];
+$usuarioLogado = $_SESSION['usuario'];
 
-$compromissos = obterCompromissosDoUsuario($usuario);
+$compromissos = obterCompromissosDoUsuario($usuarioLogado);
 
 require_once __DIR__ . '/../../views/agenda/listar.view.php';
