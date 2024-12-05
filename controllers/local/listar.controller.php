@@ -2,6 +2,6 @@
 
 require('models/local.model.php');
 
-$locais = buscarLocais();
+$locais = Local::buscarLocais();
 
 require ("views.php");

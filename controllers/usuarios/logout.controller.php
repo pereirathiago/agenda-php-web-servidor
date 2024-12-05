@@ -1,9 +1,10 @@
 <?php
 
-require('models/usuarios.model.php');
+require('models/usuarios.php');
 
 if($acao == 'logout') {
-  logout();
+  $usuario = new Usuario();
+  $usuario->logout();
 }
 
 

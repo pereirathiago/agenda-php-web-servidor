@@ -8,6 +8,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 function cadastrarLocais()
 {
+  $local = new Local();
+
   global $erro, $erroMsg;
   $erroMsg = '';
 
@@ -39,7 +41,7 @@ function cadastrarLocais()
     'estado' => $estado
   ];
 
-  salvarLocal($dados);
+  $local->salvarLocal($dados);
   header('Location: /local');
 }
 

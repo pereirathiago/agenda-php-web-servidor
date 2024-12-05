@@ -1,6 +1,6 @@
 <?php
 
-require('models/usuarios.model.php');
+require('models/usuarios.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
   autenticarUsuario();
@@ -12,6 +12,8 @@ function autenticarUsuario()
   $erroMsg = '';
   session_start();
 
+  $usuario = new Usuario();
+
   $usuario = $_POST['usuario'] ?? '';
   $senha = $_POST['senha'] ?? '';
   if (empty(trim($usuario)) || empty(trim($senha))) {
@@ -20,7 +22,7 @@ function autenticarUsuario()
     return;
   }
 
-  $usuarioLogando = autenticar($usuario, $senha);
+  $usuarioLogando = $usuario->autenticar($usuario, $senha);
 
   if (!$usuarioLogando['sucesso']) {
     $erro = true;
