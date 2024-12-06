@@ -24,73 +24,13 @@ class Compromisso
     $usuario->editarUsuario($dados['nomeUsuario'], $dados);
   }
 
-  public function getId()
+  public function __get($propriedade)
   {
-    return $this->id;
+    return $this->$propriedade;
   }
 
-  public function setId($id)
+  public function __set($propriedade, $valor)
   {
-    $this->id = $id;
-  }
-
-  public function getTitulo()
-  {
-    return $this->titulo;
-  }
-
-  public function setTitulo($titulo)
-  {
-    $this->titulo = $titulo;
-  }
-
-  public function getDescricao()
-  {
-    return $this->descricao;
-  }
-
-  public function setDescricao($descricao)
-  {
-    $this->descricao = $descricao;
-  }
-
-  public function getDataHoraInicio()
-  {
-    return $this->dataHoraInicio;
-  }
-
-  public function setDataHoraInicio($dataHoraInicio)
-  {
-    $this->dataHoraInicio = $dataHoraInicio;
-  }
-
-  public function getDataHoraFim()
-  {
-    return $this->dataHoraFim;
-  }
-
-  public function setDataHoraFim($dataHoraFim)
-  {
-    $this->dataHoraFim = $dataHoraFim;
-  }
-
-  public function getLocal()
-  {
-    return $this->local;
-  }
-
-  public function setLocal($local)
-  {
-    $this->local = $local;
-  }
-
-  public function getIdCompromissoOrganizador()
-  {
-    return $this->idCompromissoOrganizador;
-  }
-
-  public function setIdCompromissoOrganizador($idCompromissoOrganizador)
-  {
-    $this->idCompromissoOrganizador = $idCompromissoOrganizador;
+    $this->$propriedade = $valor;
   }
 }

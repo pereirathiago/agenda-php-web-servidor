@@ -21,27 +21,13 @@ class Agenda {
     return $usuarioLogado['compromisso'];
   }
   
-  public function getId() {
-    return $this->id;
+  public function __get($propriedade)
+  {
+    return $this->$propriedade;
   }
 
-  public function setId($id) {
-    $this->id = $id;
-  }
-
-  public function getIdUsuario() {
-    return $this->idUsuario;
-  }
-
-  public function setIdUsuario($idUsuario) {
-    $this->idUsuario = $idUsuario;
-  }
-
-  public function getNomeUsuario() {
-    return $this->nomeUsuario;
-  }
-
-  public function setNomeUsuario($nomeUsuario) {
-    $this->nomeUsuario = $nomeUsuario;
+  public function __set($propriedade, $valor)
+  {
+    $this->$propriedade = $valor;
   }
 }

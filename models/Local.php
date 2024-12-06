@@ -33,83 +33,13 @@ class Local
     return $locais;
   }
 
-  public function getId()
+  public function __get($propriedade)
   {
-    return $this->id;
+    return $this->$propriedade;
   }
 
-  public function setId($id)
+  public function __set($propriedade, $valor)
   {
-    $this->id = $id;
-  }
-
-  public function getCEP()
-  {
-    return $this->CEP;
-  }
-
-  public function setCEP($CEP)
-  {
-    $this->CEP = $CEP;
-  }
-
-  public function getEndereco()
-  {
-    return $this->endereco;
-  }
-
-  public function setEndereco($endereco)
-  {
-    $this->endereco = $endereco;
-  }
-
-  public function getNumero()
-  {
-    return $this->numero;
-  }
-
-  public function setNumero($numero)
-  {
-    $this->numero = $numero;
-  }
-
-  public function isSemNumero()
-  {
-    return $this->semNumero;
-  }
-
-  public function setSemNumero($semNumero)
-  {
-    $this->semNumero = $semNumero;
-  }
-
-  public function getBairro()
-  {
-    return $this->bairro;
-  }
-
-  public function setBairro($bairro)
-  {
-    $this->bairro = $bairro;
-  }
-
-  public function getCidade()
-  {
-    return $this->cidade;
-  }
-
-  public function setCidade($cidade)
-  {
-    $this->cidade = $cidade;
-  }
-
-  public function getEstado()
-  {
-    return $this->estado;
-  }
-
-  public function setEstado($estado)
-  {
-    $this->estado = $estado;
+    $this->$propriedade = $valor;
   }
 }

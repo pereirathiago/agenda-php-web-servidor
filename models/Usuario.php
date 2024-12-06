@@ -104,83 +104,13 @@ class Usuario
     return null;
   }
 
-  public function getId()
+  public function __get($propriedade)
   {
-    return $this->id;
+    return $this->$propriedade;
   }
 
-  public function setId($id)
+  public function __set($propriedade, $valor)
   {
-    $this->id = $id;
-  }
-
-  public function getNomeUsuario()
-  {
-    return $this->nomeUsuario;
-  }
-
-  public function setNomeUsuario($nomeUsuario)
-  {
-    $this->nomeUsuario = $nomeUsuario;
-  }
-
-  public function getNomeCompleto()
-  {
-    return $this->nomeCompleto;
-  }
-
-  public function setNomeCompleto($nomeCompleto)
-  {
-    $this->nomeCompleto = $nomeCompleto;
-  }
-
-  public function getDataNascimento()
-  {
-    return $this->dataNascimento;
-  }
-
-  public function setDataNascimento($dataNascimento)
-  {
-    $this->dataNascimento = $dataNascimento;
-  }
-
-  public function getGenero()
-  {
-    return $this->genero;
-  }
-
-  public function setGenero($genero)
-  {
-    $this->genero = $genero;
-  }
-
-  public function getFotoPerfil()
-  {
-    return $this->fotoPerfil;
-  }
-
-  public function setFotoPerfil($fotoPerfil)
-  {
-    $this->fotoPerfil = $fotoPerfil;
-  }
-
-  public function getEmail()
-  {
-    return $this->email;
-  }
-
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-
-  public function getSenha()
-  {
-    return $this->senha;
-  }
-
-  public function setSenha($senha)
-  {
-    $this->senha = $senha;
+    $this->$propriedade = $valor;
   }
 }

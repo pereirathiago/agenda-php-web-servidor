@@ -11,63 +11,13 @@ class Convidado
 
   public function __construct() { }
 
-  public function getId()
+  public function __get($propriedade)
   {
-    return $this->id;
+    return $this->$propriedade;
   }
 
-  public function getNomeUsuario()
+  public function __set($propriedade, $valor)
   {
-    return $this->nomeUsuario;
-  }
-
-  public function getStatusAceito()
-  {
-    return $this->statusAceito;
-  }
-
-  public function getIdCompromisso()
-  {
-    return $this->idCompromisso;
-  }
-
-  public function getNomeCompromisso()
-  {
-    return $this->nomeCompromisso;
-  }
-
-  public function getNomeUsuarioCompromisso()
-  {
-    return $this->nomeUsuarioCompromisso;
-  }
-
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-
-  public function setNomeUsuario($nomeUsuario)
-  {
-    $this->nomeUsuario = $nomeUsuario;
-  }
-
-  public function setStatusAceito($statusAceito)
-  {
-    $this->statusAceito = $statusAceito;
-  }
-
-  public function setIdCompromisso($idCompromisso)
-  {
-    $this->idCompromisso = $idCompromisso;
-  }
-
-  public function setNomeCompromisso($nomeCompromisso)
-  {
-    $this->nomeCompromisso = $nomeCompromisso;
-  }
-
-  public function setNomeUsuarioCompromisso($nomeUsuarioCompromisso)
-  {
-    $this->nomeUsuarioCompromisso = $nomeUsuarioCompromisso;
+    $this->$propriedade = $valor;
   }
 }
