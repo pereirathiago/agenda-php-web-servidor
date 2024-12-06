@@ -81,7 +81,7 @@ CREATE TABLE `usuario` (
   `foto_perfil` varchar(500) NOT NULL,
   `email` varchar(150) NOT NULL,
   `nome_usuario` varchar(50) NOT NULL,
-  `senha` varchar(30) NOT NULL
+  `senha` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

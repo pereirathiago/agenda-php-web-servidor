@@ -11,11 +11,26 @@ class Usuario
   private $email;
   private $senha;
 
-  public function __construct() { }
+  public function __construct() { 
+  }
 
   function cadastrarUsuario($usuario)
   {
+    $bd = new BdConexao();
     
+    $query = "INSERT INTO usuario (nome_completo, nome_usuario, data_nascimento, genero, foto_perfil, email, senha) VALUES (:nomeCompleto, :nomeUsuario, :dataNascimento, :genero, :fotoPerfil, :email, :senha)";
+    
+    $params = [
+      ':nomeCompleto' => $usuario->nomeCompleto,
+      ':nomeUsuario' => $usuario->nomeUsuario,
+      ':dataNascimento' => $usuario->dataNascimento,
+      ':genero' => $usuario->genero,
+      ':fotoPerfil' => $usuario->fotoPerfil,
+      ':email' => $usuario->email,
+      ':senha' => $usuario->senha
+    ];
+
+    $bd->query($query, $params);
   }
 
   public function editarUsuario($nomeUsuario, $dados)
