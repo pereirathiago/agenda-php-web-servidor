@@ -37,7 +37,7 @@ class Usuario
     exit();
   }
 
-  function salvarUsuario($dados)
+  function salvarUsuario($usuario)
   {
     session_start();
 
@@ -45,7 +45,7 @@ class Usuario
       $_SESSION['usuarios'] = [];
     }
 
-    $_SESSION['usuarios'][] = $dados;
+    $_SESSION['usuarios'][] = $usuario;
   }
 
   public function editarUsuario($nomeUsuario, $dados)
