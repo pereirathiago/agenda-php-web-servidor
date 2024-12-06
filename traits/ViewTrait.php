@@ -7,6 +7,8 @@ trait ViewTrait
     foreach ($dados as $key => $value) {
       ${$key} = $value;
     }
-    return require "./views/{$nome}.view.php";
+    include('layout/header.php');
+    require "./views/{$nome}.view.php";
+    include('layout/footer.php');
   }
 }

@@ -1,20 +1,24 @@
 <?php
-  require 'vendor/autoload.php'; //esse autoload é pra conseguir fazer referencia às classes sem precisar importar pelo require
+require 'vendor/autoload.php'; //esse autoload é pra conseguir fazer referencia às classes sem precisar importar pelo require
 
-  use Pecee\SimpleRouter\SimpleRouter as Router;
+use Pecee\Http\Request;
+use Pecee\SimpleRouter\Exceptions\HttpException;
+use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
+use Pecee\SimpleRouter\SimpleRouter as Router;
 
-  Router::get('/hello-world', 'OlaMundo@msg');
+Router::get('/hello-world', 'OlaMundo@msg');
 
-  Router::start();
+Router::get('/404', 'ErrorController@error404');
+Router::get('/500', 'ErrorController@error500');
 
-//   $rota = explode('/', substr($_SERVER['REQUEST_URI'], 1));
-//   $recurso = empty($rota[0]) ? 'agenda' : $rota[0];
-//   $controlador = "controllers/$recurso.controller.php";
-//   $acao = empty($rota[1]) ? "listar" : $rota[1];
-//   $acao2 = empty($rota[2]) ? "" : $rota[2];
+Router::error(function (Request $request, \Exception $exception) {
 
-//   if (file_exists("controllers/{$recurso}/{$acao}.controller.php")) {
-//       require("controllers/{$recurso}/{$acao}.controller.php");
-//   } else {
-//       require("controllers/404.controller.php");
-//   }
+  switch ($exception->getCode()) {
+    case 404:
+      Router::response()->redirect('/404');
+    default:
+      Router::response()->redirect('/500');
+  }
+});
+
+Router::start();
