@@ -1,4 +1,6 @@
 <?php
+require_once('models/Local.php');
+
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -30,7 +32,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
         <div class="flex">
           <select name="locais" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <?php
-            $arrayLocais = buscarLocais();
+            $arrayLocais = Local::buscarLocais();
             preencherOptionsLocais($arrayLocais);
             ?>
           </select>
@@ -47,7 +49,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
           <select name="usuarioConvidado" id="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option>Sem convidados</option>
             <?php
-            $arrayUsuarios = buscarUsuarios();
+            $arrayUsuarios = Usuario::buscarUsuarios();
             preencherOptions($arrayUsuarios);
             ?>
           </select>

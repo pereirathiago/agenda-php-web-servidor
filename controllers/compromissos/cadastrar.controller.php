@@ -47,7 +47,8 @@ function cadastrarCompromisso()
 
   $usuarioLogado['compromisso'][] = $dados;
 
-  salvarCompromisso($usuarioLogado);
+  $compromisso = new Compromisso();
+  $compromisso->salvarCompromisso($usuarioLogado);
 
   header('Location: /');
 }

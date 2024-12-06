@@ -12,6 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $acao2 == 'editar') {
 
 function cadastrarUsuario()
 {
+  $usuario = new Usuario();
+
   global $erro, $erroMsg;
   $erroMsg = '';
 
@@ -54,13 +56,13 @@ function cadastrarUsuario()
     return;
   }
 
-  if (buscarUsuarioByNomeUsuario($nomeUsuario)) {
+  if ($usuario->buscarUsuarioByNomeUsuario($nomeUsuario)) {
     $erro = true;
     $erroMsg = 'Nome de usuário já cadastrado';
     return;
   }
 
-  if (buscarUsuarioByEmail($email)) {
+  if ($usuario->buscarUsuarioByEmail($email)) {
     $erro = true;
     $erroMsg = 'Email já cadastrado';
     return;
@@ -77,7 +79,7 @@ function cadastrarUsuario()
     'compromissos' => []
   ];
 
-  salvarUsuario($dados);
+  $usuario->salvarUsuario($dados);
   header('Location: /usuarios/login');
 }
 
@@ -85,6 +87,8 @@ function cadastrarUsuario()
 function editarUsuarioData()
 {
   session_start();
+
+  $usuario = new Usuario();
 
   global $erro, $erroMsg;
   $erroMsg = '';
@@ -105,7 +109,7 @@ function editarUsuarioData()
     return;
   }
 
-  if ($email != $_SESSION['usuarioLogado']['email'] && buscarUsuarioByEmail($email)) {
+  if ($email != $_SESSION['usuarioLogado']['email'] && $usuario->buscarUsuarioByEmail($email)) {
     $erro = true;
     $erroMsg = 'Email já cadastrado';
     header('Location: /perfil');
@@ -144,7 +148,7 @@ function editarUsuarioData()
     'compromissos' => []
   ];
 
-  $resultado = editarUsuario($nomeUsuario, $dados);
+  $resultado = $usuario->editarUsuario($nomeUsuario, $dados);
   if (!$resultado['sucesso']) {
     $erro = true;
     $erroMsg = $resultado['erroMsg'];
