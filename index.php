@@ -1,4 +1,10 @@
 <?php
+  require 'vendor/autoload.php'; //esse autoload é pra conseguir fazer referencia às classes sem precisar importar pelo require
+
+
+  //aqui é a aula do professor teste 123
+  $ola = new OlaMundo();
+  $ola->msg();
   $rota = explode('/', substr($_SERVER['REQUEST_URI'], 1));
   $recurso = empty($rota[0]) ? 'agenda' : $rota[0];
   $controlador = "controllers/$recurso.controller.php";
