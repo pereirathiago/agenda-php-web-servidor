@@ -13,39 +13,9 @@ class Usuario
 
   public function __construct() { }
 
-  function autenticar($usuario, $senha)
+  function cadastrarUsuario($usuario)
   {
-    $usuarios = $this->buscarUsuarios();
-
-    if (empty($usuarios)) return ['sucesso' => false, 'erroMsg' => 'Usuário não cadastrado'];
-
-    foreach ($usuarios as $u) {
-      if ($u['nomeUsuario'] === $usuario) {
-        if ($u['senha'] === $senha)
-          return ['sucesso' => true, 'usuario' => $u];
-        return ['sucesso' => false, 'erroMsg' => 'Usuário e/ou senha incorretas'];
-      }
-    }
-    return ['sucesso' => false, 'erroMsg' => 'Usuário e/ou senha incorretas'];
-  }
-
-  function logout()
-  {
-    session_start();
-    unset($_SESSION["usuarioLogado"]);
-    header('Location: /usuarios/login');
-    exit();
-  }
-
-  function salvarUsuario($usuario)
-  {
-    session_start();
-
-    if (!isset($_SESSION['usuarios'])) {
-      $_SESSION['usuarios'] = [];
-    }
-
-    $_SESSION['usuarios'][] = $usuario;
+    
   }
 
   public function editarUsuario($nomeUsuario, $dados)

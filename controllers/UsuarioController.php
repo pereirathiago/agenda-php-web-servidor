@@ -46,7 +46,7 @@ class UsuarioController
     $usuario->email = $dados['email'];
     $usuario->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
     
-    $usuario->salvarUsuario($usuario);
+    $usuario->cadastrarUsuario($usuario);
     $this->view('usuarios/login');
   }
 

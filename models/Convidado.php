@@ -4,10 +4,9 @@ class Convidado
 {
   private $id;
   private $nomeUsuario;
-  private $statusAceito; // 0 = Não confirmado, 1 = Confirmado, 2 = Recusado
+  private $statusConvite; // 0 = Não confirmado, 1 = Confirmado, 2 = Recusado, 3 = Cancelado
   private $idCompromisso;
   private $nomeCompromisso;
-  private $nomeUsuarioCompromisso;
 
   public function __construct() { }
 
