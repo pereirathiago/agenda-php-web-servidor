@@ -114,7 +114,8 @@ ALTER TABLE `local`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nome_usuario_unique` (`nome_usuario`);
+  ADD UNIQUE KEY `nome_usuario_unique` (`nome_usuario`),
+  ADD UNIQUE KEY `email_unique` (`email`);
 
 --
 -- AUTO_INCREMENT de tabelas apagadas

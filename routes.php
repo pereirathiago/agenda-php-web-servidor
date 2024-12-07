@@ -8,8 +8,9 @@ Router::get('/hello-world', 'OlaMundo@msg');
 
 // usuarios
 Router::get('/usuarios/cadastrar', 'UsuarioController@cadastrarForm');
-Router::get('/usuarios/login', 'UsuarioController@loginForm');
+Router::get('/usuarios/login', 'AutenticacaoController@loginForm');
 Router::post('/usuarios/cadastrar', 'UsuarioController@cadastrarUsuario');
+Router::put('/usuarios/editar', 'UsuarioController@editarUsuario');
 
 // erros
 Router::get('/404', 'ErrorController@error404');

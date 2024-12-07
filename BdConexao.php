@@ -24,9 +24,9 @@ class BdConexao
     }
   }
 
-  public function query($query, $params = [])
+  public static function query($query, $params = [])
   {
-    $stmt = $this->get()->prepare($query);
+    $stmt = BdConexao::get()->prepare($query);
     $stmt->execute($params);
     return $stmt;
   }
