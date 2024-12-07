@@ -2,14 +2,14 @@
 
 class ErrorsFunctions
 {
-  public static function handleError($e, $dados)
+  public static function handleError($e, $dados = [])
   {
     $erro = true;
     $erroMsg = $e->getMessage();
     return ['erro' => $erro, 'erroMsg' => $erroMsg, 'dados' => $dados];
   }
 
-  public static function handlePDOError($e, $dados)
+  public static function handlePDOError($e, $dados = [])
   {
     $erro = true;
     switch ($e->getCode()) {

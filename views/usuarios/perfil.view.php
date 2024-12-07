@@ -11,7 +11,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
 
 <?php include('layout/header-nav.php'); ?>
 
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
+<div class="flex items-center justify-center min-h-screen bg-gray-100 flex-col">
   <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full m-6">
     <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">Perfil do Usuário</h1>
 
@@ -20,6 +20,9 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
         <img src="<?= $_SESSION['usuarioLogado']->fotoPerfil ?>" alt="Foto do usuário" class="w-full h-full object-cover">
       </div>
     </div>
+
+    <hr class="mb-4">
+
     <form action="/usuarios/editar" method="post" class="space-y-4" id="perfil-form">
       <?php if (isset($erro) && $erro) : ?>
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -80,6 +83,15 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
         <button type="submit" id="salvar-button" class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition duration-200 hidden">Salvar</button>
       </div>
     </form>
+  </div>
+  <div class="flex justify-center mb-6">
+    <div class="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg max-w-md w-full">
+      <h1 class="text-3xl font-bold text-center mb-4">ALERTA</h1>
+      <p class="text-center mb-4">Esta ação é irreversível. Tenha certeza antes de continuar.</p>
+      <form action="/usuarios/deletar" method="post" class="flex justify-center">
+        <button type="submit" class="px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-800 transition duration-200">Deletar Conta</button>
+      </form>
+    </div>
   </div>
 </div>
 

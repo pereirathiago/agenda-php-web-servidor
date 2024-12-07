@@ -14,6 +14,7 @@ Router::get('/usuarios/cadastrar', 'UsuarioController@cadastrarForm');
 Router::post('/usuarios/cadastrar', 'UsuarioController@cadastrarUsuario');
 Router::post('/usuarios/editar', 'UsuarioController@editarUsuario');
 Router::get('/perfil', 'UsuarioController@perfilForm');
+Router::post('/usuarios/deletar', 'UsuarioController@deletarUsuario');
 
 // autenticacao
 Router::get('/usuarios/login', 'AutenticacaoController@loginForm');

@@ -111,6 +111,19 @@ class Usuario
     return ['code' => 200, 'usuario' => $usuario];
   }
 
+  static function deletarUsuario($nomeUsuario)
+  {
+    $query = "DELETE FROM usuario WHERE nome_usuario = :nomeUsuario";
+
+    $params = [
+      ':nomeUsuario' => $nomeUsuario
+    ];
+
+    BdConexao::query($query, $params);
+
+    return ['code' => 200, 'message' => 'Usuário deletado com sucesso'];
+  }
+
   public function __get($propriedade)
   {
     return $this->$propriedade;

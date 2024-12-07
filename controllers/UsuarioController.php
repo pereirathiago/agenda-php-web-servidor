@@ -112,7 +112,23 @@ class UsuarioController
 
   public function deletarUsuario()
   {
-    echo 'Deletar usuário';
+    try {
+      if (!isset($_SESSION)) {
+        session_start();
+      }
+
+      Usuario::deletarUsuario($_SESSION['usuarioLogado']->nomeUsuario);
+
+      session_destroy();
+      header('Location: /usuarios/login');
+      exit();
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e);
+      $this->view('usuarios/perfil', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e);
+      $this->view('usuarios/perfil', $error);
+    }
   }
 
   private function validarDadosUsuario($dados)
