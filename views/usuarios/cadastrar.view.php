@@ -29,11 +29,11 @@ if (isset($_SESSION['usuarioLogado']) && $_SESSION['usuarioLogado'] == true) {
       </div>
       <div class="flex items-center space-x-4">
         <label for="genero" class="block text-gray-700 font-semibold">Gênero:</label>
-        <input required type="radio" name="genero" id="masculino" class="focus:ring-blue-500">
+        <input required type="radio" name="genero" id="masculino" class="focus:ring-blue-500" value="Masculino" <?= $dados && $dados['genero'] === 'Masculino' ? 'checked' : '' ?>>
         <label for="masculino" class="text-gray-700">Masculino</label>
-        <input required type="radio" name="genero" id="feminino" class="focus:ring-blue-500">
+        <input required type="radio" name="genero" id="feminino" class="focus:ring-blue-500" value="Feminino" <?= $dados && $dados['genero'] === 'Feminino' ? 'checked' : '' ?>>
         <label for="feminino" class="text-gray-700">Feminino</label>
-        <input required type="radio" name="genero" id="outro" class="focus:ring-blue-500">
+        <input required type="radio" name="genero" id="outro" class="focus:ring-blue-500" value="Outro" <?= $dados && $dados['genero'] === 'Outro' ? 'checked' : '' ?>>
         <label for="outro" class="text-gray-700">Outro</label>
       </div>
       <div>
