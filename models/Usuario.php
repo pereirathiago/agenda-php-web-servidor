@@ -11,15 +11,12 @@ class Usuario
   private $email;
   private $senha;
 
-  public function __construct() { 
-  }
+  public function __construct() {}
 
   function cadastrarUsuario($usuario)
   {
-    $bd = new BdConexao();
-    
     $query = "INSERT INTO usuario (nome_completo, nome_usuario, data_nascimento, genero, foto_perfil, email, senha) VALUES (:nomeCompleto, :nomeUsuario, :dataNascimento, :genero, :fotoPerfil, :email, :senha)";
-    
+
     $params = [
       ':nomeCompleto' => $usuario->nomeCompleto,
       ':nomeUsuario' => $usuario->nomeUsuario,
@@ -30,49 +27,47 @@ class Usuario
       ':senha' => $usuario->senha
     ];
 
-    $bd->query($query, $params);
+    BdConexao::query($query, $params);
+
+    return ['code' => 201, 'message' => 'Usuário cadastrado com sucesso'];
   }
 
-  public function editarUsuario($nomeUsuario, $dados)
+  public function editarUsuario($nomeUsuario, $usuario)
   {
-    if (!isset($_SESSION)) {
-      session_start();
-    }
+    $query = "UPDATE usuario SET nome_completo = :nomeCompleto, data_nascimento = :dataNascimento, genero = :genero, foto_perfil = :fotoPerfil, email = :email, senha = :senha WHERE nome_usuario = :nomeUsuario";
 
-    $usuarios = $_SESSION['usuarios'];
-    foreach ($usuarios as &$usuario) {
-      if ($usuario['nomeUsuario'] === $nomeUsuario) {
-        $usuario = array_merge($usuario, $dados);
-        $_SESSION['usuarios'] = $usuarios;
-        $_SESSION['usuarioLogado'] = $usuario;
-        return ['sucesso' => true, 'usuario' => $usuario];
-      }
-    }
+    $params = [
+      ':nomeCompleto' => $usuario['nomeCompleto'],
+      ':dataNascimento' => $usuario['dataNascimento'],
+      ':genero' => $usuario['genero'],
+      ':fotoPerfil' => $usuario['fotoPerfil'],
+      ':email' => $usuario['email'],
+      ':senha' => $usuario['senha'],
+      ':nomeUsuario' => $nomeUsuario
+    ];
 
-    return ['sucesso' => false, 'erroMsg' => 'Usuário não encontrado.'];
+    BdConexao::query($query, $params);
+
+    return ['code' => 200, 'message' => 'Usuário editado com sucesso'];
   }
 
-  static function buscarUsuarios()
-  {
-    if (!isset($_SESSION)) {
-      session_start();
-    }
-    $usuarios = $_SESSION['usuarios'] ?? '';
-    return $usuarios;
-  }
+  static function buscarUsuarios() {}
 
-  function buscarUsuarioByNomeUsuario($nomeUsuario)
+  static function buscarUsuarioByNomeUsuario($nomeUsuario)
   {
-    if (!isset($_SESSION)) {
-      session_start();
+    $query = "SELECT * FROM usuario WHERE nome_usuario = :nomeUsuario";
+
+    $params = [
+      ':nomeUsuario' => $nomeUsuario,
+    ];
+
+    $usuario = BdConexao::query($query, $params)->fetchObject("Usuario");
+
+    if (!$usuario) {
+      return ['code' => 404, 'message' => 'Usuário não encontrado'];
     }
-    $usuarios = $_SESSION['usuarios'] ?? '';
-    foreach ($usuarios as $u) {
-      if ($u['nomeUsuario'] === $nomeUsuario) {
-        return $u;
-      }
-    }
-    return null;
+
+    return ['code' => 200, 'message' => 'Usuário encontrado com sucesso'];
   }
 
   function buscarUsuarioByEmail($email)

@@ -9,11 +9,6 @@ class UsuarioController
     $this->view('usuarios/cadastrar');
   }
 
-  public function loginForm()
-  {
-    $this->view('usuarios/login');
-  }
-
   public function cadastrarUsuario()
   {
     try {
@@ -40,13 +35,20 @@ class UsuarioController
       $usuario->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
 
       $usuario->cadastrarUsuario($usuario);
-      $this->view('usuarios/login');
+      header('Location: /usuarios/login');
+    exit();
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e, $dados);
+      $this->view('usuarios/cadastrar', $error);
     } catch (Exception $e) {
-      $erro = true;
-      $erroMsg = $e->getMessage();
-      $this->view('usuarios/cadastrar', ['erro' => $erro, 'erroMsg' => $erroMsg, 'dados' => $dados]);
-      return;
+      $error = ErrorsFunctions::handleError($e, $dados);
+      $this->view('usuarios/cadastrar', $error);
     }
+  }
+
+  public function editarUsuario()
+  {
+    echo 'Editar usuário';
   }
 
   public function buscarUsuarios()
@@ -67,11 +69,6 @@ class UsuarioController
   public function buscarUsuarioByEmail()
   {
     echo 'Buscar usuário por email';
-  }
-
-  public function editarUsuario()
-  {
-    echo 'Editar usuário';
   }
 
   public function deletarUsuario()

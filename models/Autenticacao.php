@@ -4,18 +4,19 @@ class Autenticacao
 {
   function autenticar($usuario, $senha)
   {
-    $usuarios = Usuario::buscarUsuarios();
+    $usuario = Usuario::buscarUsuarioByNomeUsuario($usuario);
 
-    if (empty($usuarios)) return ['sucesso' => false, 'erroMsg' => 'Usuário não cadastrado'];
+    if ($usuario['code'] === 404) throw new Exception($usuario['message'], 404);
 
-    foreach ($usuarios as $u) {
-      if ($u['nomeUsuario'] === $usuario) {
-        if ($u['senha'] === $senha)
-          return ['sucesso' => true, 'usuario' => $u];
-        return ['sucesso' => false, 'erroMsg' => 'Usuário e/ou senha incorretas'];
-      }
+    if (!password_verify($senha, $usuario['senha'])) {
+      throw new Exception('Usuário e/ou senha incorretos', 401);
     }
-    return ['sucesso' => false, 'erroMsg' => 'Usuário e/ou senha incorretas'];
+
+    session_start();
+    $_SESSION["usuarioLogado"] = $usuario;
+    header('Location: /');
+    
+    return ['code' => 200, 'message' => 'Usuário autenticado com sucesso'];
   }
 
   function logout()
