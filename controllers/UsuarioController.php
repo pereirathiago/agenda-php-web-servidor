@@ -74,6 +74,7 @@ class UsuarioController
       $this->validarDadosUsuario($dados);
 
       $usuario = new Usuario();
+      $usuario->id = $dados['id'];
       $usuario->nomeCompleto = $dados['nomeCompleto'];
       $usuario->nomeUsuario = $dados['nomeUsuario'];
       $usuario->dataNascimento = $dados['dataNascimento'];

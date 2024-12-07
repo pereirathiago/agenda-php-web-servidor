@@ -44,11 +44,11 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
       <div class="mb-4">
         <label class="block text-gray-700 font-semibold">Gênero:</label>
         <div class="flex items-center space-x-4">
-          <input required type="radio" name="genero" id="masculino" class="focus:ring-blue-500" <?= $_SESSION['usuarioLogado']->genero === 'Masculino' ? 'checked' : '' ?> disabled>
+          <input required type="radio" name="genero" id="masculino" value="Masculino" class="focus:ring-blue-500" <?= ($dados ? $dados['genero'] : $_SESSION['usuarioLogado']->genero) === 'Masculino' ? 'checked' : '' ?> disabled>
           <label for="masculino" class="text-gray-700">Masculino</label>
-          <input required type="radio" name="genero" id="feminino" class="focus:ring-blue-500" <?= $_SESSION['usuarioLogado']->genero === 'Feminino' ? 'checked' : '' ?> disabled>
+          <input required type="radio" name="genero" id="feminino" value="Feminino" class="focus:ring-blue-500" <?= ($dados ? $dados['genero'] : $_SESSION['usuarioLogado']->genero) === 'Feminino' ? 'checked' : '' ?> disabled>
           <label for="feminino" class="text-gray-700">Feminino</label>
-          <input required type="radio" name="genero" id="outro" class="focus:ring-blue-500" <?= $_SESSION['usuarioLogado']->genero === 'Outro' ? 'checked' : '' ?> disabled>
+          <input required type="radio" name="genero" id="outro" value="Outro" class="focus:ring-blue-500" <?= ($dados ? $dados['genero'] : $_SESSION['usuarioLogado']->genero) === 'Outro' ? 'checked' : '' ?> disabled>
           <label for="outro" class="text-gray-700">Outro</label>
         </div>
       </div>
