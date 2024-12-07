@@ -37,12 +37,12 @@ class Usuario
     $query = "UPDATE usuario SET nome_completo = :nomeCompleto, data_nascimento = :dataNascimento, genero = :genero, foto_perfil = :fotoPerfil, email = :email, senha = :senha WHERE nome_usuario = :nomeUsuario";
 
     $params = [
-      ':nomeCompleto' => $usuario['nomeCompleto'],
-      ':dataNascimento' => $usuario['dataNascimento'],
-      ':genero' => $usuario['genero'],
-      ':fotoPerfil' => $usuario['fotoPerfil'],
-      ':email' => $usuario['email'],
-      ':senha' => $usuario['senha'],
+      ':nomeCompleto' => $usuario->nomeCompleto,
+      ':dataNascimento' => $usuario->dataNascimento,
+      ':genero' => $usuario->genero,
+      ':fotoPerfil' => $usuario->fotoPerfil,
+      ':email' => $usuario->email,
+      ':senha' => $usuario->senha,
       ':nomeUsuario' => $nomeUsuario
     ];
 
@@ -51,7 +51,25 @@ class Usuario
     return ['code' => 200, 'message' => 'Usuário editado com sucesso'];
   }
 
-  static function buscarUsuarios() {}
+  static function buscarUsuarios($filtro = '')
+  {
+    $query = "SELECT 
+      id, nome_usuario AS nomeUsuario, nome_completo AS nomeCompleto, data_nascimento AS dataNascimento, genero, foto_perfil AS fotoPerfil, email, senha 
+      FROM usuario";
+
+    $params = [];
+
+    if ($filtro) {
+      $query .= " WHERE nome_usuario LIKE :filtro OR nome_completo LIKE :filtro OR email LIKE :filtro";
+
+      $params = [
+        ':filtro' => "%$filtro%"
+      ];
+    }
+    $usuarios = BdConexao::query($query, $params)->fetchAll(PDO::FETCH_CLASS, "Usuario");
+
+    return ['code' => 200, 'usuarios' => $usuarios];
+  }
 
   static function buscarUsuarioByNomeUsuario($nomeUsuario)
   {
@@ -73,18 +91,37 @@ class Usuario
     return ['code' => 200, 'usuario' => $usuario];
   }
 
-  function buscarUsuarioByEmail($email)
+  static function buscarUsuarioByEmail($email)
   {
-    if (!isset($_SESSION)) {
-      session_start();
+    $query = "SELECT 
+      id, nome_usuario AS nomeUsuario, nome_completo AS nomeCompleto, data_nascimento AS dataNascimento, genero, foto_perfil AS fotoPerfil, email, senha 
+      FROM usuario 
+      WHERE email = :email";
+
+    $params = [
+      ':email' => $email,
+    ];
+
+    $usuario = BdConexao::query($query, $params)->fetchObject("Usuario");
+
+    if (!$usuario) {
+      return ['code' => 404, 'message' => 'Usuário não encontrado'];
     }
-    $usuarios = $_SESSION['usuarios'] ?? '';
-    foreach ($usuarios as $u) {
-      if ($u['email'] === $email) {
-        return $u;
-      }
-    }
-    return null;
+
+    return ['code' => 200, 'usuario' => $usuario];
+  }
+
+  static function deletarUsuario($nomeUsuario)
+  {
+    $query = "DELETE FROM usuario WHERE nome_usuario = :nomeUsuario";
+
+    $params = [
+      ':nomeUsuario' => $nomeUsuario
+    ];
+
+    BdConexao::query($query, $params);
+
+    return ['code' => 200, 'message' => 'Usuário deletado com sucesso'];
   }
 
   public function __get($propriedade)

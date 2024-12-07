@@ -13,6 +13,7 @@ class UsuarioController
   {
     try {
       $dados = [
+        'id' => 0,
         'nomeCompleto' => $_POST['nomeCompleto'] ?? '',
         'dataNascimento' => $_POST['dataNascimento'] ?? '',
         'genero' => $_POST['genero'] ?? '',
@@ -46,34 +47,88 @@ class UsuarioController
     }
   }
 
+  public function perfilForm()
+  {
+    $this->view('usuarios/perfil');
+  }
+
   public function editarUsuario()
   {
-    echo 'Editar usuário';
+    try {
+      if (!isset($_SESSION)) {
+        session_start();
+      }
+
+      $dados = [
+        'id' => $_SESSION['usuarioLogado']->id ?? 0,
+        'nomeCompleto' => $_POST['nomeCompleto'] ?? '',
+        'dataNascimento' => $_POST['dataNascimento'] ?? '',
+        'genero' => $_POST['genero'] ?? '',
+        'fotoPerfil' => $_POST['fotoPerfil'] ?? '',
+        'nomeUsuario' => $_SESSION['usuarioLogado']->nomeUsuario ?? '',
+        'email' => $_POST['email'] ?? '',
+        'senha' => $_POST['senha'] ?? '',
+        'confirmarSenha' => $_POST['confirmarSenha'] ?? ''
+      ];
+
+      $this->validarDadosUsuario($dados);
+
+      $usuario = new Usuario();
+      $usuario->nomeCompleto = $dados['nomeCompleto'];
+      $usuario->nomeUsuario = $dados['nomeUsuario'];
+      $usuario->dataNascimento = $dados['dataNascimento'];
+      $usuario->genero = $dados['genero'];
+      $usuario->fotoPerfil = $dados['fotoPerfil'];
+      $usuario->email = $dados['email'];
+      $usuario->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
+
+      $usuario->editarUsuario($usuario->nomeUsuario, $usuario);
+
+      $_SESSION['usuarioLogado'] = $usuario;
+
+      header('Location: /perfil');
+      exit();
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e, $dados);
+      $this->view('usuarios/perfil', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e, $dados);
+      $this->view('usuarios/perfil', $error);
+    }
   }
 
   public function buscarUsuarios()
   {
-    echo 'Buscar usuários';
-  }
+    try {
+      $filtro = $_POST['filtro'] ?? '';
 
-  public function buscarUsuarioById()
-  {
-    echo 'Buscar usuário por ID';
-  }
+      $usuarios = Usuario::buscarUsuarios($filtro);
 
-  public function buscarUsuarioByNomeUsuario()
-  {
-    echo 'Buscar usuário por nome';
-  }
-
-  public function buscarUsuarioByEmail()
-  {
-    echo 'Buscar usuário por email';
+      return json_encode($usuarios);
+    } catch (Exception $e) {
+      echo $e->getMessage();
+    }
   }
 
   public function deletarUsuario()
   {
-    echo 'Deletar usuário';
+    try {
+      if (!isset($_SESSION)) {
+        session_start();
+      }
+
+      Usuario::deletarUsuario($_SESSION['usuarioLogado']->nomeUsuario);
+
+      session_destroy();
+      header('Location: /usuarios/login');
+      exit();
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e);
+      $this->view('usuarios/perfil', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e);
+      $this->view('usuarios/perfil', $error);
+    }
   }
 
   private function validarDadosUsuario($dados)
@@ -104,6 +159,20 @@ class UsuarioController
 
     if (strtotime($dados['dataNascimento']) > strtotime(date('Y-m-d'))) {
       throw new Exception('A data de nascimento não pode ser no futuro.');
+    }
+
+    if ($dados['id'] == 0) {
+      $this->validarUsuarioExiste($dados);
+    }
+  }
+
+  private function validarUsuarioExiste($dados) {
+    if (Usuario::buscarUsuarioByNomeUsuario($dados['nomeUsuario'])['code'] == 200) {
+      throw new Exception('Nome de usuário já cadastrado');
+    }
+
+    if (Usuario::buscarUsuarioByEmail($dados['email'])['code'] == 200) {
+      throw new Exception('Email já cadastrado');
     }
   }
 }
