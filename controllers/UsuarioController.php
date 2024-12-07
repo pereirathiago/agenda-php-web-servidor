@@ -9,45 +9,46 @@ class UsuarioController
     $this->view('usuarios/cadastrar');
   }
 
-  public function loginForm()
-  {
-    $this->view('usuarios/login');
-  }
-
   public function cadastrarUsuario()
   {
-
-    $dados = [
-      'nomeCompleto' => $_POST['nomeCompleto'] ?? '',
-      'dataNascimento' => $_POST['dataNascimento'] ?? '',
-      'genero' => $_POST['genero'] ?? '',
-      'fotoPerfil' => $_POST['fotoPerfil'] ?? '',
-      'nomeUsuario' => $_POST['nomeUsuario'] ?? '',
-      'email' => $_POST['email'] ?? '',
-      'senha' => $_POST['senha'] ?? '',
-      'confirmarSenha' => $_POST['confirmarSenha'] ?? ''
-    ];
-
     try {
-      $this->validarDadosUsuario($dados);
-    } catch (Exception $e) {
-      $erro = true;
-      $erroMsg = $e->getMessage();
-      $this->view('usuarios/cadastrar', ['erro' => $erro, 'erroMsg' => $erroMsg, 'dados' => $dados]);
-      return;
-    }
+      $dados = [
+        'nomeCompleto' => $_POST['nomeCompleto'] ?? '',
+        'dataNascimento' => $_POST['dataNascimento'] ?? '',
+        'genero' => $_POST['genero'] ?? '',
+        'fotoPerfil' => $_POST['fotoPerfil'] ?? '',
+        'nomeUsuario' => $_POST['nomeUsuario'] ?? '',
+        'email' => $_POST['email'] ?? '',
+        'senha' => $_POST['senha'] ?? '',
+        'confirmarSenha' => $_POST['confirmarSenha'] ?? ''
+      ];
 
-    $usuario = new Usuario();
-    $usuario->nomeCompleto = $dados['nomeCompleto'];
-    $usuario->nomeUsuario = $dados['nomeUsuario'];
-    $usuario->dataNascimento = $dados['dataNascimento'];
-    $usuario->genero = $dados['genero'];
-    $usuario->fotoPerfil = $dados['fotoPerfil'];
-    $usuario->email = $dados['email'];
-    $usuario->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
-    
-    $usuario->salvarUsuario($usuario);
-    $this->view('usuarios/login');
+      $this->validarDadosUsuario($dados);
+
+      $usuario = new Usuario();
+      $usuario->nomeCompleto = $dados['nomeCompleto'];
+      $usuario->nomeUsuario = $dados['nomeUsuario'];
+      $usuario->dataNascimento = $dados['dataNascimento'];
+      $usuario->genero = $dados['genero'];
+      $usuario->fotoPerfil = $dados['fotoPerfil'];
+      $usuario->email = $dados['email'];
+      $usuario->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
+
+      $usuario->cadastrarUsuario($usuario);
+      header('Location: /usuarios/login');
+      exit();
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e, $dados);
+      $this->view('usuarios/cadastrar', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e, $dados);
+      $this->view('usuarios/cadastrar', $error);
+    }
+  }
+
+  public function editarUsuario()
+  {
+    echo 'Editar usuário';
   }
 
   public function buscarUsuarios()
@@ -70,11 +71,6 @@ class UsuarioController
     echo 'Buscar usuário por email';
   }
 
-  public function editarUsuario()
-  {
-    echo 'Editar usuário';
-  }
-
   public function deletarUsuario()
   {
     echo 'Deletar usuário';
@@ -95,7 +91,7 @@ class UsuarioController
     }
 
     if (!ValidarDados::validarByRegex($dados['nomeUsuario'], '/^[a-zA-Z0-9]{2,}$/')) {
-      throw new Exception('Nome de usuário pode conter apenas letras, números');
+      throw new Exception('Nome de usuário pode conter apenas letras, números e no mínimo 2 caracteres');
     }
 
     if (!ValidarDados::validarByRegex($dados['senha'], '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/')) {

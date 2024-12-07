@@ -3,13 +3,21 @@
 use Pecee\Http\Request;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 
+// agenda
+Router::get('/', 'AgendaController@agendaTela');
+
 // hello world
 Router::get('/hello-world', 'OlaMundo@msg');
 
 // usuarios
 Router::get('/usuarios/cadastrar', 'UsuarioController@cadastrarForm');
-Router::get('/usuarios/login', 'UsuarioController@loginForm');
 Router::post('/usuarios/cadastrar', 'UsuarioController@cadastrarUsuario');
+Router::put('/usuarios/editar', 'UsuarioController@editarUsuario');
+
+// autenticacao
+Router::get('/usuarios/login', 'AutenticacaoController@loginForm');
+Router::post('/usuarios/login', 'AutenticacaoController@login');
+Router::post('/usuarios/logout', 'AutenticacaoController@logout');
 
 // erros
 Router::get('/404', 'ErrorController@error404');

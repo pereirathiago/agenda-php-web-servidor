@@ -9,9 +9,9 @@
     </nav>
 
     <a href="/perfil" class="flex items-center space-x-4">
-      <span class="text-white hidden md:block">Olá, <?= $_SESSION['usuarioLogado']['nomeCompleto']; ?> </span>
+      <span class="text-white hidden md:block">Olá, <?= $_SESSION['usuarioLogado']->nomeCompleto; ?> </span>
       <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-blue-500">
-        <img src="<?= $_SESSION['usuarioLogado']['fotoPerfil']; ?>" alt="Foto do usuário" class="w-full h-full object-cover">
+        <img src="<?= $_SESSION['usuarioLogado']->fotoPerfil ?>" alt="Foto do usuário" class="w-full h-full object-cover">
       </div>
     </a>
   </div>

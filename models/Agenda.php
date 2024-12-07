@@ -2,10 +2,6 @@
 session_start();
 
 class Agenda {
-  private $id;
-  private $idUsuario;
-  private $nomeUsuario;
-  
   public function __construct() { }
 
   static function obterCompromissosDoUsuario()
