@@ -54,7 +54,12 @@ class UsuarioController
   public function editarUsuario()
   {
     try {
+      if (!isset($_SESSION)) {
+        session_start();
+      }
+
       $dados = [
+        'id' => $_SESSION['usuarioLogado']->id ?? 0,
         'nomeCompleto' => $_POST['nomeCompleto'] ?? '',
         'dataNascimento' => $_POST['dataNascimento'] ?? '',
         'genero' => $_POST['genero'] ?? '',
@@ -64,8 +69,6 @@ class UsuarioController
         'senha' => $_POST['senha'] ?? '',
         'confirmarSenha' => $_POST['confirmarSenha'] ?? ''
       ];
-
-      print_r($_SESSION['usuarioLogado']->nomeUsuario);
 
       $this->validarDadosUsuario($dados);
 
@@ -79,6 +82,9 @@ class UsuarioController
       $usuario->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
 
       $usuario->editarUsuario($usuario->nomeUsuario, $usuario);
+
+      $_SESSION['usuarioLogado'] = $usuario;
+
       header('Location: /perfil');
       exit();
     } catch (PDOException $e) {

@@ -37,12 +37,12 @@ class Usuario
     $query = "UPDATE usuario SET nome_completo = :nomeCompleto, data_nascimento = :dataNascimento, genero = :genero, foto_perfil = :fotoPerfil, email = :email, senha = :senha WHERE nome_usuario = :nomeUsuario";
 
     $params = [
-      ':nomeCompleto' => $usuario['nomeCompleto'],
-      ':dataNascimento' => $usuario['dataNascimento'],
-      ':genero' => $usuario['genero'],
-      ':fotoPerfil' => $usuario['fotoPerfil'],
-      ':email' => $usuario['email'],
-      ':senha' => $usuario['senha'],
+      ':nomeCompleto' => $usuario->nomeCompleto,
+      ':dataNascimento' => $usuario->dataNascimento,
+      ':genero' => $usuario->genero,
+      ':fotoPerfil' => $usuario->fotoPerfil,
+      ':email' => $usuario->email,
+      ':senha' => $usuario->senha,
       ':nomeUsuario' => $nomeUsuario
     ];
 
