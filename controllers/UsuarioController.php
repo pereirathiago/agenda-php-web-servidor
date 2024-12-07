@@ -13,6 +13,7 @@ class UsuarioController
   {
     try {
       $dados = [
+        'id' => 0,
         'nomeCompleto' => $_POST['nomeCompleto'] ?? '',
         'dataNascimento' => $_POST['dataNascimento'] ?? '',
         'genero' => $_POST['genero'] ?? '',
@@ -149,6 +150,20 @@ class UsuarioController
 
     if (strtotime($dados['dataNascimento']) > strtotime(date('Y-m-d'))) {
       throw new Exception('A data de nascimento não pode ser no futuro.');
+    }
+
+    if ($dados['id'] == 0) {
+      $this->validarUsuarioExiste($dados);
+    }
+  }
+
+  private function validarUsuarioExiste($dados) {
+    if (Usuario::buscarUsuarioByNomeUsuario($dados['nomeUsuario'])['code'] == 200) {
+      throw new Exception('Nome de usuário já cadastrado');
+    }
+
+    if (Usuario::buscarUsuarioByEmail($dados['email'])['code'] == 200) {
+      throw new Exception('Email já cadastrado');
     }
   }
 }

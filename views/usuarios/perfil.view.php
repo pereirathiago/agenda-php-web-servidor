@@ -72,7 +72,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
 
       <div class="mb-4 hidden" id="confirmar-senha-container">
         <label for="confirmar-senha" class="block text-gray-700 font-semibold">Confirmar Senha:</label>
-        <input required type="password" name="confirmarSenha" placeholder="Confirme a sua senha" id="confirmar-senha" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" disabled value="<?= $dados ? $dados['confirmarSenha'] : '' ?>">
+        <input required type="password" name="confirmarSenha" placeholder="Confirme a sua senha" id="confirmar-senha" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" disabled >
       </div>
 
       <div class="flex justify-center">
@@ -99,7 +99,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
     });
 
     nomeUsuario.disabled = true;
-    senhaInput.value = <?= $dados ? $dados['senha'] : '' ?>;
+    senhaInput.value = ''; 
 
     confirmarSenhaContainer.classList.toggle('hidden');
     salvarButton.classList.toggle('hidden');

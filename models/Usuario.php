@@ -73,18 +73,24 @@ class Usuario
     return ['code' => 200, 'usuario' => $usuario];
   }
 
-  function buscarUsuarioByEmail($email)
+  static function buscarUsuarioByEmail($email)
   {
-    if (!isset($_SESSION)) {
-      session_start();
+    $query = "SELECT 
+      id, nome_usuario AS nomeUsuario, nome_completo AS nomeCompleto, data_nascimento AS dataNascimento, genero, foto_perfil AS fotoPerfil, email, senha 
+      FROM usuario 
+      WHERE email = :email";
+
+    $params = [
+      ':email' => $email,
+    ];
+
+    $usuario = BdConexao::query($query, $params)->fetchObject("Usuario");
+
+    if (!$usuario) {
+      return ['code' => 404, 'message' => 'Usuário não encontrado'];
     }
-    $usuarios = $_SESSION['usuarios'] ?? '';
-    foreach ($usuarios as $u) {
-      if ($u['email'] === $email) {
-        return $u;
-      }
-    }
-    return null;
+
+    return ['code' => 200, 'usuario' => $usuario];
   }
 
   public function __get($propriedade)
