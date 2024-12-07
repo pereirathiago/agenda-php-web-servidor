@@ -32,6 +32,11 @@ class AutenticacaoController
     }
   }
 
+  public function logout()
+  {
+    Autenticacao::logout();
+  }
+
   private function validarDadosLogin($dados)
   {
     if (!ValidarDados::validadarDadosPreenchidos($dados)) {

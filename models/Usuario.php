@@ -55,7 +55,10 @@ class Usuario
 
   static function buscarUsuarioByNomeUsuario($nomeUsuario)
   {
-    $query = "SELECT * FROM usuario WHERE nome_usuario = :nomeUsuario";
+    $query = "SELECT 
+      id, nome_usuario AS nomeUsuario, nome_completo AS nomeCompleto, data_nascimento AS dataNascimento, genero, foto_perfil AS fotoPerfil, email, senha 
+      FROM usuario 
+      WHERE nome_usuario = :nomeUsuario";
 
     $params = [
       ':nomeUsuario' => $nomeUsuario,

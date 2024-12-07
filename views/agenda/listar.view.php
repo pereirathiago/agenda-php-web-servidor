@@ -21,7 +21,7 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
       </a>
     </div>
 
-    <p class="text-gray-600 mb-4">Bem-vindo, <?php echo $_SESSION['usuarioLogado']['nomeCompleto']; ?>!</p>
+    <p class="text-gray-600 mb-4">Bem-vindo, <?php echo $_SESSION['usuarioLogado']->nomeCompleto; ?>!</p>
 
     <div class="overflow-x-auto">
       <table class="min-w-full bg-white border border-gray-200 rounded-lg">

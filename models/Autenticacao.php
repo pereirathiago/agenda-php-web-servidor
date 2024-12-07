@@ -13,15 +13,16 @@ class Autenticacao
     }
 
     session_start();
-    $_SESSION["usuarioLogado"] = $usuario;
+    $_SESSION["usuarioLogado"] = $usuario['usuario'];
     header('Location: /');
     
     return ['code' => 200, 'message' => 'Usuário autenticado com sucesso'];
   }
 
-  function logout()
+  public static function logout()
   {
-    session_start();
+    if(!isset($_SESSION))
+      session_start();
     unset($_SESSION["usuarioLogado"]);
     header('Location: /usuarios/login');
     exit();
