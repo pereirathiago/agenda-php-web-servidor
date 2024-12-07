@@ -67,7 +67,7 @@ class Usuario
       return ['code' => 404, 'message' => 'Usuário não encontrado'];
     }
 
-    return ['code' => 200, 'message' => 'Usuário encontrado com sucesso'];
+    return ['code' => 200, 'usuario' => $usuario];
   }
 
   function buscarUsuarioByEmail($email)

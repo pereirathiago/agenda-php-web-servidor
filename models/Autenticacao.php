@@ -8,7 +8,7 @@ class Autenticacao
 
     if ($usuario['code'] === 404) throw new Exception($usuario['message'], 404);
 
-    if (!password_verify($senha, $usuario['senha'])) {
+    if (!password_verify($senha, $usuario['usuario']->senha)) {
       throw new Exception('Usuário e/ou senha incorretos', 401);
     }
 

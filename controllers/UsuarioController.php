@@ -36,7 +36,7 @@ class UsuarioController
 
       $usuario->cadastrarUsuario($usuario);
       header('Location: /usuarios/login');
-    exit();
+      exit();
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e, $dados);
       $this->view('usuarios/cadastrar', $error);
