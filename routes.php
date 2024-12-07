@@ -12,7 +12,8 @@ Router::get('/hello-world', 'OlaMundo@msg');
 // usuarios
 Router::get('/usuarios/cadastrar', 'UsuarioController@cadastrarForm');
 Router::post('/usuarios/cadastrar', 'UsuarioController@cadastrarUsuario');
-Router::put('/usuarios/editar', 'UsuarioController@editarUsuario');
+Router::post('/usuarios/editar', 'UsuarioController@editarUsuario');
+Router::get('/perfil', 'UsuarioController@perfilForm');
 
 // autenticacao
 Router::get('/usuarios/login', 'AutenticacaoController@loginForm');

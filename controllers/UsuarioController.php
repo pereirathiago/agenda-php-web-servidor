@@ -46,9 +46,48 @@ class UsuarioController
     }
   }
 
+  public function perfilForm()
+  {
+    $this->view('usuarios/perfil');
+  }
+
   public function editarUsuario()
   {
-    echo 'Editar usuário';
+    try {
+      $dados = [
+        'nomeCompleto' => $_POST['nomeCompleto'] ?? '',
+        'dataNascimento' => $_POST['dataNascimento'] ?? '',
+        'genero' => $_POST['genero'] ?? '',
+        'fotoPerfil' => $_POST['fotoPerfil'] ?? '',
+        'nomeUsuario' => $_SESSION['usuarioLogado']->nomeUsuario ?? '',
+        'email' => $_POST['email'] ?? '',
+        'senha' => $_POST['senha'] ?? '',
+        'confirmarSenha' => $_POST['confirmarSenha'] ?? ''
+      ];
+
+      print_r($_SESSION['usuarioLogado']->nomeUsuario);
+
+      $this->validarDadosUsuario($dados);
+
+      $usuario = new Usuario();
+      $usuario->nomeCompleto = $dados['nomeCompleto'];
+      $usuario->nomeUsuario = $dados['nomeUsuario'];
+      $usuario->dataNascimento = $dados['dataNascimento'];
+      $usuario->genero = $dados['genero'];
+      $usuario->fotoPerfil = $dados['fotoPerfil'];
+      $usuario->email = $dados['email'];
+      $usuario->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
+
+      $usuario->editarUsuario($usuario->nomeUsuario, $usuario);
+      header('Location: /perfil');
+      exit();
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e, $dados);
+      $this->view('usuarios/perfil', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e, $dados);
+      $this->view('usuarios/perfil', $error);
+    }
   }
 
   public function buscarUsuarios()
