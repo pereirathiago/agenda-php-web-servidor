@@ -51,7 +51,25 @@ class Usuario
     return ['code' => 200, 'message' => 'Usuário editado com sucesso'];
   }
 
-  static function buscarUsuarios() {}
+  static function buscarUsuarios($filtro = '')
+  {
+    $query = "SELECT 
+      id, nome_usuario AS nomeUsuario, nome_completo AS nomeCompleto, data_nascimento AS dataNascimento, genero, foto_perfil AS fotoPerfil, email, senha 
+      FROM usuario";
+
+    $params = [];
+
+    if ($filtro) {
+      $query .= " WHERE nome_usuario LIKE :filtro OR nome_completo LIKE :filtro OR email LIKE :filtro";
+
+      $params = [
+        ':filtro' => "%$filtro%"
+      ];
+    }
+    $usuarios = BdConexao::query($query, $params)->fetchAll(PDO::FETCH_CLASS, "Usuario");
+
+    return ['code' => 200, 'usuarios' => $usuarios];
+  }
 
   static function buscarUsuarioByNomeUsuario($nomeUsuario)
   {

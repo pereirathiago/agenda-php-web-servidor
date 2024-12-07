@@ -99,22 +99,15 @@ class UsuarioController
 
   public function buscarUsuarios()
   {
-    echo 'Buscar usuários';
-  }
+    try {
+      $filtro = $_POST['filtro'] ?? '';
 
-  public function buscarUsuarioById()
-  {
-    echo 'Buscar usuário por ID';
-  }
+      $usuarios = Usuario::buscarUsuarios($filtro);
 
-  public function buscarUsuarioByNomeUsuario()
-  {
-    echo 'Buscar usuário por nome';
-  }
-
-  public function buscarUsuarioByEmail()
-  {
-    echo 'Buscar usuário por email';
+      return json_encode($usuarios);
+    } catch (Exception $e) {
+      echo $e->getMessage();
+    }
   }
 
   public function deletarUsuario()
