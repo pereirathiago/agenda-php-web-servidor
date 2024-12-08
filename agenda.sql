@@ -64,7 +64,8 @@ CREATE TABLE `local` (
   `bairro` varchar(100) NOT NULL,
   `cidade` varchar(100) NOT NULL,
   `estado` varchar(100) NOT NULL,
-  `cep` varchar(9) NOT NULL
+  `cep` varchar(9) NOT NULL,
+  `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -107,7 +108,8 @@ ALTER TABLE `convidado`
 -- Índices de tabela `local`
 --
 ALTER TABLE `local`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_local_usuario` (`id_usuario`);
 
 --
 -- Índices de tabela `usuario`
@@ -162,6 +164,12 @@ ALTER TABLE `convidado`
   ADD CONSTRAINT `fk_convidado_compromisso` FOREIGN KEY (`id_compromisso`) REFERENCES `compromisso` (`id`),
   ADD CONSTRAINT `fk_convidado_usuario` FOREIGN KEY (`id_usuario_organizador`) REFERENCES `usuario` (`id`);
 COMMIT;
+
+--
+-- Restrições para tabelas `local`
+--
+ALTER TABLE `local`
+  ADD CONSTRAINT `fk_local_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);	
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
