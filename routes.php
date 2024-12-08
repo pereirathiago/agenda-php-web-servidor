@@ -16,6 +16,10 @@ Router::post('/usuarios/editar', 'UsuarioController@editarUsuario');
 Router::get('/perfil', 'UsuarioController@perfilForm');
 Router::post('/usuarios/deletar', 'UsuarioController@deletarUsuario');
 
+//compromissos
+Router::get('/compromissos/cadastrar', 'CompromissoController@cadastrarForm');
+Router::post('/compromissos/cadastrar', 'CompromissoController@cadastrar');
+
 // autenticacao
 Router::get('/usuarios/login', 'AutenticacaoController@loginForm');
 Router::post('/usuarios/login', 'AutenticacaoController@login');

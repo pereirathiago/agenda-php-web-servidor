@@ -1,5 +1,5 @@
 <?php
-require_once('models/Local.php');
+//require_once('models/Local.php');
 
 if (!isset($_SESSION)) {
   session_start();
@@ -20,20 +20,25 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
         </div>
       <?php endif; ?>
       <div>
-        <label for="nome-compromisso" class="block text-gray-700 font-semibold">Nome Do Compromisso:</label>
-        <input required type="text" name="nomeCompromisso" placeholder="Digite o nome do compromisso" id="nome-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <label for="titulo" class="block text-gray-700 font-semibold">Nome Do Compromisso:</label>
+        <input required type="text" name="titulo" placeholder="Digite o nome do compromisso" id="titulo" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" values="<?= $dados['titulo'] ?? '' ?>">
       </div>
       <div>
-        <label for="data-compromisso" class="block text-gray-700 font-semibold">Data do Compromisso:</label>
-        <input required min="<?= date('Y-m-d\TH:i'); ?>" type="datetime-local" name="dataCompromisso" id="data-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <label for="data-inicio-compromisso" class="block text-gray-700 font-semibold">Data de Inicio do Compromisso:</label>
+        <input required min="<?= date('Y-m-d\TH:i'); ?>" type="datetime-local" name="dataHoraInicio" id="data-inicio-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" values="<?= $dados['dataHoraInicio'] ?? '' ?>">
+      </div>
+      <div>
+        <label for="data-fim-compromisso" class="block text-gray-700 font-semibold">Data de Fim do Compromisso:</label>
+        <input type="datetime-local" name="dataHoraFim" id="data-fim-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" values="<?= $dados['dataHoraFim'] ?? '' ?>">
       </div>
       <div>
         <label for="local" class="block text-gray-700 font-semibold">Local do Compromisso</label>
         <div class="flex">
-          <select name="locais" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select name="idLocal" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <?php
             $arrayLocais = Local::buscarLocais();
-            preencherOptionsLocais($arrayLocais);
+            $locais = $arrayLocais['locais'];
+            preencherOptionsLocais($locais);
             ?>
           </select>
           <input type="button" value="Novo Local" name="cadastrarLocal" onclick="redirecionarCadastroLocal()" class="p-4 fs-20 text-xl py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
@@ -41,7 +46,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
       </div>
       <div>
         <label for="descricao-compromisso" class="block text-gray-700 font-semibold">Descrição do Compromisso:</label>
-        <textarea required type="text" name="descricaoCompromisso" placeholder="Digite a descrição do compromisso" id="descricao-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        <textarea required type="text" name="descricao" placeholder="Digite a descrição do compromisso" id="descricao-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" values="<?= $dados['descricao'] ?? '' ?>"></textarea>
       </div>
       <div>
         <label for="convidados" class="block text-gray-700 font-semibold">Convidados</label>
@@ -100,9 +105,12 @@ function preencherOptions($arrayUsuarios)
 function preencherOptionsLocais($arrayLocais)
 {
   foreach ($arrayLocais as $l) {
-    $endereco = $l['endereco'];
-    $numero = $l['numero'];
-    echo "<option>$endereco, $numero</option>";
+    if(is_object($l)){
+      $endereco = $l->endereco;
+      $numero = $l->numero;
+      echo "<option value=`$l->id`>$endereco, $numero</option>";
+    }
+      
   }
 }
 function adicionarConvidado($usuariosConvidados)

@@ -16,12 +16,19 @@ class Compromisso
 
   function salvarCompromisso($dados)
   {
-    if (!isset($_SESSION)) {
-      session_start();
-    }
-    
-    $usuario = new Usuario();
-    $usuario->editarUsuario($dados['nomeUsuario'], $dados);
+    $query = "INSERT INTO compromisso (titulo, descricao, data_hora_inicio, data_hora_fim, id_local, id_compromisso_organizador) VALUES (:titulo, :descricao, :dataHoraInicio, :dataHoraFim, :idLocal, :idCompromissoOrganizador)";
+
+    $params = [
+      ':titulo' => $dados->titulo,
+      ':descricao' => $dados->descricao,
+      ':dataHoraInicio' => $dados->dataHoraInicio,
+      ':dataHoraFim' => $dados->dataHoraFim,
+      ':idLocal' => $dados->idLocal,
+      ':idCompromissoOrganizador' => $dados->idCompromissoOrganizador
+    ];
+
+    BdConexao::query($query, $params);
+    return ['code' => 201, 'message' => 'Compromisso cadastrado com sucesso'];
   }
 
   public function __get($propriedade)
