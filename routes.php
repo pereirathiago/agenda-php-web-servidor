@@ -24,6 +24,8 @@ Router::post('/usuarios/logout', 'AutenticacaoController@logout');
 // locais
 Router::get('/locais', 'LocalController@telaListar');
 Router::get('/locais/cadastrar', 'LocalController@telaCadastrar');
+Router::get('/locais/editar/{id}', 'LocalController@telaEditar');
+Router::post('/locais/editar/{id}', 'LocalController@editar');
 Router::post('/locais/cadastrar', 'LocalController@cadastrar');
 Router::post('/locais/deletar/{id}', 'LocalController@deletar');
 

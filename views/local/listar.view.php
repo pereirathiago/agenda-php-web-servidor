@@ -31,7 +31,7 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                         <th class="text-left py-3 px-4 text-gray-600 font-semibold">Bairro</th>
                         <th class="text-left py-3 px-4 text-gray-600 font-semibold">Cidade</th>
                         <th class="text-left py-3 px-4 text-gray-600 font-semibold">Estado</th>
-                        <th class="text-left py-3 px-4 text-gray-600 font-semibold">Ações</th>
+                        <th c   lass="text-left py-3 px-4 text-gray-600 font-semibold">Ações</th>
                     </tr>
                 </thead>
                 <tbody>

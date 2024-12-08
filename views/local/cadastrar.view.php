@@ -9,8 +9,8 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
 <?php include('layout/header-nav.php'); ?>
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full">
-    <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Cadastro de Local</h1>
-    <form action="/locais/cadastrar" method="post" class="space-y-4">
+    <h1 class="text-3xl font-bold mb-6 text-center text-gray-800"><?= $dados && isset($dados['id']) ? 'Editar Local' : 'Cadastro de Local' ?></h1>
+    <form action="<?= isset($dados['id']) ? "/locais/editar/{$dados["id"]}" : '/locais/cadastrar' ?>" method="post" class="space-y-4">
       <?php if (isset($erro) && $erro) : ?>
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
           <strong class="font-bold">Ops!</strong>
@@ -46,7 +46,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
         <input required type="text" name="estado" placeholder="Digite o estado" id="estado" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" value="<?= $dados['estado'] ?? '' ?>">
       </div>
       <div>
-        <button type="submit" name="cadastrarLocal" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Cadastrar Local</button>
+        <button type="submit" name="cadastrarLocal" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"><?= isset($dados['id']) ? 'Editar Local' : 'Cadastrar Local' ?> </button>
       </div>
     </form>
   </div>
