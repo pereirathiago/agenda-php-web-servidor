@@ -6,7 +6,16 @@ class LocalController
 
   public function telaListar()
   {
-    $this->view('local/listar');
+    try {
+      $locais = Local::buscarLocais();
+      $this->view('local/listar', $locais);
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e);
+      $this->view('local/listar', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e);
+      $this->view('local/listar', $error);
+    }
   }
 
   public function telaCadastrar()
@@ -52,6 +61,27 @@ class LocalController
     } catch (Exception $e) {
       $error = ErrorsFunctions::handleError($e, $dados);
       $this->view('local/cadastrar', $error);
+    }
+  }
+
+  public function deletar() {
+    try {
+      $id = $_GET['id'] ?? 0;
+
+      if ($id <= 0) {
+        throw new Exception('ID inválido.');
+      }
+
+      $local = new Local();
+      $local->deletarLocal($id);
+
+      header('Location: /locais');
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e);
+      $this->view('local/listar', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e);
+      $this->view('local/listar', $error);
     }
   }
 

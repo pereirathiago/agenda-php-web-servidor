@@ -25,6 +25,7 @@ Router::post('/usuarios/logout', 'AutenticacaoController@logout');
 Router::get('/locais', 'LocalController@telaListar');
 Router::get('/locais/cadastrar', 'LocalController@telaCadastrar');
 Router::post('/locais/cadastrar', 'LocalController@cadastrar');
+Router::post('/locais/deletar/{id}', 'LocalController@deletar');
 
 // erros
 Router::get('/404', 'ErrorController@error404');

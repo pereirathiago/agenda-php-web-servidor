@@ -34,13 +34,37 @@ class Local
     return ['code' => 201, 'message' => 'Local cadastrado com sucesso'];
   }
 
-  static function buscarLocais()
+  static function buscarLocais($filtro = '')
   {
-    if (!isset($_SESSION)) {
-      session_start();
+    $query = "SELECT 
+      id, cep, endereco, sem_numero AS semNumero, numero, bairro, cidade, estado, id_usuario AS idUsuario 
+      FROM local";
+
+    $params = [];
+
+    if ($filtro) {
+      $query .= " WHERE cep LIKE :filtro OR endereco LIKE :filtro OR bairro LIKE :filtro OR cidade LIKE :filtro OR estado LIKE :filtro";
+
+      $params = [
+        ':filtro' => "%$filtro%"
+      ];
     }
-    $locais = $_SESSION['locais'] ?? '';
-    return $locais;
+    $locais = BdConexao::query($query, $params)->fetchAll(PDO::FETCH_CLASS, "Local");
+
+    return ['code' => 200, 'locais' => $locais];
+  }
+
+  function deletarLocal($id)
+  {
+    $query = "DELETE FROM local WHERE id = :id";
+
+    $params = [
+      ':id' => $id
+    ];
+
+    BdConexao::query($query, $params);
+
+    return ['code' => 200, 'message' => 'Local excluído com sucesso'];
   }
 
   public function __get($propriedade)
