@@ -16,7 +16,7 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
     <div class="max-w-4xl w-full bg-white shadow-md rounded-lg p-6">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-semibold text-gray-800">Lista de Locais</h2>
-            <a href="/local/cadastrar" class="bg-blue-700 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow">
+            <a href="/locais/cadastrar" class="bg-blue-700 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow">
                 Cadastrar Local
             </a>
         </div>

@@ -21,6 +21,11 @@ Router::get('/usuarios/login', 'AutenticacaoController@loginForm');
 Router::post('/usuarios/login', 'AutenticacaoController@login');
 Router::post('/usuarios/logout', 'AutenticacaoController@logout');
 
+// locais
+Router::get('/locais', 'LocalController@telaListar');
+Router::get('/locais/cadastrar', 'LocalController@telaCadastrar');
+Router::post('/locais/cadastrar', 'LocalController@cadastrar');
+
 // erros
 Router::get('/404', 'ErrorController@error404');
 Router::get('/500', 'ErrorController@error500');

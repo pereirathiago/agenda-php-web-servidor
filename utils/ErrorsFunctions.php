@@ -13,9 +13,10 @@ class ErrorsFunctions
   {
     $erro = true;
     switch ($e->getCode()) {
-      case 23000:
-        $erroMsg = 'Já existe um usuário com este email ou nome de usuário.';
-        break;
+      // case 23000:
+      //   // $erroMsg = 'Já existe um usuário com este email ou nome de usuário.';
+      //   $erroMsg = $e->getMessage();
+      //   break;
       default:
         $erroMsg = 'Erro no banco de dados: ' . $e->getMessage();
         break;

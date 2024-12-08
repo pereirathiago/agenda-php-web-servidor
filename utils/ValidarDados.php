@@ -5,7 +5,7 @@ class ValidarDados
   public static function validadarDadosPreenchidos($dados)
   {
     foreach ($dados as $dado) {
-      if (trim($dado) === '') {
+      if (!is_bool($dado) && trim($dado) === '') {
         return false;
       }
     }
