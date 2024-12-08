@@ -64,12 +64,10 @@ class LocalController
     }
   }
 
-  public function deletar() {
+  public function deletar($id = 0) {
     try {
-      $id = $_GET['id'] ?? 0;
-
       if ($id <= 0) {
-        throw new Exception('ID inválido.');
+        throw new Exception("ID inválido {$id}.");
       }
 
       $local = new Local();
@@ -78,10 +76,12 @@ class LocalController
       header('Location: /locais');
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e);
-      $this->view('local/listar', $error);
+      print_r( $error);
+      // $this->view('local/listar', $error);
     } catch (Exception $e) {
       $error = ErrorsFunctions::handleError($e);
-      $this->view('local/listar', $error);
+      print_r( $error);
+      // $this->view('local/listar', $error);
     }
   }
 

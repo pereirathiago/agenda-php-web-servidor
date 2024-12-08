@@ -47,7 +47,9 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                                     <td class="py-3 px-4 text-gray-800"><?= $local->estado; ?></td>
                                     <td class="py-3 px-4 text-gray-800">
                                         <a href="/locais/editar/<?= $local->id; ?>" class="text-blue-600 hover:text-blue-800">Editar</a>
-                                        <a href="/locais/deletar/<?= $local->id; ?>" class="text-red-600 hover:text-red-800 ml-4">Excluir</a>
+                                        <form action="/locais/deletar/<?= $local->id; ?>" method="post" class="inline" onsubmit="return confirm('Tem certeza que deseja excluir este local?');">
+                                            <button type="submit" class="text-red-600 hover:text-red-800 ml-4">Excluir</button>
+                                        </form>
                                     </td>
                                 <?php endif; ?>
                             </tr>
