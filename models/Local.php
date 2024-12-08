@@ -73,6 +73,47 @@ class Local
 
     return ['code' => 200, 'local' => $local];
   }
+  
+  static function buscarLocalByCep($cep)
+  {
+    $query = "SELECT 
+      id, cep, endereco, sem_numero AS semNumero, numero, bairro, cidade, estado, id_usuario AS idUsuario 
+      FROM local WHERE cep = :cep";
+
+    $params = [
+      ':cep' => $cep,
+    ];
+
+    $local = BdConexao::query($query, $params)->fetchObject("Local");
+
+    if (!$local) {
+      return ['code' => 404, 'message' => 'Local não encontrado'];
+    }
+
+    return ['code' => 200, 'local' => $local];
+  }
+
+  static function buscarLocalByIdUsuario($idUsuario, $filtro = '')
+  {
+    $query = "SELECT 
+      id, cep, endereco, sem_numero AS semNumero, numero, bairro, cidade, estado, id_usuario AS idUsuario 
+      FROM local where id_usuario = :idUsuario";
+
+    $params = [
+      ':idUsuario' => $idUsuario
+    ];
+
+    if ($filtro) {
+      $query .= " WHERE cep LIKE :filtro OR endereco LIKE :filtro OR bairro LIKE :filtro OR cidade LIKE :filtro OR estado LIKE :filtro";
+
+      $params .= [
+        ':filtro' => "%$filtro%"
+      ];
+    }
+    $locais = BdConexao::query($query, $params)->fetchAll(PDO::FETCH_CLASS, "Local");
+
+    return ['code' => 200, 'locais' => $locais];
+  }
 
   static function buscarLocalByIdUsuarioId($id, $idUsuario)
   {

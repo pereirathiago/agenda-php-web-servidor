@@ -7,7 +7,11 @@ class LocalController
   public function telaListar()
   {
     try {
-      $locais = Local::buscarLocais();
+      if (!isset($_SESSION)) {
+        session_start();
+      }
+
+      $locais = Local::buscarLocalByIdUsuario($_SESSION['usuarioLogado']->id);
       $this->view('local/listar', $locais);
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e);
