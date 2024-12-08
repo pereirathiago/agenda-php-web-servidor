@@ -21,15 +21,15 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
       <?php endif; ?>
       <div>
         <label for="titulo" class="block text-gray-700 font-semibold">Nome Do Compromisso:</label>
-        <input required type="text" name="titulo" placeholder="Digite o nome do compromisso" id="titulo" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" values="<?= $dados['titulo'] ?? '' ?>">
+        <input required type="text" name="titulo" placeholder="Digite o nome do compromisso" id="titulo" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" value="<?= $dados['titulo'] ?? '' ?>">
       </div>
       <div>
         <label for="data-inicio-compromisso" class="block text-gray-700 font-semibold">Data de Inicio do Compromisso:</label>
-        <input required min="<?= date('Y-m-d\TH:i'); ?>" type="datetime-local" name="dataHoraInicio" id="data-inicio-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" values="<?= $dados['dataHoraInicio'] ?? '' ?>">
+        <input required min="<?= date('Y-m-d\TH:i'); ?>" type="datetime-local" name="dataHoraInicio" id="data-inicio-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" value="<?= $dados['dataHoraInicio'] ?? '' ?>">
       </div>
       <div>
         <label for="data-fim-compromisso" class="block text-gray-700 font-semibold">Data de Fim do Compromisso:</label>
-        <input type="datetime-local" name="dataHoraFim" id="data-fim-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" values="<?= $dados['dataHoraFim'] ?? '' ?>">
+        <input type="datetime-local" name="dataHoraFim" id="data-fim-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" value="<?= $dados['dataHoraFim'] ?? '' ?>">
       </div>
       <div>
         <label for="local" class="block text-gray-700 font-semibold">Local do Compromisso</label>
@@ -46,7 +46,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
       </div>
       <div>
         <label for="descricao-compromisso" class="block text-gray-700 font-semibold">Descrição do Compromisso:</label>
-        <textarea required type="text" name="descricao" placeholder="Digite a descrição do compromisso" id="descricao-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" values="<?= $dados['descricao'] ?? '' ?>"></textarea>
+        <textarea required type="text" name="descricao" placeholder="Digite a descrição do compromisso" id="descricao-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" ><?= $dados['descricao'] ?? '' ?></textarea>
       </div>
       <div>
         <label for="convidados" class="block text-gray-700 font-semibold">Convidados</label>
