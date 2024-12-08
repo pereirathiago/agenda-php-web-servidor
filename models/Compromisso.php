@@ -16,7 +16,7 @@ class Compromisso
 
   function salvarCompromisso($dados)
   {
-    $query = "INSERT INTO compromisso (titulo, descricao, data_hora_inicio, data_hora_fim, id_local, id_compromisso_organizador) VALUES (:titulo, :descricao, :dataHoraInicio, :dataHoraFim, :idLocal, :idCompromissoOrganizador)";
+    $query = "INSERT INTO compromisso (titulo, descricao, data_hora_inicio, data_hora_termino, id_local, id_compromisso_organizador) VALUES (:titulo, :descricao, :dataHoraInicio, :dataHoraFim, :idLocal, :idCompromissoOrganizador)";
 
     $params = [
       ':titulo' => $dados->titulo,

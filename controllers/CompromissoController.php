@@ -28,8 +28,17 @@ class CompromissoController {
         $compromisso->descricao = $dados['descricao'];
         $compromisso->dataHoraInicio = $dados['dataHoraInicio'];
         $compromisso->dataHoraFim = $dados['dataHoraFim'];
+        $local = new Local();
+        $local = $local->buscarLocais;
         $compromisso->local = $dados['local'];
         $compromisso->idCompromissoOrganizador = $_SESSION['usuarioLogado']->id;
+
+        // $convidados = $_POST['convidados1'] ?? '';
+        // if($convidados!=''){
+        //     foreach($convidados as $c){
+
+        //     }
+        // }
   
         $compromisso->salvarCompromisso($compromisso); //tem que fazer o tr
         header('Location: /');

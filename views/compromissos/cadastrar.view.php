@@ -46,7 +46,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
       </div>
       <div>
         <label for="descricao-compromisso" class="block text-gray-700 font-semibold">Descrição do Compromisso:</label>
-        <textarea required type="text" name="descricao" placeholder="Digite a descrição do compromisso" id="descricao-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" ><?= $dados['descricao'] ?? '' ?></textarea>
+        <textarea required type="text" name="descricao" placeholder="Digite a descrição do compromisso" id="descricao-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"><?= $dados['descricao'] ?? '' ?></textarea>
       </div>
       <div>
         <label for="convidados" class="block text-gray-700 font-semibold">Convidados</label>
@@ -55,7 +55,9 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
             <option>Sem convidados</option>
             <?php
             $arrayUsuarios = Usuario::buscarUsuarios();
-            preencherOptions($arrayUsuarios);
+            $usuarios = $arrayUsuarios['usuarios'];
+            preencherOptions($usuarios);
+            print_r($usuarios);
             ?>
           </select>
           <input type="button" value="+" name="novoConvidado" onclick="adicionarConvidado()" class="p-4 fs-20 text-xl py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
@@ -65,11 +67,12 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
             function adicionarConvidado() {
               var select = document.getElementById('usuarioConvidado');
               var nomeConvidado = select.options[select.selectedIndex].text;
+              var idConvidado = select.options[select.selectedIndex].value;
               var divResultado = document.getElementById('resultado');
               var inputHidden = document.getElementsByName('convidados1');
               if (select.options[select.selectedIndex].text != "Sem convidados") {
                 divResultado.innerHTML += `<li>${nomeConvidado}</li>`;
-                inputHidden[0].value += nomeConvidado + ',';
+                inputHidden[0].value += idConvidado + ',';
               }
             }
 
@@ -91,26 +94,30 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
 <?php
 function preencherOptions($arrayUsuarios)
 {
-  //   session_start();
-  //   $usuarioLogado = $_SESSION['usuarioLogado'];
-  //   $username = $usuarioLogado['nomeCompleto'];
-  //   $array = array_filter($arrayUsuarios, function($item) use ($username) {
-  //     return $item !== $username;
-  // });
-  foreach ($arrayUsuarios as $u) {
-    $nomeCompleto = $u['nomeCompleto'];
-    echo "<option>$nomeCompleto</option>";
+  $usuarioLogado = $_SESSION['usuarioLogado'];
+  $username = $usuarioLogado->nomeUsuario;
+
+  $arrayFiltrado = array_filter($arrayUsuarios, function ($usuario) use ($username) {
+    return $usuario->nomeUsuario !== $username;
+  });
+
+  $arrayFiltrado = array_values($arrayFiltrado);
+
+  foreach ($arrayFiltrado as $u) {
+    if (is_object($u)) {
+      $nomeCompleto = $u->nomeCompleto;
+      echo "<option value=`$u->id`>$nomeCompleto</option>";
+    }
   }
 }
 function preencherOptionsLocais($arrayLocais)
 {
   foreach ($arrayLocais as $l) {
-    if(is_object($l)){
+    if (is_object($l)) {
       $endereco = $l->endereco;
       $numero = $l->numero;
       echo "<option value=`$l->id`>$endereco, $numero</option>";
     }
-      
   }
 }
 function adicionarConvidado($usuariosConvidados)
