@@ -30,6 +30,12 @@ Router::post('/locais/cadastrar', 'LocalController@cadastrar');
 Router::post('/locais/deletar/{id}', 'LocalController@deletar');
 Router::post('/locais/buscar-endereco/{cep}', 'LocalController@buscarEnderecoViaApi');
 
+// convites
+Router::get('/convites', 'ConvidadoController@telaListar');
+Router::post('/convites/aceitar/{id}', 'ConvidadoController@aceitar');
+Router::post('/convites/rejeitar/{id}', 'ConvidadoController@rejeitar');
+Router::post('/convidados/adicionar', 'ConvidadoController@adicionar');
+
 // erros
 Router::get('/404', 'ErrorController@error404');
 Router::get('/500', 'ErrorController@error500');
