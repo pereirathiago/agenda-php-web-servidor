@@ -52,7 +52,7 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                         <?php endforeach; ?>
                     </ul>
                 <?php else : ?>
-                    <p class="text-gray-800">Nenhum convidado</p>
+                    <a href="/compromissos/verConvidados/<?= $dados['id']; ?>" class="text-blue-600 hover:text-blue-800 ml-5">Ver convidados</a>
                 <?php endif; ?>
             </div>
 
@@ -67,5 +67,6 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                 </p>
             </div>
         </div>
+        
     </div>
 </div>

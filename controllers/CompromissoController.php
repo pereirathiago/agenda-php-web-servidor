@@ -192,4 +192,29 @@ class CompromissoController
       $this->view('compromissos/listar', $error);
     }
   }
+
+  public function telaConvidados($id){
+    try {
+    if ($id <= 0) {
+      throw new Exception("ID inválido {$id}.");
+    }
+
+    $compromisso = Compromisso::buscarCompromissoById($id);
+
+    $nomeUsuarioConvidado = Convidado::buscarConvidadosPorCompromisso($id);
+
+    $dados = [
+      'nomeConvidado' => $nomeUsuarioConvidado,
+      'id' => $compromisso['compromisso']->id
+    ];
+
+    $this->view('compromissos/verConvidados', $dados);
+  } catch (PDOException $e) {
+    $error = ErrorsFunctions::handlePDOError($e);
+    $this->view('/', $error);
+  } catch (Exception $e) {
+    $error = ErrorsFunctions::handleError($e);
+    $this->view('/', $error);
+  }
+  }
 }
