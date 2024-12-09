@@ -28,9 +28,7 @@ class CompromissoController {
         $compromisso->descricao = $dados['descricao'];
         $compromisso->dataHoraInicio = $dados['dataHoraInicio'];
         $compromisso->dataHoraFim = $dados['dataHoraFim'];
-        $local = new Local();
-        $local = $local->buscarLocais;
-        $compromisso->local = $dados['local'];
+        $compromisso->local = $dados['idLocal'];
         $compromisso->idCompromissoOrganizador = $_SESSION['usuarioLogado']->id;
 
         // $convidados = $_POST['convidados1'] ?? '';

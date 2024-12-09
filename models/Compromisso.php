@@ -23,11 +23,14 @@ class Compromisso
       ':descricao' => $dados->descricao,
       ':dataHoraInicio' => $dados->dataHoraInicio,
       ':dataHoraFim' => $dados->dataHoraFim,
-      ':idLocal' => $dados->idLocal,
+      ':idLocal' => $dados->local,
       ':idCompromissoOrganizador' => $dados->idCompromissoOrganizador
     ];
+    
+    print_r($params);
 
     BdConexao::query($query, $params);
+
     return ['code' => 201, 'message' => 'Compromisso cadastrado com sucesso'];
   }
 

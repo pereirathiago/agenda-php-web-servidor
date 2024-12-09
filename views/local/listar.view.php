@@ -31,7 +31,7 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                         <th class="text-left py-3 px-4 text-gray-600 font-semibold">Bairro</th>
                         <th class="text-left py-3 px-4 text-gray-600 font-semibold">Cidade</th>
                         <th class="text-left py-3 px-4 text-gray-600 font-semibold">Estado</th>
-                        <th class="text-left py-3 px-4 text-gray-600 font-semibold">Ações</th>
+                        <th c   lass="text-left py-3 px-4 text-gray-600 font-semibold">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,10 +63,8 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
             </table>
         </div>
 
-        <form action="/agenda/listar" method="post" class="mt-6">
-            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow">
-                Voltar
-            </button>
-        </form>
+        <a href="/" class="mt-6 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow inline-block text-center">
+            Voltar
+        </a>
     </div>
 </div>
