@@ -28,12 +28,8 @@ class CompromissoController {
         $compromisso->descricao = $dados['descricao'];
         $compromisso->dataHoraInicio = $dados['dataHoraInicio'];
         $compromisso->dataHoraFim = $dados['dataHoraFim'];
-        // $local = new Local();
-        // $local = $local->buscarLocalById($dados['idLocal']);
-        //$compromisso->local = $local;
+        $compromisso->local = $dados['idLocal'];
         $compromisso->idCompromissoOrganizador = $_SESSION['usuarioLogado']->id;
-        $idLocal = $dados['idLocal'];
-        echo($idLocal);
 
         // $convidados = $_POST['convidados1'] ?? '';
         // if($convidados!=''){
@@ -42,7 +38,7 @@ class CompromissoController {
         //     }
         // }
   
-        $compromisso->salvarCompromisso($compromisso, $idLocal); //tem que fazer o tr
+        $compromisso->salvarCompromisso($compromisso); //tem que fazer o tr
         header('Location: /');
       } catch (PDOException $e) {
         $error = ErrorsFunctions::handlePDOError($e, $dados);

@@ -116,7 +116,7 @@ function preencherOptionsLocais($arrayLocais)
     if (is_object($l)) {
       $endereco = $l->endereco;
       $numero = $l->numero;
-      echo "<option value=`$l->id`>$endereco, $numero</option>";
+      echo "<option value=$l->id>$endereco, $numero</option>";
     }
   }
 }
