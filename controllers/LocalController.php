@@ -1,5 +1,8 @@
 <?php
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+
 class LocalController
 {
   use ViewTrait;
@@ -55,6 +58,31 @@ class LocalController
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e);
       $this->view('local/cadastrar', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e);
+      $this->view('local/cadastrar', $error);
+    }
+  }
+
+  public function buscarEnderecoViaApi($cep)
+  {
+    try {
+      $cliente = new Client();
+      $requisicao = new Request('GET', "https://viacep.com.br/ws/{$cep}/json/");
+
+      $promise = $cliente->sendAsync($requisicao)->then(function ($resposta) {
+          $dadosApi = json_decode($resposta->getBody());
+          $dados = [
+            'cep' => $dadosApi->cep ?? '',
+            'endereco' => $dadosApi->logradouro ?? '',
+            'bairro' => $dadosApi->bairro ?? '',
+            'cidade' => $dadosApi->localidade ?? '',
+            'estado' => $dadosApi->uf ?? ''
+          ];
+
+          $this->view('local/cadastrar', $dados);
+      });
+      $promise->wait();
     } catch (Exception $e) {
       $error = ErrorsFunctions::handleError($e);
       $this->view('local/cadastrar', $error);
