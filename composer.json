@@ -1,5 +1,5 @@
 {
-    "name": "givas/agenda-php-web-servidor",
+    "name": "mathe/agenda-php-web-servidor",
     "description": "projeto de agenda php",
     "license": "MIT",
     "autoload": {
@@ -11,3 +11,4 @@
         "guzzlehttp/guzzle": "^7.9"
     }
 }
+ 

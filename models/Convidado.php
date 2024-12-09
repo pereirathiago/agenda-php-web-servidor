@@ -17,10 +17,12 @@ class Convidado
     $query = "INSERT INTO convidado (id_usuario_convidado, status_convite, id_compromisso) VALUES (:idUsuarioConvidado, :statusConvite, :idCompromisso)";
 
     $params = [
-      ':idUsuarioConvidado' => $dados->idUsuarioConvidado,
-      ':statusConvite' => $dados->statusConvite,
-      ':idCompromisso' => $dados->idCompromisso
+      ':idUsuarioConvidado' => $dados['idUsuarioConvidado'],
+      ':statusConvite' => $dados['statusConvite'],
+      ':idCompromisso' => $dados['idCompromisso']
     ];
+
+    print_r($params);
 
     BdConexao::query($query, $params);
 

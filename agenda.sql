@@ -34,7 +34,8 @@ CREATE TABLE `compromisso` (
   `descricao` varchar(300) NOT NULL,
   `data_hora_inicio` datetime NOT NULL,
   `data_hora_termino` datetime NOT NULL,
-  `id_local` int(11) NOT NULL
+  `id_local` int(11) NOT NULL,
+  `id_compromisso_organizador` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -94,7 +95,8 @@ CREATE TABLE `usuario` (
 --
 ALTER TABLE `compromisso`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_compromisso_local` (`id_local`);
+  ADD KEY `fk_compromisso_local` (`id_local`),
+  ADD KEY `fk_compromisso_usuario` (`id_compromisso_organizador`);
 
 --
 -- Índices de tabela `convidado`
@@ -155,8 +157,8 @@ ALTER TABLE `usuario`
 -- Restrições para tabelas `compromisso`
 --
 ALTER TABLE `compromisso`
-  ADD CONSTRAINT `fk_compromisso_local` FOREIGN KEY (`id_local`) REFERENCES `local` (`id`);
-
+  ADD CONSTRAINT `fk_compromisso_local` FOREIGN KEY (`id_local`) REFERENCES `local` (`id`),
+  ADD CONSTRAINT `fk_compromisso_usuario` FOREIGN KEY (`id_compromisso_organizador`) REFERENCES `usuario` (`id`);
 --
 -- Restrições para tabelas `convidado`
 --
