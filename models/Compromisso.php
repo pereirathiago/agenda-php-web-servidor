@@ -95,7 +95,7 @@ class Compromisso
       ':descricao' => $compromisso->descricao,
       ':dataHoraInicio' => $compromisso->dataHoraInicio,
       ':dataHoraFim' => $compromisso->dataHoraFim,
-      ':idLocal' => $compromisso->idLocal,
+      ':idLocal' => $compromisso->local,
       ':id' => $compromisso->id
     ];
 
