@@ -80,12 +80,13 @@ class LocalController
             'estado' => $dadosApi->uf ?? ''
           ];
 
-          $this->view('local/cadastrar', $dados);
+          header('Content-Type: application/json');
+          echo json_encode($dados);
       });
       $promise->wait();
     } catch (Exception $e) {
       $error = ErrorsFunctions::handleError($e);
-      $this->view('local/cadastrar', $error);
+      echo json_encode($error);
     }
   }
 
@@ -185,12 +186,10 @@ class LocalController
       header('Location: /locais');
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e);
-      print_r($error);
-      // $this->view('local/listar', $error);
+      $this->view('local/listar', $error);
     } catch (Exception $e) {
       $error = ErrorsFunctions::handleError($e);
-      print_r($error);
-      // $this->view('local/listar', $error);
+      $this->view('local/listar', $error);
     }
   }
 

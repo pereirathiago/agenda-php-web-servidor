@@ -19,7 +19,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
       <?php endif; ?>
       <div>
         <label for="cep" class="block text-gray-700 font-semibold">CEP: <small class="text-gray-400">(Apenas númeors)</small></label>
-        <input required type="text" name="cep" placeholder="Digite o CEP" id="cep" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" value="<?= $dados['cep'] ?? '' ?>">
+        <input required type="text" name="cep" placeholder="Digite o CEP" id="cep" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" value="<?= $dados['cep'] ?? '' ?>" oninput="buscarCep(this.value)">
       </div>
       <div>
         <label for="endereco" class="block text-gray-700 font-semibold">Endereço:</label>
@@ -61,5 +61,29 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
     const numeroInput = document.getElementById('numero');
     const semNumeroCheckbox = document.getElementById('semNumero');
     numeroInput.disabled = semNumeroCheckbox.checked;
+  }
+
+  async function buscarCep(cep) {
+    try {
+      if (cep.length < 8) {
+        return
+      }
+      
+      const response = await fetch(`/locais/buscar-endereco/${cep}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const data = await response.json()
+
+      document.getElementById('endereco').value = data.endereco
+      document.getElementById('bairro').value = data.bairro
+      document.getElementById('cidade').value = data.cidade
+      document.getElementById('estado').value = data.estado
+    } catch (error) {
+      
+    }
   }
 </script>
