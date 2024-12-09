@@ -28,6 +28,7 @@ Router::get('/locais/editar/{id}', 'LocalController@telaEditar');
 Router::post('/locais/editar/{id}', 'LocalController@editar');
 Router::post('/locais/cadastrar', 'LocalController@cadastrar');
 Router::post('/locais/deletar/{id}', 'LocalController@deletar');
+Router::post('/locais/buscar-endereco/{cep}', 'LocalController@buscarEnderecoViaApi');
 
 // erros
 Router::get('/404', 'ErrorController@error404');
