@@ -28,21 +28,27 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
         <thead>
           <tr class="bg-gray-100 border-b">
             <th class="text-left py-3 px-4 text-gray-600 font-semibold">Nome do Compromisso</th>
-            <th class="text-left py-3 px-4 text-gray-600 font-semibold">Data</th>
-            <th class="text-left py-3 px-4 text-gray-600 font-semibold">Local</th>
-            <th class="text-left py-3 px-4 text-gray-600 font-semibold">Descrição</th>
-            <th class="text-left py-3 px-4 text-gray-600 font-semibold">Convidados</th>
+            <th class="text-left py-3 px-4 text-gray-600 font-semibold">Data e Hora de Inicio</th>
+            <th class="text-left py-3 px-4 text-gray-600 font-semibold">Data e Hora de Fim</th>
+            <th class="text-left py-3 px-4 text-gray-600 font-semibold">Ações</th>
           </tr>
         </thead>
         <tbody>
-          <?php if (!empty($compromissos)) : ?>
+          <?php if (sizeof($compromissos) != 0) : ?>
             <?php foreach ($compromissos as $compromisso): ?>
               <tr class="border-b hover:bg-gray-50">
-                <td class="py-3 px-4 text-gray-800"><?php echo $compromisso['nomeCompromisso']; ?></td>
-                <td class="py-3 px-4 text-gray-800"><?php echo $compromisso['dataCompromisso']; ?></td>
-                <td class="py-3 px-4 text-gray-800"><?php echo $compromisso['local']; ?></td>
-                <td class="py-3 px-4 text-gray-800"><?php echo $compromisso['descricaoCompromisso']; ?></td>
-                <td class="py-3 px-4 text-gray-800"><?php echo implode(', ', $compromisso['convidados']); ?></td>
+              <?php if (is_object($compromisso)) : ?>
+                <td class="py-3 px-4 text-gray-800"><?= $compromisso->titulo; ?></td>
+                <td class="py-3 px-4 text-gray-800"><?= $compromisso->dataHoraInicio;  ?></td>
+                <td class="py-3 px-4 text-gray-800"><?= $compromisso->dataHoraFim;  ?></td>
+                <td class="py-3 px-4 text-gray-800">
+                <a href="/compromissos/editar/<?= $compromisso->id; ?>" class="text-green-600 hover:text-green-800">Ver</a>
+                                        <a href="/compromissos/ver/<?= $compromisso->id; ?>" class="text-blue-600 hover:text-blue-800 ml-5">Editar</a>
+                                        <form action="/compromissos/deletar/<?= $compromisso->id; ?>" method="post" class="inline" onsubmit="return confirm('Tem certeza que deseja excluir este compromisso?');">
+                                            <button type="submit" class="text-red-600 hover:text-red-800 ml-5">Excluir</button>
+                                        </form>
+                                    </td>
+                <?php endif; ?>
               </tr>
             <?php endforeach; ?>
           <?php else : ?>
