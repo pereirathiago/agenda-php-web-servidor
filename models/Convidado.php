@@ -11,6 +11,40 @@ class Convidado
 
   public function __construct() { }
 
+
+  static function cadastrarConvidado($dados)
+  {
+    $query = "INSERT INTO convidado (id_usuario_convidado, status_convite, id_compromisso) VALUES (:idUsuarioConvidado, :statusConvite, :idCompromisso)";
+
+    $params = [
+      ':idUsuarioConvidado' => $dados->idUsuarioConvidado,
+      ':statusConvite' => $dados->statusConvite,
+      ':idCompromisso' => $dados->idCompromisso
+    ];
+
+    BdConexao::query($query, $params);
+
+    return ['code' => 201, 'message' => 'Convidado cadastrado com sucesso'];
+  }
+
+  static function buscarConvidadosByIdCompromisso($idCompromisso)
+  {
+    $query = "SELECT 
+      c.id, c.id_usuario_convidado AS idUsuarioConvidado, uo.nome_completo AS nomeUsuarioOrganizador, c.status_convite AS statusConvite, c.id_compromisso AS idCompromisso, co.titulo AS nomeCompromisso
+      FROM convidado c
+      JOIN compromisso co ON c.id_compromisso = co.id
+      JOIN usuario uo ON co.id_compromisso_organizador = uo.id
+      WHERE c.id_compromisso = :idCompromisso";
+
+    $params = [
+      ':idCompromisso' => $idCompromisso
+    ];
+
+    $convidados = BdConexao::query($query, $params)->fetchAll(PDO::FETCH_CLASS, "Convidado");
+
+    return ['code' => 200, 'convidados' => $convidados];
+  }
+
   static function buscarConvitesByIdUsuario($idUsuario)
   {
     $query = "SELECT 
