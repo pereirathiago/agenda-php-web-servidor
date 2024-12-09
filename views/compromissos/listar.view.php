@@ -42,7 +42,21 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                     <p class="text-gray-800"><?= date('d/m/Y H:i', strtotime($dados['dataHoraFim'])); ?></p>
                 </div>
             </div>
-
+            <div>
+                <h3 class="text-lg font-semibold text-gray-600">Local:</h3>
+                <?php
+                $local2 = Local::buscarLocalById($dados['idLocal']);
+                $local = $local2['local'];
+                $endereco = $local->endereco ?? 'Endereço não informado';
+                $numero = $local->numero ?? 'N/A';
+                $cidade = $local->cidade ?? 'Cidade não informada';
+                $estado = $local->estado ?? 'Estado não informado';
+                $cep = $local->cep ?? 'CEP não informado';
+                ?>
+                <p class="text-gray-800"><strong>Endereço:</strong> <?= $endereco ?>, <?= $numero ?></p>
+                <p class="text-gray-800"><strong>Cidade:</strong> <?= $cidade ?> - <?= $estado ?></p>
+                <p class="text-gray-800"><strong>CEP:</strong> <?= $cep ?></p>
+            </div>
             <div>
                 <h3 class="text-lg font-semibold text-gray-600">Convidados:</h3>
                 <?php if (!empty($compromisso->convidados)) : ?>
@@ -54,17 +68,6 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                 <?php else : ?>
                     <p class="text-gray-800">Nenhum convidado</p>
                 <?php endif; ?>
-            </div>
-
-            <div>
-                <h3 class="text-lg font-semibold text-gray-600">Local:</h3>
-                <p class="text-gray-800">
-                    <?php
-                    $local2 = Local::buscarLocalById($dados['idLocal']);
-                    $local = $local2['local'];
-                    echo ($local->endereco . ", " . $local->numero ?? 'Local não informado');
-                    ?>
-                </p>
             </div>
         </div>
     </div>
