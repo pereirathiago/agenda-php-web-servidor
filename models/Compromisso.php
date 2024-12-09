@@ -27,11 +27,9 @@ class Compromisso
       ':idCompromissoOrganizador' => $dados->idCompromissoOrganizador
     ];
     
-    print_r($params);
-
     BdConexao::query($query, $params);
 
-    return ['code' => 201, 'message' => 'Compromisso cadastrado com sucesso'];
+    return ['code' => 201, 'message' => 'Compromisso cadastrado com sucesso', 'id' => BdConexao::get()->lastInsertId()];
   }
 
   static function buscarCompromissoByIdUsuario($idUsuario, $filtro = '')
