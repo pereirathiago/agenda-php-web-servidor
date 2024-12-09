@@ -39,8 +39,8 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
               <tr class="border-b hover:bg-gray-50">
               <?php if (is_object($compromisso)) : ?>
                 <td class="py-3 px-4 text-gray-800"><?= $compromisso->titulo; ?></td>
-                <td class="py-3 px-4 text-gray-800"><?= $compromisso->dataHoraInicio;  ?></td>
-                <td class="py-3 px-4 text-gray-800"><?= $compromisso->dataHoraFim;  ?></td>
+                <td class="py-3 px-4 text-gray-800"><?= date('d/m/Y H:i', strtotime($compromisso->dataHoraInicio));  ?></td>
+                <td class="py-3 px-4 text-gray-800"><?= date('d/m/Y H:i', strtotime($compromisso->dataHoraFim));  ?></td>
                 <td class="py-3 px-4 text-gray-800">
                 <a href="/compromissos/editar/<?= $compromisso->id; ?>" class="text-green-600 hover:text-green-800">Editar</a>
                                         <a href="/compromissos/ver/<?= $compromisso->id; ?>" class="text-blue-600 hover:text-blue-800 ml-5">Ver</a>
