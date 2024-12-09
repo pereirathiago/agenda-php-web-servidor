@@ -90,4 +90,46 @@ class CompromissoController {
 
     }
 
+    public function editarCompromisso()
+  {
+    try {
+      if (!isset($_SESSION)) {
+        session_start();
+      }
+
+      $dados = [
+        'id' => $_POST['id']->id ?? 0,
+        'descricao' => $_POST['descricao'] ?? '',
+        'titulo' => $_POST['titulo'] ?? '',
+        'dataHoraInicio' => $_POST['dataHoraInicio'] ?? '',
+        'dataHoraFim' => $_POST['dataHoraFim'] ?? '',
+        'idLocal' => $_POST['idLocal'] ?? '',
+        'idCompromissoOrganizador' => $_POST['idCompromissoOrganizador'] ?? ''
+      ];
+
+      $this->validarDadosCompromisso($dados);
+
+      $compromisso = new Compromisso();
+      $compromisso->id = $dados['id'];
+      $compromisso->descricao = $dados['descricao'];
+      $compromisso->titulo = $dados['titulo'];
+      $compromisso->dataHoraInicio = $dados['dataHoraInicio'];
+      $compromisso->dataHoraFim = $dados['dataHoraFim'];
+      $local = new Local();
+        $local = $local->buscarLocais;
+        $compromisso->local = $dados['local'];
+      $compromisso->idLocal = $dados['idLocal'];
+      $compromisso->idCompromissoOrganizador = $dados['idCompromissoOrganizador'];
+
+      header('Location: /compromissos/listar');
+      exit();
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e, $dados);
+      $this->view('agenda/listar', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e, $dados);
+      $this->view('agenda/listar', $error);
+    }
+  }
+
 }

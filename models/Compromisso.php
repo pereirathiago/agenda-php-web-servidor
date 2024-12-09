@@ -31,6 +31,24 @@ class Compromisso
     return ['code' => 201, 'message' => 'Compromisso cadastrado com sucesso'];
   }
 
+  public function editarCompromisso($compromisso)
+  {
+    $query = "UPDATE compromisso SET titulo = :titulo, descricao = :descricao, data_hora_inicio = :dataHoraInicio, data_hora_termino = :dataHoraFim, id_local = :idLocal WHERE id = :id";
+
+    $params = [
+      ':titulo' => $compromisso->titulo,
+      ':descricao' => $compromisso->descricao,
+      ':dataHoraInicio' => $compromisso->dataHoraInicio,
+      ':dataHoraFim' => $compromisso->dataHoraFim,
+      ':idLocal' => $compromisso->idLocal,
+      ':id' => $compromisso->id
+    ];
+
+    BdConexao::query($query, $params);
+
+    return ['code' => 200, 'message' => 'Compromisso editado com sucesso'];
+  }
+
   public function __get($propriedade)
   {
     return $this->$propriedade;
