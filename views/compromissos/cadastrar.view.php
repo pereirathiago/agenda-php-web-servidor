@@ -106,7 +106,7 @@ function preencherOptions($arrayUsuarios)
   foreach ($arrayFiltrado as $u) {
     if (is_object($u)) {
       $nomeCompleto = $u->nomeCompleto;
-      echo "<option value=`$u->id`>$nomeCompleto</option>";
+      echo "<option value=$u->id>$nomeCompleto</option>";
     }
   }
 }
