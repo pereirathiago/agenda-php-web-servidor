@@ -11,7 +11,7 @@ if (!isset($_SESSION)) {
   <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full m-6">
     <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">Compromisso</h1>
 
-    <form action="/compromissos/editar" method="post" class="space-y-4" id="perfil-form">
+    <form action="<?= "/compromissos/editar/{$dados["id"]}" ?>" method="post" class="space-y-4" id="perfil-form">
       <?php if (isset($erro) && $erro) : ?>
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
           <strong class="font-bold">Ops!</strong>
@@ -40,66 +40,25 @@ if (!isset($_SESSION)) {
             <?php
             $arrayLocais = Local::buscarLocais();
             $locais = $arrayLocais['locais'];
-            //preencherOptionsLocais($locais);
-            print_r($locais);
+            preencherOptionsLocais($locais);
             ?>
           </select>
           <input type="button" value="Novo Local" name="cadastrarLocal" onclick="redirecionarCadastroLocal()" class="p-4 fs-20 text-xl py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
         </div>
         <div>
-        <label for="descricao-compromisso" class="block text-gray-700 font-semibold">Descrição do Compromisso:</label>
-        <textarea required type="text" name="descricao" placeholder="Digite a descrição do compromisso" id="descricao-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"><?= $dados['descricao'] ?? '' ?></textarea>
-      </div>
-      </div>
-
-      <div>
-          <script>
-            function adicionarConvidado() {
-              var select = document.getElementById('usuarioConvidado');
-              var nomeConvidado = select.options[select.selectedIndex].text;
-              var idConvidado = select.options[select.selectedIndex].value;
-              var divResultado = document.getElementById('resultado');
-              var inputHidden = document.getElementsByName('convidados1');
-              if (select.options[select.selectedIndex].text != "Sem convidados") {
-                divResultado.innerHTML += `<li>${nomeConvidado}</li>`;
-                inputHidden[0].value += idConvidado + ',';
-              }
-            }
-
-            function redirecionarCadastroLocal() {
-              location.replace("/local/cadastrar");
-            }
-          </script>
-
-
+          <label for="descricao-compromisso" class="block text-gray-700 font-semibold">Descrição do Compromisso:</label>
+          <textarea required type="text" name="descricao" placeholder="Digite a descrição do compromisso" id="descricao-compromisso" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"><?= $dados['descricao'] ?? '' ?></textarea>
         </div>
-        <ul id="resultado"></ul>
       </div>
-      <div>
-        <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Editar compromisso</button>
-      </div>
-    </form>
+      <ul id="resultado"></ul>
   </div>
+  <div>
+    <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Editar compromisso</button>
+  </div>
+  </form>
+</div>
 </div>
 <?php
-function preencherOptions($arrayUsuarios)
-{
-  $usuarioLogado = $_SESSION['usuarioLogado'];
-  $username = $usuarioLogado->nomeUsuario;
-
-  $arrayFiltrado = array_filter($arrayUsuarios, function ($usuario) use ($username) {
-    return $usuario->nomeUsuario !== $username;
-  });
-
-  $arrayFiltrado = array_values($arrayFiltrado);
-
-  foreach ($arrayFiltrado as $u) {
-    if (is_object($u)) {
-      $nomeCompleto = $u->nomeCompleto;
-      echo "<option value=`$u->id`>$nomeCompleto</option>";
-    }
-  }
-}
 function preencherOptionsLocais($arrayLocais)
 {
   foreach ($arrayLocais as $l) {
@@ -110,9 +69,4 @@ function preencherOptionsLocais($arrayLocais)
     }
   }
 }
-function adicionarConvidado($usuariosConvidados)
-{
-  $usuariosConvidados;
-}
-
 ?>

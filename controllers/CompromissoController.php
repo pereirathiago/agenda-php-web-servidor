@@ -88,7 +88,7 @@ class CompromissoController
       throw new Exception('A data e hora de inicio não pode ser no futuro do fim do compromisso.');
     }
   }
-  public function editarCompromisso()
+  public function editar($id)
   {
     try {
       if (!isset($_SESSION)) {
@@ -96,37 +96,36 @@ class CompromissoController
       }
 
       $dados = [
-        'id' => $_POST['id']->id ?? 0,
+        'id' => $id,
         'descricao' => $_POST['descricao'] ?? '',
         'titulo' => $_POST['titulo'] ?? '',
         'dataHoraInicio' => $_POST['dataHoraInicio'] ?? '',
         'dataHoraFim' => $_POST['dataHoraFim'] ?? '',
         'idLocal' => $_POST['idLocal'] ?? '',
-        'idCompromissoOrganizador' => $_POST['idCompromissoOrganizador'] ?? ''
       ];
+      print_r($dados);
 
       $this->validarDadosCompromisso($dados);
 
       $compromisso = new Compromisso();
       $compromisso->id = $dados['id'];
-      $compromisso->descricao = $dados['descricao'];
       $compromisso->titulo = $dados['titulo'];
+      $compromisso->descricao = $dados['descricao'];
       $compromisso->dataHoraInicio = $dados['dataHoraInicio'];
       $compromisso->dataHoraFim = $dados['dataHoraFim'];
-      $local = new Local();
-      $local = $local->buscarLocais;
-      $compromisso->local = $dados['local'];
-      $compromisso->idLocal = $dados['idLocal'];
-      $compromisso->idCompromissoOrganizador = $dados['idCompromissoOrganizador'];
+      $compromisso->local = $dados['idLocal'];
+      $compromisso->idCompromissoOrganizador = $_SESSION['usuarioLogado']->id;
 
-      header('Location: /compromissos/listar');
+      $compromisso->editarCompromisso($compromisso);
+
+      header('Location: /');
       exit();
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e, $dados);
-      $this->view('agenda/listar', $error);
+      $this->view('compromissos/editar', $error);
     } catch (Exception $e) {
       $error = ErrorsFunctions::handleError($e, $dados);
-      $this->view('agenda/listar', $error);
+      $this->view('compromissos/editar', $error);
     }
   }
 
@@ -149,9 +148,9 @@ class CompromissoController
         'descricao' => $compromisso['compromisso']->descricao,
         'dataHoraInicio' => $compromisso['compromisso']->dataHoraInicio,
         'dataHoraFim' => $compromisso['compromisso']->dataHoraFim,
-        'idLocal' => $compromisso['compromisso']->idLocal,
-        'idCompromissoOrganizador' => $compromisso['compromisso']->idCompromissoOrganizador
+        'idLocal' => $compromisso['compromisso']->idLocal
       ];
+
       $this->view('compromissos/editar', $dados);
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e);
