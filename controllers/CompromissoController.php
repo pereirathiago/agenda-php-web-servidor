@@ -129,4 +129,68 @@ class CompromissoController
       $this->view('agenda/listar', $error);
     }
   }
+
+  public function telaEditar($id)
+  {
+    try {
+      if ($id <= 0) {
+        throw new Exception("ID inválido {$id}.");
+      }
+
+      $compromisso = Compromisso::buscarCompromissoById($id);
+
+      if($compromisso['code'] !== 200) {
+        throw new Exception($compromisso['message']);
+      }
+
+      $dados = [
+        'id' => $compromisso['compromisso']->id,
+        'titulo' => $compromisso['compromisso']->titulo,
+        'descricao' => $compromisso['compromisso']->descricao,
+        'dataHoraInicio' => $compromisso['compromisso']->dataHoraInicio,
+        'dataHoraFim' => $compromisso['compromisso']->dataHoraFim,
+        'idLocal' => $compromisso['compromisso']->idLocal,
+        'idCompromissoOrganizador' => $compromisso['compromisso']->idCompromissoOrganizador
+      ];
+      $this->view('compromissos/editar', $dados);
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e);
+      $this->view('compromissos/editar', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e);
+      $this->view('compromissos/editar', $error);
+    }
+  }
+
+  public function telaVisualizar($id)
+  {
+    try {
+      if ($id <= 0) {
+        throw new Exception("ID inválido {$id}.");
+      }
+
+      $compromisso = Compromisso::buscarCompromissoById($id);
+
+      if($compromisso['code'] !== 200) {
+        throw new Exception($compromisso['message']);
+      }
+
+      $dados = [
+        'id' => $compromisso['compromisso']->id,
+        'titulo' => $compromisso['compromisso']->titulo,
+        'descricao' => $compromisso['compromisso']->descricao,
+        'dataHoraInicio' => $compromisso['compromisso']->dataHoraInicio,
+        'dataHoraFim' => $compromisso['compromisso']->dataHoraFim,
+        'idLocal' => $compromisso['compromisso']->idLocal,
+        'idCompromissoOrganizador' => $compromisso['compromisso']->idCompromissoOrganizador
+      ];
+      $this->view('compromissos/listar', $dados);
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e);
+      $this->view('compromissos/listar', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e);
+      $this->view('compromissos/listar', $error);
+    }
+  }
 }

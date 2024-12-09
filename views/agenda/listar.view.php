@@ -42,8 +42,8 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                 <td class="py-3 px-4 text-gray-800"><?= $compromisso->dataHoraInicio;  ?></td>
                 <td class="py-3 px-4 text-gray-800"><?= $compromisso->dataHoraFim;  ?></td>
                 <td class="py-3 px-4 text-gray-800">
-                <a href="/compromissos/editar/<?= $compromisso->id; ?>" class="text-green-600 hover:text-green-800">Ver</a>
-                                        <a href="/compromissos/ver/<?= $compromisso->id; ?>" class="text-blue-600 hover:text-blue-800 ml-5">Editar</a>
+                <a href="/compromissos/editar/<?= $compromisso->id; ?>" class="text-green-600 hover:text-green-800">Editar</a>
+                                        <a href="/compromissos/ver/<?= $compromisso->id; ?>" class="text-blue-600 hover:text-blue-800 ml-5">Ver</a>
                                         <form action="/compromissos/deletar/<?= $compromisso->id; ?>" method="post" class="inline" onsubmit="return confirm('Tem certeza que deseja excluir este compromisso?');">
                                             <button type="submit" class="text-red-600 hover:text-red-800 ml-5">Excluir</button>
                                         </form>

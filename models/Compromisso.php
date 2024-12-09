@@ -55,6 +55,25 @@ class Compromisso
     return ['code' => 200, 'compromissos' => $compromissos];
   }
 
+  static function buscarCompromissoById($id)
+  {
+
+    $query = "SELECT 
+      id, titulo, descricao, data_hora_inicio AS dataHoraInicio, data_hora_termino AS dataHoraFim, id_local AS idLocal, id_compromisso_organizador AS idCompromissoOrganizador FROM compromisso WHERE id = :id";
+
+    $params = [
+      ':id' => $id,
+    ];
+
+    $compromisso = BdConexao::query($query, $params)->fetchObject("Compromisso");
+
+    if (!$compromisso) {
+      return ['code' => 404, 'message' => 'Compromisso não encontrado'];
+    }
+
+    return ['code' => 200, 'compromisso' => $compromisso];
+  }
+
   function deletarCompromisso($id)
   {
     $query = "DELETE FROM compromisso WHERE id = :id";
@@ -66,6 +85,23 @@ class Compromisso
     BdConexao::query($query, $params);
 
     return ['code' => 200, 'message' => 'Compromisso excluído com sucesso'];
+  }
+  public function editarCompromisso($compromisso)
+  {
+    $query = "UPDATE compromisso SET titulo = :titulo, descricao = :descricao, data_hora_inicio = :dataHoraInicio, data_hora_termino = :dataHoraFim, id_local = :idLocal WHERE id = :id";
+
+    $params = [
+      ':titulo' => $compromisso->titulo,
+      ':descricao' => $compromisso->descricao,
+      ':dataHoraInicio' => $compromisso->dataHoraInicio,
+      ':dataHoraFim' => $compromisso->dataHoraFim,
+      ':idLocal' => $compromisso->idLocal,
+      ':id' => $compromisso->id
+    ];
+
+    BdConexao::query($query, $params);
+
+    return ['code' => 200, 'message' => 'Compromisso editado com sucesso'];
   }
 
   public function __get($propriedade)

@@ -22,6 +22,7 @@ Router::post('/compromissos/cadastrar', 'CompromissoController@cadastrar');
 Router::get('/compromissos/editar/{id}', 'CompromissoController@telaEditar');
 Router::post('/compromissos/editar/{id}', 'CompromissoController@editar');
 Router::post('/compromissos/deletar/{id}', 'CompromissoController@deletar');
+Router::get('/compromissos/ver/{id}', 'CompromissoController@telaVisualizar');
 
 // autenticacao
 Router::get('/usuarios/login', 'AutenticacaoController@loginForm');
