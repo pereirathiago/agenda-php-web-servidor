@@ -77,6 +77,7 @@ class Compromisso
   function deletarCompromisso($id)
   {
     $query = "DELETE FROM compromisso WHERE id = :id";
+    Convidado::atualizarStatusConviteTodosConvidados($id, 3);
 
     $params = [
       ':id' => $id
