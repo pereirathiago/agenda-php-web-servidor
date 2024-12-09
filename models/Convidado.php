@@ -57,6 +57,22 @@ class Convidado
     ];
 
     BdConexao::query($query, $params);
+
+    return ['code' => 200, 'message' => 'Convidado editado com sucesso'];
+  }
+
+  static function atualizarStatusConviteTodosConvidados($idCompromisso, $statusConvite)
+  {
+    $query = "UPDATE convidado SET status_convite = :statusConvite WHERE id_compromisso = :idCompromisso";
+
+    $params = [
+      ':statusConvite' => $statusConvite,
+      ':idCompromisso' => $idCompromisso
+    ];
+
+    BdConexao::query($query, $params);
+
+    return ['code' => 200, 'message' => 'Convidados editado com sucesso'];
   }
 
   public function __get($propriedade)
