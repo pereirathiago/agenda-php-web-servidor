@@ -14,7 +14,7 @@ class Compromisso
 
   public function __construct() { }
 
-  function salvarCompromisso($dados)
+  function salvarCompromisso($dados, $idLocal)
   {
     $query = "INSERT INTO compromisso (titulo, descricao, data_hora_inicio, data_hora_termino, id_local, id_compromisso_organizador) VALUES (:titulo, :descricao, :dataHoraInicio, :dataHoraFim, :idLocal, :idCompromissoOrganizador)";
 
@@ -23,9 +23,11 @@ class Compromisso
       ':descricao' => $dados->descricao,
       ':dataHoraInicio' => $dados->dataHoraInicio,
       ':dataHoraFim' => $dados->dataHoraFim,
-      ':idLocal' => $dados->idLocal,
+      ':idLocal' => $idLocal,
       ':idCompromissoOrganizador' => $dados->idCompromissoOrganizador
     ];
+    // Debugging: log dos valores
+    error_log(print_r($params, true));
 
     BdConexao::query($query, $params);
     return ['code' => 201, 'message' => 'Compromisso cadastrado com sucesso'];
