@@ -25,7 +25,7 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                         <th class="text-left py-3 px-4 text-gray-600 font-semibold">Titulo</th>
                         <th class="text-left py-3 px-4 text-gray-600 font-semibold">Organizador</th>
                         <th class="text-left py-3 px-4 text-gray-600 font-semibold">Status</th>
-                        <th c   lass="text-left py-3 px-4 text-gray-600 font-semibold">Ações</th>
+                        <th c lass="text-left py-3 px-4 text-gray-600 font-semibold">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,12 +35,28 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                                 <?php if (is_object($convite)) : ?>
                                     <td class="py-3 px-4 text-gray-800"><?= $convite->nomeCompromisso; ?></td>
                                     <td class="py-3 px-4 text-gray-800"><?= $convite->nomeUsuarioOrganizador; ?></td>
-                                    <td class="py-3 px-4 text-gray-800"><?= $convite->statusConvite; ?></td>
                                     <td class="py-3 px-4 text-gray-800">
-                                        <a href="/locais/editar/<?= $local->nome; ?>" class="text-blue-600 hover:text-blue-800">Editar</a>
-                                        <form action="/locais/deletar/<?= $local->id; ?>" method="post" class="inline" onsubmit="return confirm('Tem certeza que deseja excluir este local?');">
-                                            <button type="submit" class="text-red-600 hover:text-red-800 ml-4">Excluir</button>
-                                        </form>
+                                        <?php 
+                                        if($convite->statusConvite == 0):
+                                            echo '<span class="text-yellow-500">Não confirmado</span>';
+                                        elseif($convite->statusConvite == 1):
+                                            echo '<span class="text-green-500">Confirmado</span>';
+                                        elseif($convite->statusConvite == 2):
+                                            echo '<span class="text-red-500">Recusado</span>';
+                                        elseif($convite->statusConvite == 3):
+                                            echo '<span class="text-gray-500">Cancelado</span>';
+                                        endif;
+                                        ?>
+                                    </td>
+                                    <td class="py-3 px-4 text-gray-800 text-center">
+                                        <?php if($convite->statusConvite != 3): ?>    
+                                            <form action="" method="post" class="inline">
+                                                <button type="submit" name="action" value="aceitar" formaction="/convites/aceitar/<?= $convite->id; ?>" class="text-green-600 hover:text-green-800 ml-4">Aceitar</button>
+                                                <button type="submit" name="action" value="rejeitar" formaction="/convites/rejeitar/<?= $convite->id; ?>" class="text-yellow-600 hover:text-yellow-800 ml-4">Rejeitar</button>
+                                            </form>
+                                        <?php else: ?>
+                                            <span class="text-gray-500">Cancelado</span>
+                                        <?php endif; ?>
                                     </td>
                                 <?php endif; ?>
                             </tr>

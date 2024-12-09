@@ -32,6 +32,8 @@ Router::post('/locais/buscar-endereco/{cep}', 'LocalController@buscarEnderecoVia
 
 // convites
 Router::get('/convites', 'ConvidadoController@telaListar');
+Router::post('/convites/aceitar/{id}', 'ConvidadoController@aceitar');
+Router::post('/convites/rejeitar/{id}', 'ConvidadoController@rejeitar');
 
 // erros
 Router::get('/404', 'ErrorController@error404');

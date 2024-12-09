@@ -29,6 +29,36 @@ class Convidado
     return ['code' => 200, 'convites' => $convites];
   }
 
+  static function buscarConviteById($id)
+  {
+    $query = "SELECT 
+      c.id, c.id_usuario_convidado AS idUsuarioConvidado, uo.nome_completo AS nomeUsuarioOrganizador, c.status_convite AS statusConvite, c.id_compromisso AS idCompromisso, co.titulo AS nomeCompromisso
+      FROM convidado c
+      JOIN compromisso co ON c.id_compromisso = co.id
+      JOIN usuario uo ON co.id_compromisso_organizador = uo.id
+      WHERE c.id = :id";
+
+    $params = [
+      ':id' => $id
+    ];
+
+    $convite = BdConexao::query($query, $params)->fetchObject("Convidado");
+
+    return $convite;
+  }
+
+  public function atualizarStatusConvite()
+  {
+    $query = "UPDATE convidado SET status_convite = :statusConvite WHERE id = :id";
+
+    $params = [
+      ':statusConvite' => $this->statusConvite,
+      ':id' => $this->id
+    ];
+
+    BdConexao::query($query, $params);
+  }
+
   public function __get($propriedade)
   {
     return $this->$propriedade;
