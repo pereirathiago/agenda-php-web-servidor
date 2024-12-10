@@ -64,7 +64,7 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                 </div>
                 <div id="selectConvidados" class="mt-4 hidden">
                     <form method="POST" action="/convidados/adicionar2">
-                        <select id="convidadoSelect" name="idConvidado" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <select id="convidadoSelect" name="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="" disabled selected>Selecione um convidado</option>
                             <?php
                             $arrayUsuarios = Usuario::buscarUsuarios();
@@ -72,6 +72,7 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                             preencherOptions($usuarios, $dados);
                             ?>
                         </select>
+                        <input class="hidden" name="idCompromisso" value=<?= $dados['id']?>>
                         <button type="submit" name="adicionarConvidado" class="p-1 px-3 text-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-md shadow-sm hover:shadow-md hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1 transition-all duration-150 transform hover:scale-105">
                             +
                         </button>

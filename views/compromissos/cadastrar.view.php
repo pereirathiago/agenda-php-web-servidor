@@ -36,7 +36,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
         <div class="flex">
           <select name="idLocal" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <?php
-            $arrayLocais = Local::buscarLocais();
+            $arrayLocais = Local::buscarLocalByIdUsuario($_SESSION['usuarioLogado']->id);
             $locais = $arrayLocais['locais'];
             preencherOptionsLocais($locais);
             ?>

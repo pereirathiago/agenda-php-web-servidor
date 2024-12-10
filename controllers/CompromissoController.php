@@ -198,6 +198,7 @@ class CompromissoController
         'idLocal' => $compromisso['compromisso']->idLocal,
         'idCompromissoOrganizador' => $compromisso['compromisso']->idCompromissoOrganizador
       ];
+      
       $this->view('compromissos/listar', $dados);
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e);

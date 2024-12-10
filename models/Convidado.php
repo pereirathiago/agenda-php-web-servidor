@@ -54,7 +54,7 @@ class Convidado
       FROM convidado c
       JOIN compromisso co ON c.id_compromisso = co.id
       JOIN usuario uo ON co.id_compromisso_organizador = uo.id
-      WHERE c.id_usuario_convidado = :idUsuario AND co";
+      WHERE c.id_usuario_convidado = :idUsuario";
 
     $params = [
       ':idUsuario' => $idUsuario
