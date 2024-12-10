@@ -71,10 +71,12 @@ class ConvidadoController
         session_start();
       }
 
-      $convite = new Convidado();
-      $convite->idUsuarioConvidado = $_POST['idUsuarioConvidado'];
-      $convite->idCompromisso = $_POST['idCompromisso'];
-      $convite->statusConvite = 0;
+      $convite = [
+        'idUsuarioConvidado' => $_POST['usuarioConvidado'] ?? '',
+        'statusConvite' => 0,
+        'idCompromisso' => $_POST['idCompromisso'] ?? ''
+      ];
+
       Convidado::cadastrarConvidado($convite);
 
       $this->telaListar();

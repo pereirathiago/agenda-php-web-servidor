@@ -32,20 +32,36 @@ class CompromissoController
       $compromisso->local = $dados['idLocal'];
       $compromisso->idCompromissoOrganizador = $_SESSION['usuarioLogado']->id;
 
-      // $convidados = $_POST['convidados1'] ?? '';
-      // if($convidados!=''){
-      //     foreach($convidados as $c){
+      $convidados = $_POST['convidadosList'] ?? '';
 
-      //     }
-      // }
+      BdConexao::get()->beginTransaction();
 
-      $compromisso->salvarCompromisso($compromisso); //tem que fazer o tr
+      $resposta = $compromisso->salvarCompromisso($compromisso);
+
+      if ($convidados != '') {
+        $convidados = explode(',', $convidados);
+        array_pop($convidados);
+
+        foreach ($convidados as $convidado) {
+          $convidado = [
+            'idUsuarioConvidado' => $convidado,
+            'statusConvite' => 0,
+            'idCompromisso' => $resposta['id']
+          ];
+          Convidado::cadastrarConvidado($convidado);
+        }
+      }
+
+      BdConexao::get()->commit();
+
       header('Location: /');
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e, $dados);
+      BdConexao::get()->rollBack();
       $this->view('compromissos/cadastrar', $error);
     } catch (Exception $e) {
       $error = ErrorsFunctions::handleError($e, $dados);
+      BdConexao::get()->rollBack();
       $this->view('compromissos/cadastrar', $error);
     }
   }
@@ -137,7 +153,7 @@ class CompromissoController
 
       $compromisso = Compromisso::buscarCompromissoById($id);
 
-      if($compromisso['code'] !== 200) {
+      if ($compromisso['code'] !== 200) {
         throw new Exception($compromisso['message']);
       }
 
@@ -169,7 +185,7 @@ class CompromissoController
 
       $compromisso = Compromisso::buscarCompromissoById($id);
 
-      if($compromisso['code'] !== 200) {
+      if ($compromisso['code'] !== 200) {
         throw new Exception($compromisso['message']);
       }
 

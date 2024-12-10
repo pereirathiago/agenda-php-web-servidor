@@ -60,7 +60,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
             ?>
           </select>
           <input type="button" value="+" name="novoConvidado" onclick="adicionarConvidado()" class="p-4 fs-20 text-xl py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
-          <input type="hidden" name="convidados1">
+          <input type="hidden" name="convidadosList">
 
           <script>
             function adicionarConvidado() {
@@ -68,7 +68,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
               var nomeConvidado = select.options[select.selectedIndex].text;
               var idConvidado = select.options[select.selectedIndex].value;
               var divResultado = document.getElementById('resultado');
-              var inputHidden = document.getElementsByName('convidados1');
+              var inputHidden = document.getElementsByName('convidadosList');
               if (select.options[select.selectedIndex].text != "Sem convidados") {
                 divResultado.innerHTML += `<li>${nomeConvidado}</li>`;
                 inputHidden[0].value += idConvidado + ',';
