@@ -76,7 +76,7 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
             }
 
             function redirecionarCadastroLocal() {
-              location.replace("/local/cadastrar");
+              location.replace("/locais/cadastrar");
             }
           </script>
 
