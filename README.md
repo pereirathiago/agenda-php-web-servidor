@@ -58,6 +58,8 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
 - Sistema de notificações para lembretes de compromissos.
 - Adicionar calendário dinâmico (em lugar da tabela agenda)
 - Otimização de alguns métodos para evitar duplicidade de código
+- Impedir o usuário de acessar outros formulários trocando o ID pela URL
+- Após o cadastro de um novo local, criado a partir do cadastro de compromissos, direcionar para a página correspondente, não fixamente para a tabela de locais
 
 ---
 
