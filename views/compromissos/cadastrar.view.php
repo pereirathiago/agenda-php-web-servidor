@@ -57,7 +57,6 @@ if (empty($_SESSION['usuarioLogado']) || $_SESSION['usuarioLogado'] == false) {
             $arrayUsuarios = Usuario::buscarUsuarios();
             $usuarios = $arrayUsuarios['usuarios'];
             preencherOptions($usuarios);
-            print_r($usuarios);
             ?>
           </select>
           <input type="button" value="+" name="novoConvidado" onclick="adicionarConvidado()" class="p-4 fs-20 text-xl py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">

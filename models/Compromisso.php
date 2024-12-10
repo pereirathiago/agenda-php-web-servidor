@@ -27,7 +27,6 @@ class Compromisso
       ':idCompromissoOrganizador' => $dados->idCompromissoOrganizador
     ];
     
-    print_r($params);
 
     BdConexao::query($query, $params);
 

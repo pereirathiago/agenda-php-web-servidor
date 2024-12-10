@@ -15,11 +15,11 @@ class CompromissoController
       }
 
       $dados = [
-        'titulo' => $_POST['titulo'] ?? '',
-        'descricao' => $_POST['descricao'] ?? '',
-        'dataHoraInicio' => $_POST['dataHoraInicio'] ?? '',
-        'dataHoraFim' => $_POST['dataHoraFim'] ?? '',
-        'idLocal' => $_POST['idLocal'] ?? ''
+        'titulo' => htmlspecialchars($_POST['titulo']) ?? '',
+        'descricao' => htmlspecialchars($_POST['descricao']) ?? '',
+        'dataHoraInicio' => htmlspecialchars($_POST['dataHoraInicio']) ?? '',
+        'dataHoraFim' => htmlspecialchars($_POST['dataHoraFim']) ?? '',
+        'idLocal' => htmlspecialchars($_POST['idLocal']) ?? ''
       ];
 
       $this->validarDadosCompromisso($dados);
@@ -97,13 +97,12 @@ class CompromissoController
 
       $dados = [
         'id' => $id,
-        'descricao' => $_POST['descricao'] ?? '',
-        'titulo' => $_POST['titulo'] ?? '',
-        'dataHoraInicio' => $_POST['dataHoraInicio'] ?? '',
-        'dataHoraFim' => $_POST['dataHoraFim'] ?? '',
-        'idLocal' => $_POST['idLocal'] ?? '',
+        'descricao' => htmlspecialchars($_POST['descricao']) ?? '',
+        'titulo' => htmlspecialchars($_POST['titulo']) ?? '',
+        'dataHoraInicio' => htmlspecialchars($_POST['dataHoraInicio']) ?? '',
+        'dataHoraFim' => htmlspecialchars($_POST['dataHoraFim']) ?? '',
+        'idLocal' => htmlspecialchars($_POST['idLocal']) ?? '',
       ];
-      print_r($dados);
 
       $this->validarDadosCompromisso($dados);
 
