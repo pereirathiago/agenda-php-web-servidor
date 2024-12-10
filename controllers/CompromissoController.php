@@ -9,6 +9,8 @@ class CompromissoController
 
   public function cadastrar()
   {
+    BdConexao::get()->beginTransaction();
+
     try {
       if (!isset($_SESSION)) {
         session_start();
@@ -33,8 +35,6 @@ class CompromissoController
       $compromisso->idCompromissoOrganizador = $_SESSION['usuarioLogado']->id;
 
       $convidados = $_POST['convidadosList'] ?? '';
-
-      BdConexao::get()->beginTransaction();
 
       $resposta = $compromisso->salvarCompromisso($compromisso);
 

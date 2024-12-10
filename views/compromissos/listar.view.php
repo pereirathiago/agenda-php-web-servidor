@@ -63,8 +63,8 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                     <input type="button" value="Adicionar convidados" name="cadastrarLocal" onclick="mostrarSelectConvidados()" id="btnAdicionarConvidado" class="p-1 px-3 text-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-md shadow-sm hover:shadow-md hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 transition-all duration-150 transform hover:scale-105">
                 </div>
                 <div id="selectConvidados" class="mt-4 hidden">
-                    <form method="POST" action="/convidados/adicionar2">
-                        <select id="convidadoSelect" name="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <form method="POST" action="/convidados/adicionar2" class="flex flex-col space-y-4">
+                        <select id="convidadoSelect" name="usuarioConvidado" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="" disabled selected>Selecione um convidado</option>
                             <?php
                             $arrayUsuarios = Usuario::buscarUsuarios();
@@ -73,12 +73,14 @@ $usuarioLogado = $_SESSION['usuarioLogado'];
                             ?>
                         </select>
                         <input class="hidden" name="idCompromisso" value=<?= $dados['id']?>>
-                        <button type="submit" name="adicionarConvidado" class="p-1 px-3 text-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-md shadow-sm hover:shadow-md hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1 transition-all duration-150 transform hover:scale-105">
-                            +
-                        </button>
-                        <button type="button" onclick="cancelarAdicionarConvidado()" class="p-1 px-3 text-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-medium rounded-md shadow-sm hover:shadow-md hover:from-red-600 hover:to-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-1 transition-all duration-150 transform hover:scale-105">
-                            Cancelar
-                        </button>
+                        <div class="flex space-x-2">
+                            <button type="submit" name="adicionarConvidado" class="p-2 bg-green-500 text-white font-medium rounded-md shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition-all duration-150">
+                                Adicionar
+                            </button>
+                            <button type="button" onclick="cancelarAdicionarConvidado()" class="p-2 bg-red-500 text-white font-medium rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-150">
+                                Cancelar
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

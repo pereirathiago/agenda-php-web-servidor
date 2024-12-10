@@ -47,13 +47,14 @@ Router::post('/convidados/adicionar2', 'ConvidadoController@adicionar2');
 
 // erros
 Router::get('/404', 'ErrorController@error404');
-Router::get('/500', 'ErrorController@error500');
+// Router::get('/500', 'ErrorController@error500');
 
 Router::error(function (Request $request, \Exception $exception) {
   switch ($exception->getCode()) {
     case 404:
       Router::response()->redirect('/404');
     default:
-      Router::response()->redirect('/500');
+      print_r($exception->getMessage());
+      // Router::response()->redirect('/500');
   }
 });

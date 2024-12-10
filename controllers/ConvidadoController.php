@@ -1,5 +1,7 @@
 <?php
 
+use GuzzleHttp\Psr7\Header;
+
 class ConvidadoController
 {
   use ViewTrait;
@@ -103,7 +105,7 @@ class ConvidadoController
       ];
 
       Convidado::cadastrarConvidado($convite);
-      $this->view('compromissos/ver/');
+      Header('Location: /compromissos/ver/' . $convite['idCompromisso']);
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e);
       $this->view('compromissos/ver/', $error);
