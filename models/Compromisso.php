@@ -35,7 +35,7 @@ class Compromisso
   static function buscarCompromissoByIdUsuario($idUsuario, $filtro = '')
   {
     $query = "SELECT 
-      id, titulo, descricao, data_hora_inicio AS dataHoraInicio, data_hora_termino AS dataHoraFim, id_local AS idLocal, id_compromisso_organizador AS idCompromissoOrganizador FROM compromisso where id_compromisso_organizador = :idUsuario";
+      id, titulo, descricao, data_hora_inicio AS dataHoraInicio, data_hora_termino AS dataHoraFim, id_local AS idLocal, id_compromisso_organizador AS idCompromissoOrganizador FROM compromisso where id_compromisso_organizador = :idUsuario AND status_compromisso = 0";
 
     $params = [
       ':idUsuario' => $idUsuario
@@ -74,7 +74,7 @@ class Compromisso
 
   function deletarCompromisso($id)
   {
-    $query = "DELETE FROM compromisso WHERE id = :id";
+    $query = "UPDATE compromisso SET status_compromisso = 1 WHERE id = :id";
     Convidado::atualizarStatusConviteTodosConvidados($id, 3);
 
     $params = [

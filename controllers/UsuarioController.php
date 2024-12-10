@@ -14,14 +14,14 @@ class UsuarioController
     try {
       $dados = [
         'id' => 0,
-        'nomeCompleto' => $_POST['nomeCompleto'] ?? '',
-        'dataNascimento' => $_POST['dataNascimento'] ?? '',
-        'genero' => $_POST['genero'] ?? '',
-        'fotoPerfil' => $_POST['fotoPerfil'] ?? '',
-        'nomeUsuario' => $_POST['nomeUsuario'] ?? '',
-        'email' => $_POST['email'] ?? '',
-        'senha' => $_POST['senha'] ?? '',
-        'confirmarSenha' => $_POST['confirmarSenha'] ?? ''
+        'nomeCompleto' => htmlspecialchars($_POST['nomeCompleto']) ?? '',
+        'dataNascimento' => htmlspecialchars($_POST['dataNascimento']) ?? '',
+        'genero' => htmlspecialchars($_POST['genero']) ?? '',
+        'fotoPerfil' => htmlspecialchars($_POST['fotoPerfil']) ?? '',
+        'nomeUsuario' => htmlspecialchars($_POST['nomeUsuario']) ?? '',
+        'email' => htmlspecialchars($_POST['email']) ?? '',
+        'senha' => htmlspecialchars($_POST['senha']) ?? '',
+        'confirmarSenha' => htmlspecialchars($_POST['confirmarSenha']) ?? ''
       ];
 
       $this->validarDadosUsuario($dados);
@@ -61,14 +61,14 @@ class UsuarioController
 
       $dados = [
         'id' => $_SESSION['usuarioLogado']->id ?? 0,
-        'nomeCompleto' => $_POST['nomeCompleto'] ?? '',
-        'dataNascimento' => $_POST['dataNascimento'] ?? '',
-        'genero' => $_POST['genero'] ?? '',
-        'fotoPerfil' => $_POST['fotoPerfil'] ?? '',
+        'nomeCompleto' => htmlspecialchars($_POST['nomeCompleto']) ?? '',
+        'dataNascimento' => htmlspecialchars($_POST['dataNascimento']) ?? '',
+        'genero' => htmlspecialchars($_POST['genero']) ?? '',
+        'fotoPerfil' => htmlspecialchars($_POST['fotoPerfil']) ?? '',
         'nomeUsuario' => $_SESSION['usuarioLogado']->nomeUsuario ?? '',
-        'email' => $_POST['email'] ?? '',
-        'senha' => $_POST['senha'] ?? '',
-        'confirmarSenha' => $_POST['confirmarSenha'] ?? ''
+        'email' => htmlspecialchars($_POST['email']) ?? '',
+        'senha' => htmlspecialchars($_POST['senha']) ?? '',
+        'confirmarSenha' => htmlspecialchars($_POST['confirmarSenha']) ?? ''
       ];
 
       $this->validarDadosUsuario($dados);

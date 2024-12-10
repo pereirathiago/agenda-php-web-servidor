@@ -98,13 +98,13 @@ class LocalController
       }
 
       $dados = [
-        'cep' => $_POST['cep'] ?? '',
-        'endereco' => $_POST['endereco'] ?? '',
-        'numero' => $_POST['numero'] ?? 0,
+        'cep' => htmlspecialchars($_POST['cep']) ?? '',
+        'endereco' => htmlspecialchars($_POST['endereco']) ?? '',
+        'numero' => htmlspecialchars($_POST['numero']) ?? 0,
         'semNumero' => isset($_POST['semNumero']) ? true : false,
-        'bairro' => $_POST['bairro'] ?? '',
-        'cidade' => $_POST['cidade'] ?? '',
-        'estado' => $_POST['estado'] ?? ''
+        'bairro' => htmlspecialchars($_POST['bairro']) ?? '',
+        'cidade' => htmlspecialchars($_POST['cidade']) ?? '',
+        'estado' => htmlspecialchars($_POST['estado']) ?? ''
       ];
 
       $this->validarDadosLocal($dados);
@@ -139,13 +139,13 @@ class LocalController
 
       $dados = [
         'id' => $id,
-        'cep' => $_POST['cep'] ?? '',
-        'endereco' => $_POST['endereco'] ?? '',
-        'numero' => $_POST['numero'] ?? 0,
+        'cep' => htmlspecialchars($_POST['cep']) ?? '',
+        'endereco' => htmlspecialchars($_POST['endereco']) ?? '',
+        'numero' => htmlspecialchars($_POST['numero']) ?? 0,
         'semNumero' => isset($_POST['semNumero']) ? true : false,
-        'bairro' => $_POST['bairro'] ?? '',
-        'cidade' => $_POST['cidade'] ?? '',
-        'estado' => $_POST['estado'] ?? ''
+        'bairro' => htmlspecialchars($_POST['bairro']) ?? '',
+        'cidade' => htmlspecialchars($_POST['cidade']) ?? '',
+        'estado' => htmlspecialchars($_POST['estado']) ?? ''
       ];
 
       $this->validarDadosLocal($dados);

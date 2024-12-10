@@ -88,4 +88,28 @@ class ConvidadoController
       $this->view('convites/listar', $error);
     }
   }
+
+  public function adicionar2()
+  {
+    try {
+      if (!isset($_SESSION)) {
+        session_start();
+      }
+
+      $convite = [
+        'idUsuarioConvidado' => $_POST['usuarioConvidado'] ?? '',
+        'statusConvite' => 0,
+        'idCompromisso' => $_POST['idCompromisso'] ?? ''
+      ];
+
+      Convidado::cadastrarConvidado($convite);
+      $this->view('compromissos/ver/');
+    } catch (PDOException $e) {
+      $error = ErrorsFunctions::handlePDOError($e);
+      $this->view('compromissos/ver/', $error);
+    } catch (Exception $e) {
+      $error = ErrorsFunctions::handleError($e);
+      $this->view('compromissos/ver', $error);
+    }
+  }
 }

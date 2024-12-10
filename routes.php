@@ -43,6 +43,7 @@ Router::get('/convites', 'ConvidadoController@telaListar');
 Router::post('/convites/aceitar/{id}', 'ConvidadoController@aceitar');
 Router::post('/convites/rejeitar/{id}', 'ConvidadoController@rejeitar');
 Router::post('/convidados/adicionar', 'ConvidadoController@adicionar');
+Router::post('/convidados/adicionar2', 'ConvidadoController@adicionar2');
 
 // erros
 Router::get('/404', 'ErrorController@error404');
