@@ -11,7 +11,7 @@ class AgendaController
         session_start();
       }
 
-      $compromissos = Compromisso::buscarCompromissoByIdUsuario($_SESSION['usuarioLogado']->id);
+      $compromissos = Compromisso::buscarCompromissoByIdusuarioConvidado($_SESSION['usuarioLogado']->id);
       $this->view('agenda/listar', $compromissos);
     } catch (PDOException $e) {
       $error = ErrorsFunctions::handlePDOError($e);

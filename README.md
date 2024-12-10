@@ -68,6 +68,9 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
 - Otimização de alguns métodos para evitar duplicidade de código
 - Impedir o usuário logado acesso dados de outros uusuario pela URL
 - Após o cadastro de um novo local, criado a partir do cadastro de compromissos, direcionar para a página correspondente, não fixamente para a tabela de locais
+- Adicionar informações de erro nas listagens
+- Adicionar botão de ver compromisso antes de aceitar convite
+- remover função de adicionar convidados caso o usuario seja um convidado
 
 ---
 

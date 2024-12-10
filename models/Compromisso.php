@@ -1,6 +1,6 @@
 <?php
 
-require_once('Usuario.php'); 
+require_once('Usuario.php');
 
 class Compromisso
 {
@@ -11,8 +11,9 @@ class Compromisso
   private $dataHoraFim;
   private $local;
   private $idCompromissoOrganizador;
+  private $ehMeuCompromisso;
 
-  public function __construct() { }
+  public function __construct() {}
 
   function salvarCompromisso($dados)
   {
@@ -26,7 +27,7 @@ class Compromisso
       ':idLocal' => $dados->local,
       ':idCompromissoOrganizador' => $dados->idCompromissoOrganizador
     ];
-    
+
     BdConexao::query($query, $params);
 
     return ['code' => 201, 'message' => 'Compromisso cadastrado com sucesso', 'id' => BdConexao::get()->lastInsertId()];
@@ -48,6 +49,26 @@ class Compromisso
         ':filtro' => "%$filtro%"
       ];
     }
+    $compromissos = BdConexao::query($query, $params)->fetchAll(PDO::FETCH_CLASS, "Compromisso");
+
+    return ['code' => 200, 'compromissos' => $compromissos];
+  }
+
+  static function buscarCompromissoByIdusuarioConvidado($idUsuario)
+  {
+    $query = "SELECT c.id, c.titulo, c.descricao, c.data_hora_inicio AS dataHoraInicio, c.data_hora_termino AS dataHoraFim, c.id_local AS idLocal, c.id_compromisso_organizador AS idCompromissoOrganizador, 0 AS ehMeuCompromisso 
+    FROM compromisso c 
+    JOIN convidado co ON c.id = co.id_compromisso 
+    WHERE co.id_usuario_convidado = :idUsuario AND co.status_convite = 1 
+    UNION 
+    SELECT id, titulo, descricao, data_hora_inicio AS dataHoraInicio, data_hora_termino AS dataHoraFim, id_local AS idLocal, id_compromisso_organizador AS idCompromissoOrganizador, 1 AS ehMeuCompromisso 
+    FROM compromisso 
+    WHERE id_compromisso_organizador = :idUsuario AND status_compromisso = 0";
+
+    $params = [
+      ':idUsuario' => $idUsuario
+    ];
+
     $compromissos = BdConexao::query($query, $params)->fetchAll(PDO::FETCH_CLASS, "Compromisso");
 
     return ['code' => 200, 'compromissos' => $compromissos];
