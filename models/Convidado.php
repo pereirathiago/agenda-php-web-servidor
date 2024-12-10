@@ -5,6 +5,7 @@ class Convidado
   private $id;
   private $idUsuarioConvidado;
   private $nomeUsuarioOrganizador;
+  private $nomeUsuarioConvidado;
   private $statusConvite; // 0 = Não confirmado, 1 = Confirmado, 2 = Recusado, 3 = Cancelado
   private $idCompromisso;
   private $nomeCompromisso;
@@ -22,8 +23,6 @@ class Convidado
       ':idCompromisso' => $dados['idCompromisso']
     ];
 
-    print_r($params);
-
     BdConexao::query($query, $params);
 
     return ['code' => 201, 'message' => 'Convidado cadastrado com sucesso'];
@@ -32,10 +31,11 @@ class Convidado
   static function buscarConvidadosByIdCompromisso($idCompromisso)
   {
     $query = "SELECT 
-      c.id, c.id_usuario_convidado AS idUsuarioConvidado, uo.nome_completo AS nomeUsuarioOrganizador, c.status_convite AS statusConvite, c.id_compromisso AS idCompromisso, co.titulo AS nomeCompromisso
+      c.id, c.id_usuario_convidado AS idUsuarioConvidado, u.nome_completo as nomeUsuarioConvidado, uo.nome_completo AS nomeUsuarioOrganizador, c.status_convite AS statusConvite, c.id_compromisso AS idCompromisso, co.titulo AS nomeCompromisso
       FROM convidado c
       JOIN compromisso co ON c.id_compromisso = co.id
       JOIN usuario uo ON co.id_compromisso_organizador = uo.id
+      JOIN usuario u ON c.id_usuario_convidado = u.id
       WHERE c.id_compromisso = :idCompromisso";
 
     $params = [
@@ -54,7 +54,7 @@ class Convidado
       FROM convidado c
       JOIN compromisso co ON c.id_compromisso = co.id
       JOIN usuario uo ON co.id_compromisso_organizador = uo.id
-      WHERE c.id_usuario_convidado = :idUsuario";
+      WHERE c.id_usuario_convidado = :idUsuario AND co";
 
     $params = [
       ':idUsuario' => $idUsuario
