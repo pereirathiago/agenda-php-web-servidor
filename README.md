@@ -3,7 +3,7 @@ Projeto desenvolvido para a disciplina de Web Servidor do curso de analise e des
 
 ## Descrição do Projeto
 
-Este é um projeto desenvolvido em PHP que tem como objetivo gerenciar os compromissos pessoais em agendas. Neste projeto, nossa equipe trabalhou com o desenvolvimento de um sistema que permite cadastrar usuarios, criar agendas e locais para os compromissos, adicionar, editar e compartilhar compromissos, e permitir visualizar essas informações. 
+Este é um projeto desenvolvido em PHP que tem como objetivo gerenciar os compromissos pessoais em agendas. Neste projeto, nossa equipe trabalhou com o desenvolvimento de um sistema que permite cadastrar usuarios, locais para os compromissos, adicionar, editar e compartilhar compromissos, adicionando convidados e permitir visualizar essas informações. 
 
 ## Atividades da Equipe
 
@@ -29,10 +29,19 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
     cd caminho/agenda-php-web-servidor
     ```
 
+3. Instale as dependencias (composer deve está instalando na maquina):
+
+    ```bash
+    composer install
+    ```
+
+4. Configure o banco de dados:
+
+    4.1 Crie um banco de dados `MySQL` chamado `agenda`
+    4.2 Importe as tabelas do arquivo: [agenda.sql](./agenda.sql)
+
 3. Inicie o servidor:
     - Configure um Virtual Host chamado `agenda.test`, referenciando o diretório do projeto.
-    - Para configurar o Virtual Host, se necessário, seguir o passo a passo disponível em: 
-        https://moodle.utfpr.edu.br/pluginfile.php/2176293/mod_resource/content/1/Configura%C3%A7%C3%A3o%20Rotas%20no%20Apache%20e%20Xampp%20para%20Windows.pdf
 
 4. Acesse o projeto em `agenda.test`. 
 
@@ -55,10 +64,9 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
 
 ## Funcionalidades Faltantes
 
-- Sistema de notificações para lembretes de compromissos.
 - Adicionar calendário dinâmico (em lugar da tabela agenda)
 - Otimização de alguns métodos para evitar duplicidade de código
-- Impedir o usuário de acessar outros formulários trocando o ID pela URL
+- Impedir o usuário logado acesso dados de outros uusuario pela URL
 - Após o cadastro de um novo local, criado a partir do cadastro de compromissos, direcionar para a página correspondente, não fixamente para a tabela de locais
 
 ---
@@ -67,7 +75,7 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
 
 - Sistema de cadastro de usuário não armazena seu gênero
 - Mensagens de erro não mostra na página de perfil 
-- Bug na verificação de data de compromissos
+- Bug na verificação de data de compromissos (fuso horário)
 
 ---
 
@@ -84,7 +92,7 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
 
 - **PHP** - Linguagem principal
 - **HTML/CSS/JavaScript** - Para o desenvolvimento do frontend
-- **COMPOSER/AUTOLOAD** - Para gerenciamento de rotas
+- **Composer** - Para gerenciamento de dependencias
 - **Tailwind** - Framework para CSS
 
 ---
