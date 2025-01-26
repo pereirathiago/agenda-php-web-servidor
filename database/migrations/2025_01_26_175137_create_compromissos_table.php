@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('compromissos', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->text('descricao')->nullable();
+            $table->dateTime('data_hora_inicio');
+            $table->dateTime('data_hora_fim')->nullable();
+            $table->foreignId('id_compromisso_organizador')->references('id')->on('usuarios')->onDelete('cascade');
+            $table->foreignId('id_local')->references('id')->on('locais')->onDelete('cascade');
             $table->timestamps();
         });
     }
