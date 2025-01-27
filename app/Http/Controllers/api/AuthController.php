@@ -17,7 +17,8 @@ class AuthController extends Controller
             $request->validate([
                 "name" => "required|string",
                 "email" => "required|string|email|unique:users",
-                "password" => "required|string"
+                "password" => "required|string",
+                "c_password" => "required|same:password"
             ]);
 
             $user = User::create([
@@ -26,8 +27,7 @@ class AuthController extends Controller
                 "password" => bcrypt($request->password)
             ]);
 
-            if(!$user)
-            {
+            if (!$user) {
                 return response()->json([
                     "message" => "Erro ao criar usuário"
                 ], 500);
@@ -78,6 +78,15 @@ class AuthController extends Controller
     {
         return response()->json([
             "user" => Auth::user()
+        ], 200);
+    }
+
+    public function logout(): JsonResponse
+    {
+        Auth::user()->tokens()->delete();
+
+        return response()->json([
+            "message" => "Usuário deslogado com sucesso"
         ], 200);
     }
 }
