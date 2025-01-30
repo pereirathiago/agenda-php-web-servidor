@@ -15,7 +15,24 @@ class UserController extends Controller
      */
     public function index()
     {
+        try {
+            $filtro = request()->query('filtro', '');
 
+            $usuarios = User::whereLike('nome_usuario', "%{$filtro}%")
+                ->orWhereLike('name', "%{$filtro}%")
+                ->orWhereLike('email', "%{$filtro}%")
+                ->get();
+
+            return response()->json([
+                'code' => 200,
+                'usuarios' => $usuarios
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao buscar usuários',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -51,9 +68,21 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $usuario)
+    public function show($id)
     {
+        try {
+            $usuario = User::findOrFail($id);
 
+            return response()->json([
+                "message" => "Usuário encontrado com sucesso",
+                "user" => $usuario
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => "Erro ao buscar usuário",
+                "error" => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
