@@ -3,6 +3,7 @@
 namespace App\Http\Requests\user;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class UpdateUserRequest extends FormRequest
@@ -12,7 +13,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('update', $this->usuario);
+        return true;
     }
 
     /**
@@ -23,21 +24,31 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'nomeCompleto' => 'sometimes|string|max:255',
-            'nomeUsuario' => 'sometimes|string|max:255|unique:usuarios,nome_usuario,' . $this->usuario->id,
-            'dataNascimento' => 'sometimes|date|before:today',
-            'genero' => 'sometimes|in:Masculino,Feminino,Outro',
-            'fotoPerfil' => 'nullable|url',
-            'email' => 'sometimes|email|unique:users,email,' . $this->user()->id,
-            'senha' => [
-                'sometimes',
+            "name" => "required|string",
+            "email" => [
+                'required',
+                'string',
+                'email',
+                Rule::unique('users')->ignore($this->user()->id),
+            ],
+            'nome_usuario' => [
+                'required',
+                'string',
+                'max:30',
+                Rule::unique('users', 'nome_usuario')->ignore($this->user()->id),
+            ],
+            'data_nascimento' => 'required|date|before:today',
+            'genero' => 'required|in:Masculino,Feminino,Outro',
+            'foto_perfil' => 'nullable|url',
+            'password' => [
+                'required',
                 'confirmed',
                 Password::min(8)
                     ->letters()
                     ->mixedCase()
                     ->numbers()
                     ->symbols()
-            ]
+            ],
         ];
     }
 }
