@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('convites', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('status_convite');
-            $table->foreignId('id_usuario_convidado')->references('id')->on('usuarios');
+            $table->foreignId('id_usuario_convidado')->references('id')->on('users');
             $table->foreignId('id_compromisso')->references('id')->on('compromissos');
             $table->timestamps();
         });
