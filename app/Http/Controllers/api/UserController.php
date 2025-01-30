@@ -23,9 +23,9 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        try {       
+        try {
             $dados = $request->validated();
-            
+
             $dados['password'] = Hash::make($dados['password']);
 
             $user = User::create($dados);
@@ -64,7 +64,9 @@ class UserController extends Controller
         try {
             $dados = $request->validated();
 
-
+            if (isset($dados['password'])) {
+                $dados['password'] = Hash::make($dados['password']);
+            }
 
             $usuario = auth()->user();
             $usuario->update($dados);
@@ -84,8 +86,26 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $usuario)
+    public function destroy()
     {
-        
+        try {
+            $usuario = auth()->user();
+
+            if (!$usuario->can('delete', $usuario)) {
+                return response()->json([
+                    "message" => "Você não tem permissão para deletar este usuário"
+                ], 403);
+            }
+            $usuario->delete();
+
+            return response()->json([
+                "message" => "Usuário deletado com sucesso"
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => "Erro ao deletar usuário",
+                "error" => $e->getMessage()
+            ], 500);
+        }
     }
 }
