@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('bairro');
             $table->string('cidade');
             $table->string('estado');
-            $table->foreignId('id_usuario')->references('id')->on('usuarios')->onDelete('cascade');
+            $table->foreignId('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
