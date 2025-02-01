@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Compromisso;
 use App\Http\Requests\compromisso\StoreCompromissoRequest;
 use App\Http\Requests\compromisso\UpdateCompromissoRequest;
+use Illuminate\Container\Attributes\Auth;
 
 class CompromissoController extends Controller
 {
@@ -14,7 +15,23 @@ class CompromissoController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $filtro = request()->query('filtro', '');
+
+            $compromissos = Compromisso::whereLike('titulo', "%{$filtro}%")
+                ->orWhereLike('descricao', "%{$filtro}%")
+                ->get();
+
+            return response()->json([
+                'code' => 200,
+                'compromissos' => $compromissos
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao buscar compromissos',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -22,7 +39,28 @@ class CompromissoController extends Controller
      */
     public function store(StoreCompromissoRequest $request)
     {
-        //
+        //cadastrar compromisso
+        try {
+            $dados = $request->validated();
+            $dados['id_compromisso_organizador'] = auth()->user()->id;
+            $compromisso = Compromisso::create($dados);
+
+            if (!$compromisso) {
+                return response()->json([
+                    "message" => "Erro ao criar compromisso"
+                ], 500);
+            }
+
+            return response()->json([
+                "message" => "Compromisso criado com sucesso",
+                "compromisso" => $compromisso
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao criar compromisso',
+                'error' => $e->getMessage()
+            ], 500);
+        }        
     }
 
     /**

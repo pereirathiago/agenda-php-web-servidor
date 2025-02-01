@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\compromisso;
+namespace App\Http\Requests\local;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCompromissoRequest extends FormRequest
+class UpdateLocalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,7 @@ class StoreCompromissoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => 'required|string',
-            'descricao' => 'nullable|string',
-            'data_hora_inicio' => 'required|date',
-            'data_hora_fim' => 'required|date',
-            'id_local' => 'required|exists:locais,id',
+            //
         ];
     }
-    
 }
