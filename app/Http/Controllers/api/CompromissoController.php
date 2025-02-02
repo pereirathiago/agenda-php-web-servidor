@@ -18,8 +18,11 @@ class CompromissoController extends Controller
         try {
             $filtro = request()->query('filtro', '');
 
-            $compromissos = Compromisso::whereLike('titulo', "%{$filtro}%")
-                ->orWhereLike('descricao', "%{$filtro}%")
+            $compromissos = Compromisso::where('id_compromisso_organizador', auth()->user()->id)
+                ->where(function ($query) use ($filtro) {
+                    $query->where('titulo', 'like', "%{$filtro}%")
+                          ->orWhere('descricao', 'like', "%{$filtro}%");
+                })
                 ->get();
 
             return response()->json([
@@ -84,6 +87,17 @@ class CompromissoController extends Controller
      */
     public function destroy(Compromisso $compromisso)
     {
-        //
+        try {
+            $compromisso->delete();
+
+            return response()->json([
+                'message' => 'Compromisso deletado com sucesso'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao deletar compromisso',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

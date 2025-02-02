@@ -14,7 +14,26 @@ class LocalController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $filtro = request()->query('filtro', '');
+
+            $locais = Local::where('id_usuario', auth()->user()->id)
+                ->where(function($query) use ($filtro) {
+                    $query->where('endereco', 'like', "%{$filtro}%")
+                          ->orWhere('cep', 'like', "%{$filtro}%");
+                })
+                ->get();
+
+            return response()->json([
+                'code' => 200,
+                'locais' => $locais
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao buscar locais',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**

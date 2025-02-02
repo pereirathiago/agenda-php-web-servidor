@@ -4,6 +4,8 @@ namespace App\Http\Requests\compromisso;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use \App\Models\Local;
+
 class StoreCompromissoRequest extends FormRequest
 {
     /**
@@ -26,7 +28,15 @@ class StoreCompromissoRequest extends FormRequest
             'descricao' => 'nullable|string',
             'data_hora_inicio' => 'required|date',
             'data_hora_fim' => 'required|date',
-            'id_local' => 'required|exists:locais,id',
+            'id_local' => [
+            'required',
+            'exists:locais,id',
+            function ($attribute, $value, $fail) {
+                if (!Local::where('id', $value)->where('id_usuario', auth()->id())->exists()) {
+                $fail('O local selecionado não pertence ao usuário autenticado.');
+                }
+            },
+            ],
         ];
     }
     
