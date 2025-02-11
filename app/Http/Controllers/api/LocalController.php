@@ -76,9 +76,34 @@ class LocalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLocalRequest $request, Local $local)
+    public function update(UpdateLocalRequest $request)
     {
-        //
+        //atualizar local
+        try {
+            $dados = $request->validated();
+            $local = Local::find($dados['id']);
+
+            //verifica se o local pertence ao usuário autenticado
+            if(!$local || $local->id_usuario != auth()->user()->id) {
+                return response()->json([
+                    'message' => 'O local selecionado não pertence ao usuário autenticado.'
+                ], 403);
+            }
+            
+            $dados['id_usuario'] = auth()->user()->id;
+            $local->update($dados);
+
+            return response()->json([
+                "message" => "Local atualizado com sucesso",
+                "local" => $local
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao atualizar local',
+                'error' => $e->getMessage(),
+                'dados' => $dados
+            ], 500);
+        }
     }
 
     /**

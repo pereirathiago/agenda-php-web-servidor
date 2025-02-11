@@ -27,5 +27,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/locais', [LocalController::class, 'store']);
     Route::get('/locais', [LocalController::class, 'index']);
+    Route::put('/locais', [LocalController::class, 'update']);
 });
 
