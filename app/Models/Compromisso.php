@@ -20,6 +20,7 @@ class Compromisso extends Model
         'data_hora_inicio',
         'data_hora_fim',
         'id_local',
+        'status'
     ];
 
     protected $casts = [
@@ -29,11 +30,16 @@ class Compromisso extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id_compromisso_organizador');
     }
 
     public function local(): BelongsTo
     {
-        return $this->belongsTo(Local::class);
+        return $this->belongsTo(Local::class, 'id_local');
+    }
+
+    public function convites()
+    {
+        return $this->hasMany(Convite::class, 'id_compromisso');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\compromisso;
 
+use App\Models\Compromisso;
 use Illuminate\Foundation\Http\FormRequest;
 
 use \App\Models\Local;
@@ -13,7 +14,7 @@ class UpdateCompromissoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->can('update', Compromisso::find($this->id));
     }
 
     /**

@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Compromisso;
 use App\Http\Requests\compromisso\StoreCompromissoRequest;
 use App\Http\Requests\compromisso\UpdateCompromissoRequest;
-use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CompromissoController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -18,16 +20,29 @@ class CompromissoController extends Controller
         try {
             $filtro = request()->query('filtro', '');
 
-            $compromissos = Compromisso::where('id_compromisso_organizador', auth()->user()->id)
+            $compromissosOrganizados = Compromisso::where('id_compromisso_organizador', auth()->user()->id)
+                ->where('status', 1)
                 ->where(function ($query) use ($filtro) {
                     $query->where('titulo', 'like', "%{$filtro}%")
-                          ->orWhere('descricao', 'like', "%{$filtro}%");
+                        ->orWhere('descricao', 'like', "%{$filtro}%");
                 })
                 ->get();
 
+            $compromissosConvidado = Compromisso::whereHas('convites', function ($query) use ($filtro) {
+                $query->where('id_usuario_convidado', auth()->user()->id)
+                    ->where('status_convite', 1)
+                    ->where('status', 1)
+                    ->where(function ($query) use ($filtro) {
+                        $query->where('titulo', 'like', "%{$filtro}%")
+                            ->orWhere('descricao', 'like', "%{$filtro}%");
+                    });
+            })
+            ->get();
+
             return response()->json([
                 'code' => 200,
-                'compromissos' => $compromissos
+                'compromissosOrganizados' => $compromissosOrganizados,
+                'compromissosConvidado' => $compromissosConvidado
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
@@ -64,7 +79,7 @@ class CompromissoController extends Controller
                 'message' => 'Erro ao criar compromisso',
                 'error' => $e->getMessage()
             ], 500);
-        }        
+        }
     }
 
     /**
@@ -72,20 +87,31 @@ class CompromissoController extends Controller
      */
     public function show(Compromisso $compromisso)
     {
-        //
+        try {
+            if ($compromisso->status != 1) {
+                throw new \Exception('Compromisso não existe');
+            }
+
+            return response()->json([
+                "message" => "Compromisso encontrado com sucesso",
+                "compromisso" => $compromisso->load(['local', 'user', 'convites'])
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao buscar compromisso',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCompromissoRequest $request)
+    public function update(UpdateCompromissoRequest $request, Compromisso $compromisso)
     {
-        //função para atualizar compromisso
         try {
             $dados = $request->validated();
             $dados['id_compromisso_organizador'] = auth()->user()->id;
-
-            $compromisso = Compromisso::find($dados['id']);
 
             $compromisso->update($dados);
 
@@ -107,15 +133,21 @@ class CompromissoController extends Controller
     public function destroy(Compromisso $compromisso)
     {
         try {
-            $compromisso->delete();
+            $this->authorize('delete', $compromisso);
+
+            if ($compromisso->status == 0) {
+                throw new \Exception('Compromisso não existe');
+            }
+
+            $compromisso->update(['status' => 0]);
 
             return response()->json([
-                'message' => 'Compromisso deletado com sucesso'
+            'message' => 'Compromisso deletado com sucesso'
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Erro ao deletar compromisso',
-                'error' => $e->getMessage()
+            'message' => 'Erro ao deletar compromisso',
+            'error' => $e->getMessage()
             ], 500);
         }
     }
