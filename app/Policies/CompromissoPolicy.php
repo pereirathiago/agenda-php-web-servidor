@@ -37,7 +37,7 @@ class CompromissoPolicy
      */
     public function update(User $user, Compromisso $compromisso): bool
     {
-        return false;
+        return $user->id === $compromisso->id_compromisso_organizador;
     }
 
     /**
@@ -45,7 +45,7 @@ class CompromissoPolicy
      */
     public function delete(User $user, Compromisso $compromisso): bool
     {
-        return false;
+        return $user->id === $compromisso->id_compromisso_organizador;
     }
 
     /**
