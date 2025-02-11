@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\ConviteController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\CompromissoController;
@@ -25,6 +26,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/compromissos/{compromisso}', [CompromissoController::class, 'destroy']);
     Route::put('/compromissos/{compromisso}', [CompromissoController::class, 'update']);
     Route::get('/compromissos/{compromisso}', [CompromissoController::class, 'show']);
+
+    Route::get('/convites', [ConviteController::class, 'buscarConvites']);
+    Route::get('/convidados/{compromisso}', [ConviteController::class, 'buscarConvidadosByIdCompromisso']);
+    Route::post('/convites', [ConviteController::class, 'store']);
 
     Route::post('/locais', [LocalController::class, 'store']);
     Route::get('/locais', [LocalController::class, 'index']);
