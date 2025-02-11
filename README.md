@@ -1,66 +1,98 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# agenda-php-web-servidor
+Projeto desenvolvido para a disciplina de Web Servidor do curso de analise e desenvolvimento de sistemas na UTFPR
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descrição do Projeto
 
-## About Laravel
+Este é um projeto desenvolvido em PHP que tem como objetivo gerenciar os compromissos pessoais em agendas. Neste projeto, nossa equipe trabalhou com o desenvolvimento de um sistema que permite cadastrar usuarios, locais para os compromissos, adicionar, editar e compartilhar compromissos, adicionando convidados e permitir visualizar essas informações. 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Atividades da Equipe
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Giovanne Ribeiro Mika**: CRUD de locais e validações correspondentes. Dividiu a elaboração dos compromissos. Elaborou as rotas de compromisso e local.
+- **Thiago Pereira**: Configurou o ambiente. Concluiu o CRUD de compromissos. Implementou na API toda a estrutura de funcionamento dos convites. Elaborou o restante das rotas (autenticação de usuário e CRUD usuário).
+- **Matheus Andreiczuk**: Elaborou a documentação e realizou testes de funcionamento da aplicação.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Instalação
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Para instalar e configurar o projeto localmente, siga os passos abaixo:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. Clone o repositório:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    ```bash
+    git clone https://github.com/pereirathiago/agenda-php-web-servidor.git
+    ```
 
-## Laravel Sponsors
+2. Entre no diretório do projeto:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    ```bash
+    cd caminho/agenda-php-web-servidor
+    ```
 
-### Premium Partners
+3. Instale as dependencias (composer deve estar previamente instalando na maquina):
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+    ```bash
+    composer install
+    ```
+4. Instale o framework laravel:
+    ```bash
+    composer global require laravel/installer
+    ```
 
-## Contributing
+5. Inicie a configuração do ambiente com os 2 comandos a seguir:
+    ```bash
+    cp .env.example .env      
+    ```
+    ```bash
+    php artisan key:generate    
+    ```
+6. Realize a configuração do banco de dados com os seguintes comandos:
+    ```bash
+    touch database/database.sqlite     
+    ```
+    ```bash
+    php artisan migrate   
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7. Inicie o servidor:
+    - Configure um Virtual Host chamado `agenda.test`, referenciando o diretório do projeto.
+    - Utilize o seguinte comando para inicialização do servidor local:
+   ```bash
+   php artisan serve      
+   ```
 
-## Code of Conduct
+8. Acesse o projeto em `agenda.test`. 
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Funcionalidades do Projeto
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Cadastro de usuários com autenticação (registro, login, logout)
+- CRUD para gerenciamento de usuarios, compromissos e locais dos compromissos
+- Envio de convites a outros usuários, para participação em um compromisso
+- Sistema de permissões para controle de acesso
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Tecnologias Utilizadas
+
+- **PHP** - Linguagem principal
+- **Composer** - Para gerenciamento de dependencias
+- **Laravel** - Framework PHP utilizado no projeto como um todo
+
+---
+
+## Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+## Autores
+
+- **Giovanne Ribeiro Mika** - [GitHub](https://github.com/GiovanneMika)
+- **Thiago Pereira** - [GitHub](https://github.com/pereirathiago)
+- **Matheus Andreiczuk** - [GitHub](https://github.com/MatheusAndreiczuk)
+
+---
+
