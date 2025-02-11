@@ -28,8 +28,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/compromissos/{compromisso}', [CompromissoController::class, 'show']);
 
     Route::get('/convites', [ConviteController::class, 'buscarConvites']);
-    Route::get('/convidados/{compromisso}', [ConviteController::class, 'buscarConvidadosByIdCompromisso']);
     Route::post('/convites', [ConviteController::class, 'store']);
+    Route::put('/convites/{convite}', [ConviteController::class, 'updateStatus']);
+    Route::put('/convites', [ConviteController::class, 'updateStatusTodosConvites']);
+    Route::delete('/convites/{convite}', [ConviteController::class, 'destroy']);
 
     Route::post('/locais', [LocalController::class, 'store']);
     Route::get('/locais', [LocalController::class, 'index']);

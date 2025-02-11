@@ -140,6 +140,7 @@ class CompromissoController extends Controller
             }
 
             $compromisso->update(['status' => 0]);
+            $compromisso->convites()->update(['status_convite' => 4]);
 
             return response()->json([
             'message' => 'Compromisso deletado com sucesso'

@@ -25,7 +25,7 @@ class StoreConviteRequest extends FormRequest
     {
         return [
             'idUsuarioConvidado' => 'required|exists:users,id',
-            'statusConvite' => 'required|in:0,1',
+            'statusConvite' => 'required|in:0,1,2,3',
             'idCompromisso' => 'required|exists:compromissos,id',
         ];
     }

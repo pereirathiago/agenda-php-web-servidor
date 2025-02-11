@@ -14,7 +14,7 @@ class UpdateConviteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->can('update', Convite::find($this->id));
+        return true;
     }
 
     /**
@@ -25,9 +25,7 @@ class UpdateConviteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'idUsuarioConvidado' => 'required|exists:users,id',
-            'statusConvite' => 'required|in:0,1',
-            'idCompromisso' => 'required|exists:compromissos,id',
+            'status_convite' => 'required|in:0,1,2,3',
         ];
     }
 }

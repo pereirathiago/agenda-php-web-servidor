@@ -20,10 +20,8 @@ class ConviteController extends Controller
     {
         try {
             $convites = Convite::where('id_usuario_convidado', auth()->user()->id)
-            ->where('status_convite', 1)
             ->with(['compromisso' => function($query) {
-                $query->select('id', 'titulo', 'id_compromisso_organizador')
-                      ->where('status', 1);
+                $query->select('id', 'titulo', 'id_compromisso_organizador');
             }, 'compromisso.user' => function($query) {
                 $query->select('id', 'name');
             }])
@@ -49,32 +47,6 @@ class ConviteController extends Controller
                 'message' => 'Erro ao buscar convites',
                 'error' => $e->getMessage()
             ], 500);
-        }
-    }
-
-    public function buscarConvidadosByIdCompromisso(Compromisso $compromisso) 
-    {
-        try {
-            $compromisso->load(['convites', 'convites.usuarioConvidado' => function ($query) {
-                $query->select('id', 'name');
-            }, 'user' => function ($query) {
-                $query->select('id', 'name');
-            }]);
-    
-            $convidados = $compromisso->convidados->map(function ($convidado) use ($compromisso) {
-                return [
-                    'id' => $convidado->id,
-                    'nomeUsuarioConvidado' => $convidado->nome_completo,
-                    'nomeUsuarioOrganizador' => $compromisso->user->nome_completo,
-                    'statusConvite' => $convidado->pivot->statusConvite,
-                    'idCompromisso' => $compromisso->id,
-                    'nomeCompromisso' => $compromisso->titulo,
-                ];
-            });
-    
-            return ['code' => 200, 'convidados' => $convidados];
-        } catch (\Exception $e) {
-            return ['code' => 500, 'message' => 'Erro ao buscar convidados', 'error' => $e->getMessage()];
         }
     }
 
@@ -130,11 +102,10 @@ class ConviteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateConviteRequest $request, Convite $convite)
+    public function updateStatus(UpdateConviteRequest $request, Convite $convite)
     {
         try {
             $dados = $request->validated();
-            $dados['id_convite_organizador'] = auth()->user()->id;
 
             $convite->update($dados);
 
@@ -150,22 +121,42 @@ class ConviteController extends Controller
         }
     }
 
+    public function updateStatusTodosConvites(UpdateConviteRequest $request)
+    {
+        try {
+            $dados = $request->validated();
+            $idConvite = $dados['status_convite'];
+
+            $convites = Convite::where('id_usuario_convidado', auth()->user()->id)
+            ->get();
+
+            $convites->each(function ($convite) use ($idConvite) {
+                $convite->status_convite = $idConvite;
+                $convite->save();
+            });
+
+            return response()->json([
+                'message' => 'Convites atualizados com sucesso',
+                'convites' => $convites
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao atualizar convites',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Convite $convite)
     {
         try {
-            $this->authorize('delete', $convite);
-
-            if ($convite->status == 0) {
-                throw new \Exception('Convite não existe');
-            }
-
-            $convite->update(['status' => 0]);
+            $convite->delete();
 
             return response()->json([
-            'message' => 'Convite deletado com sucesso'
+                'message' => 'Convite deletado com sucesso'
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
