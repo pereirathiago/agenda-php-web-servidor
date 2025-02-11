@@ -42,4 +42,10 @@ class Compromisso extends Model
     {
         return $this->hasMany(Convite::class, 'id_compromisso');
     }
+
+    public function convidados()
+    {
+        return $this->hasManyThrough(User::class, Convite::class, 'id_compromisso', 'id', 'id', 'id_usuario_convidado');
+    }
+
 }
