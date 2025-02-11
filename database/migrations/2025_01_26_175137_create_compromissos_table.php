@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('descricao')->nullable();
+            $table->boolean('status')->default(1);
             $table->dateTime('data_hora_inicio');
             $table->dateTime('data_hora_fim')->nullable();
             $table->foreignId('id_compromisso_organizador')->references('id')->on('users')->onDelete('cascade');
