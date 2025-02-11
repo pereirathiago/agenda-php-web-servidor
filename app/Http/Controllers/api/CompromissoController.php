@@ -45,7 +45,7 @@ class CompromissoController extends Controller
         //cadastrar compromisso
         try {
             $dados = $request->validated();
-            $dados['id_compromisso_organizador'] = Auth::user()->id;
+            $dados['id_compromisso_organizador'] = auth()->user()->id;
             $dados['status'] = 1;
             $compromisso = Compromisso::create($dados);
 
@@ -78,17 +78,20 @@ class CompromissoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCompromissoRequest $request, Compromisso $compromisso)
+    public function update(UpdateCompromissoRequest $request)
     {
         //função para atualizar compromisso
         try {
             $dados = $request->validated();
-            $dados['id_compromisso_organizador'] = Auth::id();
+            $dados['id_compromisso_organizador'] = auth()->user()->id;
+
+            $compromisso = Compromisso::find($dados['id']);
+
             $compromisso->update($dados);
 
             return response()->json([
                 'message' => 'Compromisso atualizado com sucesso',
-                'compromisso' => $dados
+                'compromisso' => $compromisso
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
