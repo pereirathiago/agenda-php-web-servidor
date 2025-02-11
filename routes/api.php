@@ -35,5 +35,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/locais', [LocalController::class, 'store']);
     Route::get('/locais', [LocalController::class, 'index']);
+    Route::put('/locais', [LocalController::class, 'update']);
+    Route::delete('/locais/{local}', [LocalController::class, 'destroy']);
+    Route::get('/locais/{local}', [LocalController::class, 'showByIdLocal']);
 });
 

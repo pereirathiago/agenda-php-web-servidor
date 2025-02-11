@@ -22,7 +22,14 @@ class UpdateLocalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => 'required|integer|exists:locais,id',
+            'cep' => 'required|string|max:10',
+            'endereco' => 'required|string|max:255',
+            'sem_numero' => 'boolean',
+            'numero' => 'nullable|string|max:10',
+            'bairro' => 'required|string|max:100',
+            'cidade' => 'required|string|max:100',
+            'estado' => 'required|string',
         ];
     }
 }
