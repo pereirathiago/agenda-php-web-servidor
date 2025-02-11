@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Compromisso;
 use App\Http\Requests\compromisso\StoreCompromissoRequest;
 use App\Http\Requests\compromisso\UpdateCompromissoRequest;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CompromissoController extends Controller
 {
@@ -45,7 +45,8 @@ class CompromissoController extends Controller
         //cadastrar compromisso
         try {
             $dados = $request->validated();
-            $dados['id_compromisso_organizador'] = auth()->user()->id;
+            $dados['id_compromisso_organizador'] = Auth::user()->id;
+            $dados['status'] = 1;
             $compromisso = Compromisso::create($dados);
 
             if (!$compromisso) {
@@ -79,7 +80,22 @@ class CompromissoController extends Controller
      */
     public function update(UpdateCompromissoRequest $request, Compromisso $compromisso)
     {
-        //
+        //função para atualizar compromisso
+        try {
+            $dados = $request->validated();
+            $dados['id_compromisso_organizador'] = Auth::id();
+            $compromisso->update($dados);
+
+            return response()->json([
+                'message' => 'Compromisso atualizado com sucesso',
+                'compromisso' => $dados
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao atualizar compromisso',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**

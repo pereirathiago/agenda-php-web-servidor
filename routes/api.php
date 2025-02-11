@@ -23,6 +23,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/compromissos', [CompromissoController::class, 'store']);
     Route::get('/compromissos', [CompromissoController::class, 'index']);
     Route::delete('/compromissos/{id}', [CompromissoController::class, 'destroy']);
+    Route::put('/compromissos', [CompromissoController::class, 'update']);
 
     Route::post('/locais', [LocalController::class, 'store']);
     Route::get('/locais', [LocalController::class, 'index']);
