@@ -34,10 +34,6 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
     ```bash
     composer install
     ```
-4. Instale o framework laravel:
-    ```bash
-    composer global require laravel/installer
-    ```
 
 5. Inicie a configuração do ambiente com os 2 comandos a seguir:
     ```bash
@@ -46,10 +42,7 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
     ```bash
     php artisan key:generate    
     ```
-6. Realize a configuração do banco de dados com os seguintes comandos:
-    ```bash
-    touch database/database.sqlite     
-    ```
+6. Realize a configuração do banco de dados com o seguinte comando:
     ```bash
     php artisan migrate   
     ```
@@ -61,7 +54,9 @@ Para instalar e configurar o projeto localmente, siga os passos abaixo:
    php artisan serve      
    ```
 
-8. Acesse o projeto em `agenda.test`. 
+8. Importe o arquivo do Insomnia
+
+9. Acesse o projeto no Insomnia. 
 
 ---
 
